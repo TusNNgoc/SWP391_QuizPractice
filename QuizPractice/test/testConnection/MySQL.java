@@ -8,6 +8,7 @@ package testConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+//import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -34,7 +35,8 @@ public class MySQL {
             // connnect to database 'testdb'
             Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);
             // crate statement
-            Statement stmt = (Statement) conn.createStatement();
+//            PreparedStatement ps = conn.prepareStatement(sql);
+            Statement stmt = conn.createStatement();
             // get data from table 'student'
             ResultSet rs = stmt.executeQuery("select * from student");
             // show data

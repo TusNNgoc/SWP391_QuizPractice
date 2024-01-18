@@ -45,7 +45,7 @@ public class MySQLConnection {
     }
     
     public static void main(String[] args) {
-Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);   
+        Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);   
         System.out.println(conn);
     }
     
