@@ -17,10 +17,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Quiz {
-    private int quiz_id;
-    private String quiz_name;
-    private String contentQuiz;
-    private Users creator_id;
+public class Questions {
+    private int question_id;
+    private Type type_id;
+    private String question_text;
+    private Quiz quiz_id;
+    
     
 }

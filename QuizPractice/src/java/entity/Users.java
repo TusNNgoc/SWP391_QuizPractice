@@ -17,17 +17,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Users {
-    private int userID; //change
+    private int user_id; 
     private String fullname;
-    private String mobile;
+    private String password;
     private String username;
     private String email;
-//    private enum status {
-//        ACTIVE,
-//        INACTIVE //change
-//    }
-    private boolean accountActived ; //change from status
-    private Role role; //add
+    private boolean accountActived ; 
+    private Role role_id; //add
     
     
     

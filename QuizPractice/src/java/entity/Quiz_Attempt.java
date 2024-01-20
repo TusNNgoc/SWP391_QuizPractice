@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.util.Date;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +18,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Quiz {
-    private int quiz_id;
-    private String quiz_name;
-    private String contentQuiz;
-    private Users creator_id;
-    
+public class Quiz_Attempt {
+    private int attempt_id;
+    private Users user_id;
+    private Quiz quiz_id;
+    private Date start_time;
+    private Date end_time;
 }

@@ -19,6 +19,7 @@ import lombok.ToString;
 @ToString
 //add a table
 public class Role {
-    private int roleId;
-    private String roleName;
+    private int role_id;
+    private String role_name;
+    
 }
