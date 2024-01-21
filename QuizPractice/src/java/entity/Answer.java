@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 public class Answer {
     private int answer_id;
-    private Users user;
+    private Users user_id;
     private Questions question_id;
     private String answer_text;
     private boolean is_correct;

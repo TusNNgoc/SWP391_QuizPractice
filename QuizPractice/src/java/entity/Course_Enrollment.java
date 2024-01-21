@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 public class Course_Enrollment {
     private int enrollment_id;
-    private Users user;
-    private Courses course;
+    private Users user_id;
+    private Courses course_id;
     
 }
