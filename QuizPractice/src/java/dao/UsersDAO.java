@@ -1,4 +1,4 @@
-/*
+/*  
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -31,34 +31,47 @@ public class UsersDAO {
         return 0;
     }
     
-//    public int register(Users obj) {
-//        int check = 0;
-//        String sql = "INSERT INTO Users(user_email, user_account, role_id, account_actived)"
-//                + " VALUES(?, ?, ?, ?)";
-//        try ( Connection con = MySQLConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
-//            ps.setObject(1, obj.getEmail());
-//            ps.setObject(2, obj.getPassword());
-//            ps.setObject(3, 2);
-//            ps.setObject(4, false);
-//            check = ps.executeUpdate();
-//            if (check > 0) {
-//                try ( ResultSet rs = ps.getGeneratedKeys()) {
-//                    if (rs.next()) {
-//                        int accountId = rs.getInt(1);
-//                        return accountId;
-//                    }
-//                }
-//            }
-//        } catch (SQLException e) {  
-//            e.printStackTrace(System.out);
-//        }
-//        return 0;
-//    }
     
-    public void register(){
-         
+    public int register(Users user) {
+        int generatedKey = 0;
+        String sql = "INSERT INTO users(username, password, role_id,email , account_actived)"
+                + " VALUES(?, ?, ?, ?, ?)";
+        
+        try ( Connection con = MySQLConnection.getConnection(); 
+             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            )    
+        {
+            // Thiết lập các tham số trong câu lệnh SQL
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, 1);
+            ps.setBoolean(4, true);
+            
+             // Thực hiện câu lệnh SQL
+              int affectedRows = ps.executeUpdate();
+            
+            //kiem tra xem da update thanh cong chua
+            if(affectedRows > 0){
+                //lay thong tin ve khoa chinh dc tao tu dong
+                try(ResultSet generatedKeys = ps.getGeneratedKeys()){
+                    generatedKey = generatedKeys.getInt(1);
+                    return generatedKey;
+                    
+                }catch(SQLException e){
+                    e.printStackTrace();
+                    return -1;
+                }
+            }
+
+            
+        } catch (SQLException e) {  
+            e.printStackTrace(System.out);
+            return -1;
+        }
+        return 0;
     }
     
+ 
     public static void main(String[] args) {
         System.out.println(new UsersDAO().getSize());
     }
