@@ -1,49 +1,57 @@
-package Connection;
+package connection;
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
-public class MySqlConnection {
-    Connection connection = null;
-    public MySqlConnection() {
-        // JDBC URL, username, and password of MySQL server
-        String url = "jdbc:mysql://localhost:3306/swp391";
-        String user = "root";
-        String password = "123456@bC";
 
-        // JDBC variables for opening, closing, and managing connection
-        
 
-        try {
-            // Register JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+/**
+ *
+ * @author HP
+ */
 
-            // Open a connection
-            System.out.println("Connecting to database...");
-            connection = DriverManager.getConnection(url, user, password);
 
-            // Perform database operations here...
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    // Close the connection
-                    connection.close();
-                    System.out.println("Connection closed.");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+public class MySQLConnection {
+    private static  String PORT = "3310";
+    private static String DB_NAME = "swp391";
+    
+    private static String DB_URL = "jdbc:mysql://localhost:"+PORT+"/" + DB_NAME;
+    private static String USER_NAME = "root";
+    private static String PASSWORD = "123456@bC";
+    
+    
+    
+     public static Connection getConnection() {
+        return getConnection(DB_URL, USER_NAME, PASSWORD);
     }
+    
+    
+    public static Connection getConnection(String dbURL, String userName, String password) {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, userName, password);
+            System.out.println("connect successfully!");
+        } catch (Exception ex) {
+            System.out.println("connect failure!");
+            ex.printStackTrace();
+        }
+        return conn;
+    }
+    
     public static void main(String[] args) {
-        try {
-            System.out.println(new MySqlConnection().connection);
-
-        } catch (Exception e) {
-
-        }
+        Connection conn = getConnection(DB_URL, USER_NAME, PASSWORD);   
+        System.out.println(conn);
     }
+    
+
 }

@@ -34,14 +34,16 @@
                                                  class="img-fluid rounded-circle" width="132" height="132">
                                         </div><br>
                                         <div style="text-align: center"><h1>Reset your password</h1></div><br>
-                                        <form id="login-form" action="resetpassword">
+                                        <form id="login-form" action="resetpassword"  method="POST"> 
                                             <div class="form-group">
                                                 <label class="form-label required">Enter your email</label>
                                                 <input class="form-control form-control-lg" type="text"
                                                        placeholder="Email" 
                                                        name="email" id="login-validation-password-input" required>
                                             </div>
-                                            <span class="text-danger">${mess}</span>
+                                            <c:if test="${error != null}">
+                                                <span class="text-danger">${error}</span>
+                                            </c:if>
                                             <input type="hidden" name="action" value="check">
                                             <div class="row">
                                                 <div class="text-center mt-3 col-lg-6">
@@ -49,7 +51,7 @@
                                                 </div>
                                                 <div class="text-center mt-3 col-lg-6">
                                                     <button type="button" class="btn btn-lg btn-primary"
-                                                            href='home'>
+                                                            href="/home">
                                                         Return
                                                     </button>
                                                 </div>

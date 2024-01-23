@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 
 /**
@@ -32,19 +33,7 @@ public class ForgetPassword extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ForgetPassword</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ForgetPassword at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,6 +48,8 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute("error", "");
         request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
     }
 
@@ -73,24 +64,54 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        if("check".equals(action)){        
-        String email = request.getParameter("email");
+        try {
+            if ("check".equals(action)) {
+                String email = request.getParameter("email");
 
-        // Calculate the expiration date 30 minutes from the current time
-        LocalDateTime expirationDate = LocalDateTime.now().plusMinutes(30);
+                // Calculate the expiration date 30 minutes from the current time
+                LocalDateTime expirationDate = LocalDateTime.now().plusMinutes(30);
 
-        // Create an instance of AccountDAO
-        PasswordDAO DAO = new PasswordDAO();
-        SendEmailReset sm = new SendEmailReset();
+                // Create an instance of AccountDAO
+                PasswordDAO DAO = new PasswordDAO();
+                SendEmailReset sm = new SendEmailReset();
 
-        // Check if an account with the provided email exists
-        if (DAO.getAccountByEmail(email) == null) {
-            // If no account is found, set an error message and forward to EmailResetPassword.jsp
-            request.setAttribute("mess", "The email didn't match any account.");
-            request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
-        }
-        
+                // Check if an account with the provided email exists
+                if (DAO.getAccountByEmail(email) == null) {
+                    // If no account is found, set an error message and forward to EmailResetPassword.jsp
+                    session.setAttribute("error", "The email didn't match any account.");
+                    request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
+                }
+//                String emailContent = "text/html; charset=utf-8"
+//                        + "<h1 style=\"color:blue;\">Hi there</h1><br>"
+//                        + "To finish resetting your password, please go to the following page:<br>"
+//                        + "<a href=\"http://localhost:9999/Auto99/resetpassword?email=" + email
+//                        + "&expirationDate=" + expirationDate + "&type=./Staff/HomePage.jsp" + "\">Click here</a><br>"
+//                        + "If you do not wish to reset the password, ignore this message; it will expire in 30 minutes.<br>"
+//                        + "All the best,<br>Auto99.";
+        String emailContent = "<html>"
+                            + "<head>"
+                            + "<style>"
+                            + "h1 { color: blue; }"
+                            + "p { color: green; font-size: 16px; }"
+                            + "</style>"
+                            + "</head>"
+                            + "<body>"
+                            + "<h1>Hello there</h1>"
+                            + "<p>This is a styled email with HTML and CSS attributes.</p>"
+                            + "</body>"
+                            + "</html>";
+                // Send the email with the constructed content
+                sm.sendmail(email, emailContent, "RESET YOUR QUIZ PASSWORD");
+
+                // Set a success message and forward to EmailResetPassword.jsp
+                session.setAttribute("error", "The email has been sent to you. "
+                        + "Please verify it to finish resetting the password");
+                request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
