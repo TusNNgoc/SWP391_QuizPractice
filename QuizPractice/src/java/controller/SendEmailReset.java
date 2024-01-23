@@ -59,7 +59,7 @@ public class SendEmailReset {
             //Quy dinh email tra loi
             //msg.setReplyTo(InternetAddress.parse(from, false));
             //Noi dung
-            msg.setText(NoiDung,"UTF-8");
+            msg.setContent(NoiDung,"text/HTML; charset=UTF-8");
             //Gui email
             Transport.send(msg);
             System.out.println("Gui mail thanh cong");

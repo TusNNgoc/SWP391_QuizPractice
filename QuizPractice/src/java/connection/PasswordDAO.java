@@ -44,6 +44,7 @@ public class PasswordDAO extends MySQLConnection{
                             rs.getString(8)
                     );
                 }
+                con.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +52,40 @@ public class PasswordDAO extends MySQLConnection{
         }
         return null;
     }
+    public void updatePassword(String email, String password) {
+        try (Connection con = MySQLConnection.getConnection()){
+            String strAdd = "update Users set password = ? where email = ?";
+            ps = con.prepareStatement(strAdd);
+            ps.setString(1, password);
+            ps.setString(2, email);
+            ps.executeUpdate();
+            
+            con.close();
+        } catch (Exception e) {
+            System.out.println("updatePassword: " + e.getMessage());
+        }
+    }
+    public boolean updatePassword2(String email, String password) {
+    boolean updated = false;
+        System.out.println(email);
+        System.out.println(password);
+    try (Connection con = MySQLConnection.getConnection()) {
+        String strAdd = "UPDATE Users SET password = ? WHERE email = ?";
+        try (PreparedStatement ps = con.prepareStatement(strAdd)) {
+            ps.setString(1, password);
+            ps.setString(2, email);
 
+            int rowsAffected = ps.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                updated = true;
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("updatePassword: " + e.getMessage());
+    }
+    return updated;
+}
     /**
      * Main method for testing the PasswordDAO class.
      *
@@ -59,10 +93,13 @@ public class PasswordDAO extends MySQLConnection{
      */
     public static void main(String[] args) {
         PasswordDAO test = new PasswordDAO();
-        if (test.getAccountByEmail("123@gmail.com") == null) {
+        if (test.getAccountByEmail("john@example.com") == null) {
             System.out.println("Account not found");
         } else {
             System.out.println("Account found");
         }
+//        test.updatePassword("rerollchotrung@gmail.com", "123");
+        boolean a=test.updatePassword2("rerollchotrung@gmail.com", "12345");
+        System.out.println(a);
     }
 }

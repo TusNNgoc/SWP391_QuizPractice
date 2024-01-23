@@ -35,20 +35,24 @@
                                             <img src="./assets/img/Quizz.jpg" alt="avatar"
                                                  class="img-fluid rounded-circle" width="132" height="132">
                                         </div>
-                                        <div>Change your password</div>
-                                        <form id="login-form" action="resetpassword">
+                                        <div>Reset your password</div>
+                                        <form id="login-form" action="resetpassword" method="POST">
                                             <div class="form-group">
                                                 <label class="form-label required">Enter New Password</label>
                                                 <input class="form-control form-control-lg" type="password"
                                                        placeholder="Enter new password" autocomplete="on"
-                                                       name="login-validation-password" id="login-validation-password-input" required>
+                                                       name="newpass" id="login-validation-password-input" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label required">Re-enter New Password</label>
                                                 <input class="form-control form-control-lg" type="password"
                                                        placeholder="Enter new password again" autocomplete="on"
-                                                       name="login-validation-password" id="login-validation-password-input" required>
+                                                       name="repass" id="login-validation-password-input" required>
                                             </div>
+                                            <c:if test="${mess != null}">
+                                                <span class="text-danger">${mess}</span>
+                                            </c:if>
+                                            <input type="hidden" id="email" class="form-control" name="email" value="${param.email}" />
                                             <input type="hidden" name="action" value="reset">
                                             <div class="row">
                                                 <div class="text-center mt-3 col-lg-6">

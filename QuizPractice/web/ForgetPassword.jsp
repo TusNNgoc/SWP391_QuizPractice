@@ -47,7 +47,7 @@
                                             <input type="hidden" name="action" value="check">
                                             <div class="row">
                                                 <div class="text-center mt-3 col-lg-6">
-                                                    <button type="submit" class="btn btn-lg btn-primary">Next</button>
+                                                    <button type="submit" class="btn btn-lg btn-primary">Get code</button>
                                                 </div>
                                                 <div class="text-center mt-3 col-lg-6">
                                                     <button type="button" class="btn btn-lg btn-primary"
