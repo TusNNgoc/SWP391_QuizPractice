@@ -8,6 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+/**
+ *
+ * @author HP
+ */
 
 @Getter
 @Setter
@@ -15,20 +19,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Users {
-    int userid;
-    String fullname;
-    String mobile;
-    String username;
-    String email;
-    String password;
-    String status;
-    String role;
+    private int user_id; 
+    private String fullname;
+    private String password;
+    private String username;
+    private String email;
+    private boolean accountActived ;
+    private Role role_id; //add
 
-    public Users(int userid, String username, String email, String password) {
-        this.userid = userid;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
+
     
 }

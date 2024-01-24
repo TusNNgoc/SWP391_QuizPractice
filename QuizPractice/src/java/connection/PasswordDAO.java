@@ -1,5 +1,6 @@
 package connection;
 
+import entity.Role;
 import entity.Users;
 
 import java.sql.Connection;
@@ -31,17 +32,17 @@ public class PasswordDAO extends MySQLConnection{
                 ps = con.prepareStatement(strSelect);
                 ps.setString(1, email);
                 rs = ps.executeQuery();
-
+                
                 while (rs.next()) {
+                    Role r = new Role(rs.getInt("role_id"));
                     return new Users(
                             rs.getInt(1),
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
                             rs.getString(5),
-                            rs.getString(6),
-                            rs.getString(7),
-                            rs.getString(8)
+                            rs.getBoolean(6),
+                            r
                     );
                 }
                 con.close();
