@@ -12,10 +12,13 @@ Author     : HP
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <title>Quiz</title>
-        <link rel="stylesheet" href="assets/css/signup_signin.css">
+        <link rel="stylesheet" href="assets/css/Sigup_Signin.css">
 
     </head>
     <body>
+     
+        <input type="hidden" id="status" value="<%=request.getAttribute("status")%>"/>
+        
         <h2>Sign in/up Form</h2>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
@@ -28,15 +31,22 @@ Author     : HP
                     </div>
                     <span>or use your email for registration</span>
 
-                    
-                   
-                    <input type="text" id="username" name="username" placeholder="User Name"  required />
+
+
+                    <input type="text" id="username" name="username" placeholder="User Name"  autofocus="" required />
                     <input type="email" id="email" name="email" placeholder="Email" />
                     <input type="text" id="fullname" name="fullname" placeholder="Fullname" />
                     <input type="password" id="pass" name="pass" placeholder="Password" required/>
-                    <input type="password" id="re-pass" name="re_pass" placeholder="Re-Password" required/>
-                    <input value="<%=request.getAttribute("msg")%>"/>
-                    
+                    <!--                    <input type="password" id="re-pass" name="re_pass" placeholder="Re-Password" required/>-->
+
+                    <label>
+                        <span style="display: inline-block">
+                            <input type="radio" name="role" value="1" /> Teacher
+                        </span>
+                        <span style="display: inline-block">
+                            <input type="radio" name="role" value="2" /> Student
+                        </span>
+                    </label>
 
                     <button>Sign Up</button>
                 </form>
@@ -50,7 +60,7 @@ Author     : HP
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
+                    <input type="email" placeholder="Email" autofocus />
                     <input type="password" placeholder="Password" />
                     <a href="#">Forgot your password?</a>
                     <button>Sign In</button>
@@ -72,8 +82,45 @@ Author     : HP
             </div>
         </div>
     </body>
-
+    <!<!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
+        //SWEETALERT LIBRARY TO SHOW MODAL
+//        var status = "<%=session.getAttribute("status")%>";
+        var status = document.getElementById("status").value;
+        if (status === "invalid username") {
+            Swal.fire({
+                title: "Error",
+                text: "The username need to be filled",
+                icon: "error"
+            });
+        }
+        if (status === "invalid email") {
+            Swal.fire({
+                title: "Error",
+                text: "The email need to be filled",
+                icon: "error"
+            });
+
+        }
+
+        if (status === "invalid pass") {
+            Swal.fire({
+                title: "Error",
+                text: "The password need to be filled",
+                icon: "error"
+            });
+
+        }
+
+        if (status === "invalid repass") {
+            Swal.fire({
+                title: "Error",
+                text: "The re-password need to be filled",
+                icon: "error"
+            });
+
+        }
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
         const container = document.getElementById('container');

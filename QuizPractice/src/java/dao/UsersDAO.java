@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao;
+
 import Connection.MySQLConnection;
 import entity.Users;
 import java.sql.Connection;
@@ -16,11 +17,12 @@ import java.sql.Statement;
  * @author HP
  */
 public class UsersDAO {
+
     public int getSize() {
 
         String mysql = "Select count(`user_id`) as `totalTeacher`  FROM `users` WHERE `role_id` = 1 and `account_actived` = 1;";
 
-        try ( Connection connection = MySQLConnection.getConnection();  PreparedStatement ps = connection.prepareStatement(mysql);) {
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(mysql);) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt("totalTeacher");
@@ -30,48 +32,51 @@ public class UsersDAO {
         }
         return 0;
     }
-    
-    
+
     public int register(Users user) {
         int generatedKey = 0;
         String sql = "INSERT INTO users(username, password, role_id,email , account_actived)"
                 + " VALUES(?, ?, ?, ?, ?)";
-        
-        try ( Connection con = MySQLConnection.getConnection(); 
-             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            )    
-        {
+
+        try (Connection con = MySQLConnection.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
             // Thiết lập các tham số trong câu lệnh SQL
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
-            ps.setInt(3, 1);
-            ps.setBoolean(4, true);
-            
-             // Thực hiện câu lệnh SQL
-              int affectedRows = ps.executeUpdate();
-            
+            ps.setInt(3, user.getRole().getRole_id());
+            ps.setString(4, user.getEmail());
+
+            ps.setInt(5, 1);
+
+            // Thực hiện câu lệnh SQL
+            int affectedRows = ps.executeUpdate();
+
             //kiem tra xem da update thanh cong chua
-            if(affectedRows > 0){
+            if (affectedRows > 0) {
+//                con.commit();
                 //lay thong tin ve khoa chinh dc tao tu dong
-                try(ResultSet generatedKeys = ps.getGeneratedKeys()){
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if(generatedKeys.next()){
                     generatedKey = generatedKeys.getInt(1);
                     return generatedKey;
-                    
-                }catch(SQLException e){
+                    }else{
+                        System.out.println("nothing in here");
+                        return -1;
+                    }
+                   
+                } catch (SQLException e) {
                     e.printStackTrace();
                     return -1;
                 }
             }
 
-            
-        } catch (SQLException e) {  
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
             return -1;
         }
-        return 0;
+        return generatedKey;
     }
-    
- 
+
     public static void main(String[] args) {
         System.out.println(new UsersDAO().getSize());
     }

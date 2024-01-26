@@ -267,5 +267,5 @@ footer a {
 #pass::placeholder,
 #re-pass::placeholder{
   color: red;
-  opacity: 1; /* Firefox */
+  opacity: 1; 
 }

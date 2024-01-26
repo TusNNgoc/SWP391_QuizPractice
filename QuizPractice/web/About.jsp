@@ -28,13 +28,13 @@
                 <!--------------------------------------Home-------------------------------------------------------->
           
                   <li class="nav-item">
-                    <a class="nav-link" href="Home.html">Home</a>
+                    <a class="nav-link" href="Home.jsp">Home</a>
                   </li>
       
                 <!----------------------------------------Quiz------------------------------------------------------>
           
                   <li class="nav-item">
-                    <a class="nav-link" href="Quizz.html">Quizz</a>
+                    <a class="nav-link" href="Quizz.jsp">Quizz</a>
                   </li>
                   
                 <!------------------------------------Study Material------------------------------------------------>
@@ -46,13 +46,13 @@
                 <!------------------------------------My Classroom-------------------------------------------------->
           
                   <li class="nav-item">
-                    <a class="nav-link" href="Course.html">My Courses</a>
+                    <a class="nav-link" href="Course.jsp">My Courses</a>
                   </li>
                   
                 <!---------------------------------------About------------------------------------------------------>
           
                   <li class="nav-item">
-                    <a class="nav-link" href="About.html">About</a>
+                    <a class="nav-link" href="About.jsp">About</a>
                   </li>
                </ul>
                   
@@ -293,7 +293,7 @@
         <div class="col-md-4">
           <div class="card" style="border-style:none;">
           <div class="px-5">
-          <img src="./img/Quizz.jpg" class="card-img-top" height="270px" style="border-radius:50%; border-style:solid">
+              <img src="assets/img/Quizz.jpg" class="card-img-top" height="270px" style="border-radius:50%; border-style:solid">
           </div>
           <div class="card-body">
             <h5 class="card-title">About Me</h5>

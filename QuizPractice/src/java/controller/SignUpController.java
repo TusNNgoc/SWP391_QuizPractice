@@ -5,12 +5,15 @@
 package controller;
 
 import dao.UsersDAO;
+import entity.Role;
 import entity.Users;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -73,8 +76,9 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
         UsersDAO udao = new UsersDAO();
+        RequestDispatcher dispatcher = null;
         
         
         String uname =  request.getParameter("username");
@@ -82,21 +86,62 @@ public class SignUpController extends HttpServlet {
         String fullname = request.getParameter("fullname");
         String pass = request.getParameter("pass");
         String re_pass = request.getParameter("re_pass");
+        int roleId = Integer.parseInt(request.getParameter("role"));
+        
+        //VALIDATORS for sign up
+    if(uname == null || uname.equals("")){
+        request.setAttribute("status", "invalid username");
+        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher.forward(request, response);
+    }
+    if(email == null || email.equals("")){
+        request.setAttribute("status", "invalid email");
+        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher.forward(request, response);
+    }
+    if(pass == null || pass.equals("")){
+        request.setAttribute("status", "invalid pass");
+        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher.forward(request, response);
+    }
+    if(re_pass == null || re_pass.equals("")){
+        request.setAttribute("status", "invalid repass");
+        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher.forward(request, response);
+    }
+        
+        
+        //create a role obj
+        Role role = Role.builder().role_id(roleId).build();
         
         Users user = Users.builder()
                 .username(uname)
                 .email(email)
                 .fullname(fullname)
                 .password(pass)
+                .role(role)
                 .build();
         
-        if(udao.register(user)> 0){
-            request.setAttribute("msg", "Sign up successful");
+       
+        
+        
+//        if("teacher".st)
+
+//    if(!re_pass.equals("pass")){
+//        request.setAttribute("msg", "Password don't match");
+//        
+//        
+//    }
+        int userId = udao.register(user);
+       
+       
+        if(userId> 0){
+//            request.setAttribute("msg", "Sign up successful");
+            session.setAttribute("userId", "");
             response.sendRedirect("Home.jsp");
         }else{            
-                request.setAttribute("msg", "Sign up-fail");
+//             request.setAttribute("msg", "Sign up-fail");
              response.sendRedirect("About.jsp");
-
         }
         
         

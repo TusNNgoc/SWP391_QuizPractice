@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
+    <!-- <link rel="stylesheet" href="css/Login.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -25,13 +26,13 @@
               <!--------------------------------------Home-------------------------------------------------------->
         
                 <li class="nav-item">
-                  <a class="nav-link" href="Home.html">Home</a>
+                  <a class="nav-link" href="Home.jsp">Home</a>
                 </li>
     
               <!----------------------------------------Quiz------------------------------------------------------>
         
                 <li class="nav-item">
-                  <a class="nav-link" href="Quizz.html">Quizz</a>
+                  <a class="nav-link" href="Quizz.jsp">Quizz</a>
                 </li>
                 
               <!------------------------------------Study Material------------------------------------------------>
@@ -43,13 +44,13 @@
               <!------------------------------------My Courses-------------------------------------------------->
         
                 <li class="nav-item">
-                  <a class="nav-link" href="Course.html">My Courses</a>
+                  <a class="nav-link" href="Course.jsp">My Courses</a>
                 </li>
                 
               <!---------------------------------------About------------------------------------------------------>
         
                 <li class="nav-item">
-                  <a class="nav-link" href="About.html">About</a>
+                  <a class="nav-link" href="About.jsp">About</a>
                 </li>
              </ul>
                 
@@ -59,11 +60,24 @@
            <ul class="navbar-nav mr-auto">
                   
           <!----------------------------------------Login---------------------------------------------------->
-            
+        
+          <!-- <div id="topBar"> <a href ="#" onclick="load_home()"> HOME </a> </div>
+          <div id ="content"></div>
+          <script>
+                function load_home(){
+                      document.getElementById("content").innerHTML='<object type="text/html" data="Login.html" ></object>';
+            }
+          </script> -->
+          
             <li class="nav-item">
-            <button type="button" class="btn btn-secondary mr-2 mb-1" data-toggle="modal" 
+              <a href="signup_signin.jsp">
+                <button type="button" class="btn btn-secondary mr-2 mb-1" data-toggle="modal" 
             data-target="#LoginModal">
-            Login</button>
+            Login/Register</button>
+              </a>
+            <!-- <button type="button" class="btn btn-secondary mr-2 mb-1" data-toggle="modal" 
+            data-target="#LoginModal">
+            Login</button> -->
           <!--------------------------------------Login Modal------------------------------------------------>
                   
                 <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel"
@@ -79,7 +93,8 @@
                     </div>
                     
                     <div class="modal-body">
-                      <form action="login.jsp" method="post">
+                      <!-- <a href="Login.html"></a> -->
+                      <!-- <form action="login.jsp" method="post">
                         
                           <div class="form-group">
                           <label for="exampleInputPerson">Login As:</label>
@@ -98,7 +113,7 @@
                           <label for="exampleInputPassword1">Password</label>
                           <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp"
                           placeholder="Password" name="password">
-                        </div>
+                        </div> -->
                         
                       
                     </div>
@@ -117,12 +132,12 @@
     
           <!-----------------------------------------Register------------------------------------------------>
             
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#RegisterModal">
-              Register</button>
+              Register</button> -->
         
          <!--------------------------------------Register Modal---------------------------------------------->
-              <div class="modal fade" id="RegisterModal" tabindex="-1" role="dialog" aria-labelledby="RegisterModalLabel" aria-hidden="true">
+              <!-- <div class="modal fade" id="RegisterModal" tabindex="-1" role="dialog" aria-labelledby="RegisterModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -206,7 +221,7 @@
                   </div>
                 </div>
               </div>
-            </li>
+            </li> -->
           </ul>
           </div> 
           <!----------------------------------------End of Nav2----------------------------------------------->  
@@ -256,17 +271,17 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <a href="Quiz.jsp">
-        <img src="./img/takeQuiz.png" class="d-block w-100" alt="Take A Quiz" height="500px" width="200px">
+            <img src="assets/img/takeQuiz.png" class="d-block w-100" alt="Take A Quiz" height="500px" width="200px">
         </a>
       </div>
       <div class="carousel-item">
       	<a href="StudyMaterial.jsp">
-        <img src="./img/takeQuiz.png" class="d-block w-100" alt="Notes And Study Material" height="500px" width="200px">
+            <img src="assets/img/takeQuiz.png" class="d-block w-100" alt="Notes And Study Material" height="500px" width="200px">
         </a>
       </div>
       <div class="carousel-item">
       	<a href="Classroom.jsp">
-        <img src="./img/takeQuiz.png" class="d-block w-100" alt="My Classroom" height="500px" width="200px">
+            <img src="assets/img/takeQuiz.png" class="d-block w-100" alt="My Classroom" height="500px" width="200px">
         </a>
       </div>
     </div>
@@ -287,7 +302,7 @@
 <div class="row pt-3">
     <div class="card col-sm" style="border-style: none;">
       <a href="Quizz.html" style="text-decoration:none">
-      <img src="./img/takequiz (2).png" class="card-img-top" height="250px" style="border-style:solid;border-color:black;"></a>
+          <img src="assets/img/takequiz (2).png" class="card-img-top" height="250px" style="border-style:solid;border-color:black;"></a>
       <div class="card-body">
         <h5 class="card-title">Take A Quiz</h5>
         <p class="card-text">Participate in Cool Quizzes to test and sharpen your skills and concepts.</p>
@@ -297,7 +312,7 @@
 
     <div class="card col-sm" style="border-style: none;">
       <a href="Note.html" style="text-decoration:none">
-      <img src="./img/note1.png" class="card-img-top" height="250px" style="border-style:solid;border-color:black;"></a>
+          <img src="assets/img/note1.png" class="card-img-top" height="250px" style="border-style:solid;border-color:black;"></a>
       <div class="card-body">
         <h5 class="card-title">Notes and Study Material</h5>
         <p class="card-text">Share Notes, Study Material,e-books and Tutorials with you peers.</p>
@@ -307,7 +322,7 @@
     
     <div class="card col-sm" style="border-style: none;">
       <a href="Course.html" style="text-decoration:none">
-      <img src="./img/course.png" class="card-img-top" height="250px" style="border-style:solid;border-color:black;"></a>
+          <img src="assets/img/course.png" class="card-img-top" height="250px" style="border-style:solid;border-color:black;"></a>
       <div class="card-body">
         <h5 class="card-title">My Courses</h5>
         <p class="card-text">Ask and discuss all your doubts and problems with you classmates and teachers.
@@ -322,7 +337,7 @@
 <!-------------------------------------------Footer-------------------------------------------------------->
 <div class="container ">
   <footer class="blog-footer">
-    <div class="float-left my-2">Copyright Â© Gr6 - SWP391 - 2024 - <i>Q<i>uizz</div>
+    <div class="float-left my-2">Copyright © Gr6 - SWP391 - 2024 - <i>Q<i>uizz</div>
     <div class="float-right my-2">
       <a href="#">Back to top</a>
     </div>

@@ -20,7 +20,7 @@
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
   
     <!-- Theme CSS - Includes Bootstrap -->
-    <link href="css/creative.min.css" rel="stylesheet">
+    <link href="assets/css/creative.min.css" rel="stylesheet">
   
   </head>
   
@@ -29,17 +29,17 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.html">Quizz</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.jsp">Quizz</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto my-2 my-lg-0">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="About.html">About</a>
+              <a class="nav-link js-scroll-trigger" href="About.jsp">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="Home.html">Home</a>
+              <a class="nav-link js-scroll-trigger" href="Home.jsp">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#services">Services</a>
@@ -76,7 +76,7 @@
             <h2 class="text-white mt-0">Why Quizz?</h2>
             <hr class="divider light my-4">
             <p class="text-white-50 mb-4">From Study Resources to Quiz Section along with a Classroom section to ask questions, We got it all! Share notes, tutorials and ebooks. Interact with your teachers and peers.</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" href="Home.html">Get Started!</a>
+            <a class="btn btn-light btn-xl js-scroll-trigger" href="Home.jsp">Get Started!</a>
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@
     <section class="page-section bg-dark text-white">
       <div class="container text-center">
         <h2 class="mb-4">Join Quizz and Start Learning!</h2>
-        <a class="btn btn-light btn-xl" href="Home.html">Quizz Home Page</a>
+        <a class="btn btn-light btn-xl" href="Home.jsp">Quizz Home Page</a>
       </div>
     </section>
   
