@@ -4,10 +4,12 @@
  */
 package entity;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author HP
@@ -16,6 +18,10 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
+
+@NoArgsConstructor
+@AllArgsConstructor
+
 @ToString
 public class Users {
 
@@ -32,6 +38,21 @@ public class Users {
     private String gender;
     private Date dob;
     private String phone;
+
+
+    public Users(int user_id, String password, String username, String email, boolean accountActived, Role role) {
+        this.user_id = user_id;
+        this.password = password;
+        this.username = username;
+        this.email = email;
+        this.accountActived = accountActived;
+        this.role = role;
+    }
+
+
+
+
+
     
    
 }
