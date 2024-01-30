@@ -1,26 +1,23 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
 
-import dao.UsersDAO;
-import jakarta.servlet.RequestDispatcher;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  *
- * @author HP
+ * @author ASUS
  */
-@WebServlet(name = "SignInController", urlPatterns = {"/signin"})
-public class SignInController extends HttpServlet {
+@WebServlet(name = "ChangePassword", urlPatterns = {"/changepassword"})
+public class ChangePassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +36,10 @@ public class SignInController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SignInController</title>");
+            out.println("<title>Servlet ChangePassword</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SignInController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangePassword at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +57,7 @@ public class SignInController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("./ChangePassword.jsp").forward(request, response);
     }
 
     /**
@@ -74,23 +71,7 @@ public class SignInController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        RequestDispatcher dispatcher = null;
-
-        String username = request.getParameter("username");
-        String pass = request.getParameter("pass");
-
-        UsersDAO ud = new UsersDAO();
-
-        if (ud.authenticate(username, pass) == null) {
-            request.setAttribute("err", "Wrong username or password ");
-            dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("err", "Please don't leave username or password blank");
-            dispatcher = request.getRequestDispatcher("Home.jsp");
-            dispatcher.forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -104,4 +85,3 @@ public class SignInController extends HttpServlet {
     }// </editor-fold>
 
 }
-

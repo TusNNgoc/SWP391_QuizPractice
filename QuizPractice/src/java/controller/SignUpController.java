@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -67,26 +68,23 @@ public class SignUpController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        
-       
 
-            String[] countryCodes = Locale.getISOCountries();
+        String[] countryCodes = Locale.getISOCountries();
 
-            Map<String, String> mapCountries = new TreeMap<>();
+        Map<String, String> mapCountries = new TreeMap<>();
 
-            for (String countryCode : countryCodes) {
-                Locale locale = new Locale("", countryCode);
-                String code = locale.getCountry();
-                String name = locale.getDisplayCountry();
-                mapCountries.put(code, name);
-            }
+        for (String countryCode : countryCodes) {
+            Locale locale = new Locale("", countryCode);
+            String code = locale.getCountry();
+            String name = locale.getDisplayCountry();
+            mapCountries.put(code, name);
+        }
 
-            request.setAttribute("mapCountries", mapCountries);
+        request.setAttribute("mapCountries", mapCountries);
 
-            String registerForm = "signupOfficial.jsp";
-            dispatcher = request.getRequestDispatcher(registerForm);
-            dispatcher.forward(request, response);
-      
+        String registerForm = "signupOfficial.jsp";
+        dispatcher = request.getRequestDispatcher(registerForm);
+        dispatcher.forward(request, response);
 
     }
 
@@ -155,11 +153,11 @@ public class SignUpController extends HttpServlet {
                 .password(pass)
                 .role(role)
                 .build();
-        
+
         int userId = udao.register(user);
         PrintWriter out = response.getWriter();
         out.print(userId);
-        
+
 //        if (userId > 0) {
 ////            request.setAttribute("msg", "Sign up successful");
 //            session.setAttribute("userId", "");
@@ -168,7 +166,6 @@ public class SignUpController extends HttpServlet {
 ////             request.setAttribute("msg", "Sign up-fail");
 //            response.sendRedirect("About.jsp");
 //        }
-
     }
 
     /**

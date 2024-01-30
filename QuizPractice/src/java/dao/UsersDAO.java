@@ -1,10 +1,11 @@
+
 /*  
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao;
 
-import Connection.MySQLConnection;
+import connection.MySQLConnection;
 import entity.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,13 +72,12 @@ public class UsersDAO {
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
             // Thiết lập các tham số trong câu lệnh SQL
-//            ps.setString(1, user.getUsername());
-            ps.setString(1, "miccheck");
-            ps.setString(2, user.getPassword());
+            ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setInt(3, user.getRole().getRole_id());
             ps.setString(4, user.getEmail());
             
+
             ps.setInt(5, 1);
 
             // Thực hiện câu lệnh SQL
@@ -93,7 +93,7 @@ public class UsersDAO {
                         return generatedKey;
                     } else {
                         System.out.println("nothing in here");
-                        return -2;
+                        return -1;
                     }
 
                 } catch (SQLException e) {
@@ -104,7 +104,7 @@ public class UsersDAO {
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);
-            return -3;
+            return -1;
         }
         return generatedKey;
     }
@@ -154,3 +154,4 @@ public class UsersDAO {
         System.out.println(new UsersDAO().getSize());
     }
 }
+
