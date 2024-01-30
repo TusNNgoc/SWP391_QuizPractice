@@ -16,9 +16,9 @@ Author     : HP
 
     </head>
     <body>
-     
+
         <input type="hidden" id="status" value="<%=request.getAttribute("status")%>"/>
-        
+
         <h2>Sign in/up Form</h2>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
@@ -33,18 +33,19 @@ Author     : HP
 
 
 
-                    <input type="text" id="username" name="username" placeholder="User Name"  autofocus="" required />
+                    <input type="text" id="username" name="username" placeholder="User Name"  autofocus required /> <button></button> 
                     <input type="email" id="email" name="email" placeholder="Email" />
                     <input type="text" id="fullname" name="fullname" placeholder="Fullname" />
                     <input type="password" id="pass" name="pass" placeholder="Password" required/>
-                    <!--                    <input type="password" id="re-pass" name="re_pass" placeholder="Re-Password" required/>-->
+                    <input type="password" id="re-pass" name="re_pass" placeholder="Re-Password" required/>
 
                     <label>
                         <span style="display: inline-block">
-                            <input type="radio" name="role" value="1" /> Teacher
+                            <input type="radio" name="role" value="2" checked/> Student
                         </span>
                         <span style="display: inline-block">
-                            <input type="radio" name="role" value="2" /> Student
+                            <input type="radio" name="role" value="1" /> Teacher
+
                         </span>
                     </label>
 

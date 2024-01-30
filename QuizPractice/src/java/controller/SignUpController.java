@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 /**
  *
@@ -88,27 +89,41 @@ public class SignUpController extends HttpServlet {
         String re_pass = request.getParameter("re_pass");
         int roleId = Integer.parseInt(request.getParameter("role"));
         
+        
+       
         //VALIDATORS for sign up
     if(uname == null || uname.equals("")){
         request.setAttribute("status", "invalid username");
-        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
         dispatcher.forward(request, response);
     }
     if(email == null || email.equals("")){
         request.setAttribute("status", "invalid email");
-        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
         dispatcher.forward(request, response);
     }
     if(pass == null || pass.equals("")){
         request.setAttribute("status", "invalid pass");
-        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
         dispatcher.forward(request, response);
     }
     if(re_pass == null || re_pass.equals("")){
         request.setAttribute("status", "invalid repass");
-        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
         dispatcher.forward(request, response);
     }
+    
+    //CHECK RE-PASS
+    //1. convert to char arr
+    char[] charPass = pass.toCharArray();
+    char[] charRePass = re_pass.toCharArray();
+    
+    //2. compare with Arrays.equal(...)
+    if(!Arrays.equals(charPass, charRePass)){
+        dispatcher = request.getRequestDispatcher("signup_signin.jsp");
+        dispatcher.forward(request, response);
+    }   
+    
         
         
         //create a role obj
@@ -125,13 +140,7 @@ public class SignUpController extends HttpServlet {
        
         
         
-//        if("teacher".st)
 
-//    if(!re_pass.equals("pass")){
-//        request.setAttribute("msg", "Password don't match");
-//        
-//        
-//    }
         int userId = udao.register(user);
        
        
