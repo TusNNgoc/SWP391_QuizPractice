@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,11 +37,16 @@
                     <input type="text" id="username" name="username" class="form" required placeholder="Insert your name"><br><!--name--->
                     <label id="email-label">Email</label>
                     <input type="email" id="email" name="email" class="form" required placeholder="Insert your email"><br><!---email-->
-                    
+
                     <label >Password</label>
                     <input type="password" id="pass" name="pass" class="form" placeholder="Password"  required><br><!---number-->
                     <label >Confirm Password</label>
                     <input type="password" id="re_pass" name="re_pass" class="form" placeholder="Re-Password"  required><br><!---number-->
+                    <select name="country" id="country">
+                        <c:forEach items="${mapCountries}" var="country">
+                            <option value="${country.key}">${country.value}</option>
+                        </c:forEach>
+                    </select>
                     <!--    <label id="carrer">Carrer</label>
                         <select id="dropdown" name="role" required>
                           <option disabled selected value>
@@ -66,23 +72,23 @@
                     <label>
                         <input type="radio" name="role" value="1">Teacher
                     </label>
-                   
-<!--                    <p>What is your preferred mode of study?</p>
-                    <label>
-                        <input type="checkbox" name="mode" value="Online">Online
-                    </label>
-                    <label>
-                        <input type="checkbox" name="mode" value="Hybrid">Hybrid
-                    </label>
-                    <label>
-                        <input type="checkbox" name="mode" value="On site">On site
-                    </label>
-                    <p>Any comments or suggestions?</p>
-                    <textarea
-                        id="comments"
-                        name="comment"
-                        placeholder="Enter your comment here..."
-                        ></textarea>-comment-->
+
+                    <!--                    <p>What is your preferred mode of study?</p>
+                                        <label>
+                                            <input type="checkbox" name="mode" value="Online">Online
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="mode" value="Hybrid">Hybrid
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="mode" value="On site">On site
+                                        </label>
+                                        <p>Any comments or suggestions?</p>
+                                        <textarea
+                                            id="comments"
+                                            name="comment"
+                                            placeholder="Enter your comment here..."
+                                            ></textarea>-comment-->
 
 
                     <input type="submit" id="submit" name="submit" value="Submit">
