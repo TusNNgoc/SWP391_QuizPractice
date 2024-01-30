@@ -17,7 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
@@ -103,11 +106,27 @@ public class SignUpController extends HttpServlet {
         UsersDAO udao = new UsersDAO();
         RequestDispatcher dispatcher = null;
 
+        //get parameter from Request
         String uname = request.getParameter("username");
         String email = request.getParameter("email");
         String fullname = request.getParameter("fullname");
         String pass = request.getParameter("pass");
         String re_pass = request.getParameter("re_pass");
+        String address = request.getParameter("re_pass");
+
+        String dobString = request.getParameter("dob");
+// Chuyển đổi chuỗi ngày thành đối tượng Date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dob = null;
+        try {
+            dob = dateFormat.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String gender = request.getParameter("gender");
+        String phone = request.getParameter("phone");
+        String country = request.getParameter("country");
         int roleId = Integer.parseInt(request.getParameter("role"));
 
         //VALIDATORS for sign up
@@ -152,20 +171,28 @@ public class SignUpController extends HttpServlet {
                 .fullname(fullname)
                 .password(pass)
                 .role(role)
+                .address(address)
+                .country(country)
+                .dob(dob)
+                .gender(gender)
+                .phone(phone)
                 .build();
 
         int userId = udao.register(user);
-        PrintWriter out = response.getWriter();
-        out.print(userId);
 
-//        if (userId > 0) {
-////            request.setAttribute("msg", "Sign up successful");
-//            session.setAttribute("userId", "");
-//            response.sendRedirect("Home.jsp");
-//        } else {
-////             request.setAttribute("msg", "Sign up-fail");
-//            response.sendRedirect("About.jsp");
-//        }
+        if (userId > 0) {
+//            request.setAttribute("msg", "Sign up successful");
+            session.setAttribute("userId", "");
+            response.sendRedirect("Home.jsp");
+        } else {
+//             request.setAttribute("msg", "Sign up-fail");
+            response.sendRedirect("About.jsp");
+        }
+
+        //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date dob = null;dateFormat.parse(dobStr);
+//        PrintWriter out = response.getWriter();
+//        out.print(dob);
     }
 
     /**

@@ -8,6 +8,7 @@ package dao;
 import connection.MySQLConnection;
 import entity.Users;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,7 +49,7 @@ public class UsersDAO {
                         .username(rs.getString("username"))
                         .email(rs.getString("email"))
                         .fullname(rs.getString("fullname"))
-                        .nationality(rs.getString("nationality"))
+                        .country(rs.getString("country"))
                         .address(rs.getString("address"))
                         .gender(rs.getString("gender"))
                         .dob(rs.getDate("dob"))
@@ -67,8 +68,8 @@ public class UsersDAO {
 
     public int register(Users user) {
         int generatedKey = 0;
-        String sql = "INSERT INTO users(username, password, role_id,email , account_actived)"
-                + " VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users(username, password, role_id, email , account_actived, country, address, gender, dob, phone, fullname)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
             // Thiết lập các tham số trong câu lệnh SQL
@@ -76,9 +77,17 @@ public class UsersDAO {
             ps.setString(2, user.getPassword());
             ps.setInt(3, user.getRole().getRole_id());
             ps.setString(4, user.getEmail());
-            
-
             ps.setInt(5, 1);
+            ps.setString(6, user.getCountry());
+            ps.setString(7, user.getAddress());
+            ps.setString(8, user.getGender());
+            
+            //NOTE:::::::::
+            java.sql.Date sqlDate = new java.sql.Date(user.getDob().getTime());
+            ps.setDate(9,  sqlDate);
+                
+            ps.setString(10, user.getPhone());
+            ps.setString(11, user.getFullname());
 
             // Thực hiện câu lệnh SQL
             int affectedRows = ps.executeUpdate();

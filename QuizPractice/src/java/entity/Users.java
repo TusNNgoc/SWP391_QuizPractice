@@ -35,7 +35,7 @@ public class Users {
     private String email;
     private boolean accountActived ; 
     private Role role; //add
-    private String nationality;
+    private String country;
     private String address;
     private String gender;
     private Date dob;

@@ -42,29 +42,30 @@
                     <input type="password" id="pass" name="pass" class="form" placeholder="Password"  required><br><!---number-->
                     <label >Confirm Password</label>
                     <input type="password" id="re_pass" name="re_pass" class="form" placeholder="Re-Password"  required><br><!---number-->
+                    
+                   
+
+                    <label>Address</label>
+                    <input type="text" id="address" name="address" class="form" required placeholder="Insert your address"><br><!---address-->
+
+                    <label>Date of Birth</label>
+                    <input type="date" id="dob" name="dob" class="form" required><br><!---dob-->
+
+                    <label>Gender</label>
+                    <select name="gender" id="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select><br><!---gender-->
+
+                    <label>Phone</label>
+                    <input type="tel" id="phone" name="phone" class="form" required placeholder="Insert your phone number"><br><!---phone-->
+                    
                     <select name="country" id="country">
                         <c:forEach items="${mapCountries}" var="country">
                             <option value="${country.key}">${country.value}</option>
                         </c:forEach>
                     </select>
-                    <!--    <label id="carrer">Carrer</label>
-                        <select id="dropdown" name="role" required>
-                          <option disabled selected value>
-                            Select your carrer
-                          </option>
-                          <option value="ISC">
-                            Computer Systems Engineering
-                          </option>
-                          <option value="IMA">
-                            Automotive mechatronics engineering
-                          </option>
-                          <option value="II">
-                            Industrial Engineering
-                          </option>
-                          <option value="IGE">
-                            Business Management Engineering
-                          </option>
-                        </select>dropdown--->
+                    
                     <p>Role</p>
                     <label>
                         <input type="radio" name="role" value="2" checked>Student
@@ -91,7 +92,7 @@
                                             ></textarea>-comment-->
 
 
-                    <input type="submit" id="submit" name="submit" value="Submit">
+                    <input type="submit" id="submit" name="submit" value="Signup">
                 </form><!---survey-form--->
             </div><!--container_2--->
 
