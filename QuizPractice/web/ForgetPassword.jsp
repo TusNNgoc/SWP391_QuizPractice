@@ -34,29 +34,62 @@
                                                  class="img-fluid rounded-circle" width="132" height="132">
                                         </div><br>
                                         <div style="text-align: center"><h1>Reset your password</h1></div><br>
-                                        <form id="login-form" action="resetpassword"  method="POST"> 
+
+                                        <form id="login-form" action="resetpassword"  method="POST">                                            
                                             <div class="form-group">
                                                 <label class="form-label required">Enter your email</label>
                                                 <input class="form-control form-control-lg" type="text"
                                                        placeholder="Email" 
-                                                       name="email" id="login-validation-password-input" required>
+                                                       name="email" id="login-validation-password-input" value="${email}" required>
                                             </div>
+                                            <c:if test="${token == null}">
                                             <c:if test="${error != null}">
                                                 <span class="text-danger">${error}</span>
                                             </c:if>
+                                                
+                                            </c:if>
                                             <input type="hidden" name="action" value="check">
-                                            <div class="row">
-                                                <div class="text-center mt-3 col-lg-6">
-                                                    <button type="submit" class="btn btn-lg btn-primary">Get code</button>
+                                            <c:if test="${token == null}">
+                                                <div class="row">
+                                                    <div class="text-center mt-3 col-lg-6">
+                                                        <button type="submit" class="btn btn-lg btn-primary">Get code</button>
+                                                    </div>
+                                                    <div class="text-center mt-3 col-lg-6">
+                                                        <button type="button" class="btn btn-lg btn-primary"
+                                                                href="/home">
+                                                            Return
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="text-center mt-3 col-lg-6">
-                                                    <button type="button" class="btn btn-lg btn-primary"
-                                                            href="/home">
-                                                        Return
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            </c:if>
                                         </form>
+
+                                        <c:if test="${token != null}">   
+                                            <form id="login-form" action="resetpassword"  method="POST">
+                                                <div class="form-group">
+                                                    <label class="form-label required">OTP</label>
+                                                    <input class="form-control form-control-lg" type="text"
+                                                           placeholder="Enter your code here" 
+                                                           name="code" id="login-validation-password-input" value="">
+                                                </div>
+                                                <c:if test="${error != null}">
+                                                    <span class="text-danger">${error}</span>
+                                                </c:if>
+                                                <input type="hidden" name="action" value="token">
+                                                <input type="hidden" name="email" value="${email}">
+                                                <div class="row">
+                                                    <div class="text-center mt-3 col-lg-6">
+                                                        <button type="submit" class="btn btn-lg btn-primary">Continue</button>
+                                                    </div>
+                                                    <div class="text-center mt-3 col-lg-6">
+                                                        <button type="button" class="btn btn-lg btn-primary"
+                                                                href="/home">
+                                                            Return
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>  
+                                        </c:if>   
                                     </div>
                                 </div>
                             </div>

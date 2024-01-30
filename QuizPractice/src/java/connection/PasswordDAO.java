@@ -6,6 +6,7 @@ import entity.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * DAO class for handling password-related operations.
@@ -34,7 +35,7 @@ public class PasswordDAO extends MySQLConnection{
                 rs = ps.executeQuery();
                 
                 while (rs.next()) {
-                    Role r = new Role(rs.getInt("role_id"));
+                    Role r = new Role(rs.getString("role"));
                     return new Users(
                             rs.getInt(1),
                             rs.getString(2),
@@ -49,7 +50,7 @@ public class PasswordDAO extends MySQLConnection{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("getAccountByEmail: " + e.getMessage());
+            System.out.println("Message: " + e.getMessage());
         }
         return null;
     }
@@ -87,6 +88,29 @@ public class PasswordDAO extends MySQLConnection{
     }
     return updated;
 }
+        public static String generateRandomString(int length) {
+        StringBuilder stringBuilder = new StringBuilder(length);
+
+        try {
+            for (int i = 0; i < length; i++) {
+                int randomType = ThreadLocalRandom.current().nextInt(2); // 0 for digit, 1 for uppercase letter
+                char randomChar;
+
+                if (randomType == 0) {
+                    randomChar = (char) ('0' + ThreadLocalRandom.current().nextInt(10)); // Digit
+                } else {
+                    randomChar = (char) ('A' + ThreadLocalRandom.current().nextInt(26)); // Uppercase letter
+                }
+
+                stringBuilder.append(randomChar);
+            }
+        } catch (Exception e) {
+            System.err.println("Error generating random string: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return stringBuilder.toString();
+    }
     /**
      * Main method for testing the PasswordDAO class.
      *
@@ -94,13 +118,15 @@ public class PasswordDAO extends MySQLConnection{
      */
     public static void main(String[] args) {
         PasswordDAO test = new PasswordDAO();
-        if (test.getAccountByEmail("john@example.com") == null) {
-            System.out.println("Account not found");
-        } else {
-            System.out.println("Account found");
-        }
+//        if (test.getAccountByEmail("john@example.com") == null) {
+//            System.out.println("Account not found");
+//        } else {
+//            System.out.println("Account found");
+//        }
 //        test.updatePassword("rerollchotrung@gmail.com", "123");
-        boolean a=test.updatePassword2("rerollchotrung@gmail.com", "12345");
-        System.out.println(a);
+//        boolean a=test.updatePassword2("rerollchotrung@gmail.com", "12345");
+//        System.out.println(a);
+     String randomString = generateRandomString(6);
+        System.out.println("Random String: " + randomString);
     }
 }

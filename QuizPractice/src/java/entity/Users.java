@@ -25,7 +25,7 @@ public class Users {
     private String username;
     private String email;
     private boolean accountActived ;
-    private Role role_id; //add
+    private Role role; //add
 
 
     

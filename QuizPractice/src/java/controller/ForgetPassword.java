@@ -48,14 +48,20 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         if (request.getParameter("email") == null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("error", "");
+            request.setAttribute("error", "");
             request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
         } else {
+            String token = request.getParameter("code");
+            String tokenCheck = (String) session.getAttribute("token");
+            if (token == null) {
+                request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
+            } else if (!token.equalsIgnoreCase(tokenCheck)) {
+                request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("./Resetpassword.jsp").forward(request, response);
         }
-
     }
 
     /**
@@ -76,8 +82,7 @@ public class ForgetPassword extends HttpServlet {
                 String email = request.getParameter("email");
 
                 // Calculate the expiration date 30 minutes from the current time
-                LocalDateTime expirationDate = LocalDateTime.now().plusMinutes(30);
-
+//                LocalDateTime expirationDate = LocalDateTime.now().plusMinutes(30);
                 // Create an instance of AccountDAO
                 PasswordDAO DAO = new PasswordDAO();
                 SendEmailReset sm = new SendEmailReset();
@@ -85,14 +90,14 @@ public class ForgetPassword extends HttpServlet {
                 // Check if an account with the provided email exists
                 if (DAO.getAccountByEmail(email) == null) {
                     // If no account is found, set an error message and forward to EmailResetPassword.jsp
-                    session.setAttribute("error", "The email didn't match any account.");
+                    request.setAttribute("error", "The email didn't match any account.");
                     request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
                 } else {
+                    String token = DAO.generateRandomString(6);
                     String emailContent
                             = "<h1 style=\"color:blue;\">Hi there</h1><br>"
-                            + "To finish resetting your password, please go to the following page:<br>"
-                            + "<a href=\"http://localhost:9999/QuizPractice/resetpassword?email=" + email
-                            + "\">Click here</a><br>"
+                            + "To finish resetting your password, please enter the code below: <br>"
+                            + "<p>" + token + "</p><br>"
                             + "If you do not wish to reset the password, ignore this message; it will expire in 30 minutes.<br>"
                             + "All the best,<br>Auto99.";
 
@@ -100,8 +105,21 @@ public class ForgetPassword extends HttpServlet {
                     sm.sendmail(email, emailContent, "RESET YOUR QUIZ PASSWORD");
 
                     // Set a success message and forward to EmailResetPassword.jsp
-                    session.setAttribute("error", "The email has been sent to you. "
-                            + "Please verify it to finish resetting the password");
+                    request.setAttribute("error", "The email has been sent to you. "
+                            + "Please check it to get the OTP");
+                    request.setAttribute("email", email);
+                    session.setAttribute("token", token);
+                    request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
+                }
+            } else if ("token".equals(action)) {
+                String email = request.getParameter("email");
+                String token = request.getParameter("code");
+                String tokenCheck = (String) session.getAttribute("token");
+                if (token.equalsIgnoreCase(tokenCheck)) {
+                    response.sendRedirect("./resetpassword?email="+email+"&code="+token);
+                }else{
+                    request.setAttribute("email", email);
+                    request.setAttribute("error", "Wrong OTP");
                     request.getRequestDispatcher("./ForgetPassword.jsp").forward(request, response);
                 }
             } else if ("reset".equals(action)) {
