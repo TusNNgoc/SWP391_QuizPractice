@@ -1,17 +1,17 @@
-package connection;
+package dao;
 
 import entity.Role;
 import entity.Users;
 
+import connection.MySQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.ThreadLocalRandom;
+import java.sql.SQLException;
 
-/**
- * DAO class for handling password-related operations.
- */
-public class PasswordDAO extends MySQLConnection{
+
+public class PasswordDAO{
 
     // Fields for database connection
     public Connection conn = null;
@@ -29,20 +29,19 @@ public class PasswordDAO extends MySQLConnection{
         try {
             // Use try-with-resources to ensure proper resource management
             try (Connection con = MySQLConnection.getConnection()) {
-                String strSelect = "SELECT * FROM users WHERE email = ?";
+                String strSelect = "Select user_id, password, username, email, account_actived, role_id from users WHERE email = ?";
                 ps = con.prepareStatement(strSelect);
                 ps.setString(1, email);
                 rs = ps.executeQuery();
                 
                 while (rs.next()) {
-                    Role r = new Role(rs.getString("role"));
+                    Role r = new Role(rs.getInt("role_id"));
                     return new Users(
                             rs.getInt(1),
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
-                            rs.getString(5),
-                            rs.getBoolean(6),
+                            rs.getBoolean(5),
                             r
                     );
                 }
@@ -118,15 +117,15 @@ public class PasswordDAO extends MySQLConnection{
      */
     public static void main(String[] args) {
         PasswordDAO test = new PasswordDAO();
-//        if (test.getAccountByEmail("john@example.com") == null) {
-//            System.out.println("Account not found");
-//        } else {
-//            System.out.println("Account found");
-//        }
+        if (test.getAccountByEmail("john@example.com") == null) {
+            System.out.println("Account not found");
+        } else {
+            System.out.println("Account found");
+        }
 //        test.updatePassword("rerollchotrung@gmail.com", "123");
 //        boolean a=test.updatePassword2("rerollchotrung@gmail.com", "12345");
 //        System.out.println(a);
-     String randomString = generateRandomString(6);
-        System.out.println("Random String: " + randomString);
+//     String randomString = generateRandomString(6);
+//        System.out.println("Random String: " + randomString);
     }
 }

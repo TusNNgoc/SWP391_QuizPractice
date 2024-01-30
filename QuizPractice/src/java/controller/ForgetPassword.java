@@ -4,7 +4,7 @@
  */
 package controller;
 
-import connection.PasswordDAO;
+import dao.PasswordDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

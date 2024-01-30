@@ -2,15 +2,66 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="SWT">
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Type.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/bootstrap/_variables.scss</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Taken.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Courses.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Answer.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/bootstrap/_root.scss</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Quizz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/login.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index_1.html</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Questions.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Ssl.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Home.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_Question.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/TakenAnswer.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Mae.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Role.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Users.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Mae_quiz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Note.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_quiz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Quiz.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index.html</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/WEB-INF/web.xml</file>
+        </group>
+        <group name="main">
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Quizz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_quiz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signup_signin.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/css/newSignin.css</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Ssl.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SignUpController.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SignInController.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/css/signin_cafe.css</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_Question.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/newSignin.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Mae_quiz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Home.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Users.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Mae.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Course.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/newSignin.scss</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/css/style.css</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/jsptest.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Note.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signupOfficial.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Cea.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/About.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/classic.css</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signinOfficial.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/style.scss</file>
+        </group>
         <group>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/entity/Users.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/connection/MySQLConnection.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/connection/PasswordDAO.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/ForgetPassword.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ChangePassword.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/entity/Role.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/SendEmailReset.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/connection/MySQLConnection.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/ChangePassword.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/ForgetPassword.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/SendEmailReset.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/dao/PasswordDAO.java</file>
         </group>
     </open-files>
 </project-private>

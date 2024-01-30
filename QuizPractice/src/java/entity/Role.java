@@ -18,9 +18,9 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 //add a table
 public class Role {
     private int role_id;
@@ -28,10 +28,6 @@ public class Role {
 
     public Role(int role_id) {
         this.role_id = role_id;
-    }
-
-    public Role(String role_name) {
-        this.role_name = role_name;
     }
     
 }
