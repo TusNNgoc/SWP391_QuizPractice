@@ -13,12 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.lang.model.util.Types;
 
 /**
  *
  * @author HP
  */
 public class UsersDAO {
+
     public int getSize() {
 
         String mysql = "Select count(`user_id`) as `totalTeacher`  FROM `users` WHERE `role_id` = 1 and `account_actived` = 1;";
@@ -44,7 +46,7 @@ public class UsersDAO {
             ps.setString(1, username);
             ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Users u = Users.builder()
                         .username(rs.getString("username"))
                         .email(rs.getString("email"))
@@ -55,21 +57,20 @@ public class UsersDAO {
                         .dob(rs.getDate("dob"))
                         .phone(rs.getString("phone"))
                         .build();
-                
+
                 return u;
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-   
-        
+
         return null;
     }
 
     public int register(Users user) {
         int generatedKey = 0;
         String sql = "INSERT INTO users(username, password, role_id, email , account_actived, country, address, gender, dob, phone, fullname)"
-                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
             // Thiết lập các tham số trong câu lệnh SQL
@@ -81,11 +82,18 @@ public class UsersDAO {
             ps.setString(6, user.getCountry());
             ps.setString(7, user.getAddress());
             ps.setString(8, user.getGender());
-            
+
             //NOTE:::::::::
-            java.sql.Date sqlDate = new java.sql.Date(user.getDob().getTime());
-            ps.setDate(9,  sqlDate);
-                
+//            java.sql.Date sqlDate = new java.sql.Date(user.getDob().getTime());
+//            ps.setDate(9,  sqlDate);
+            java.util.Date dob = user.getDob();
+            if (dob != null) {
+                java.sql.Date sqlDate = new java.sql.Date(dob.getTime());
+                ps.setDate(9, sqlDate);
+            } else {
+                ;
+            }
+
             ps.setString(10, user.getPhone());
             ps.setString(11, user.getFullname());
 
@@ -102,7 +110,7 @@ public class UsersDAO {
                         return generatedKey;
                     } else {
                         System.out.println("nothing in here");
-                        return -1;
+                        return -3;
                     }
 
                 } catch (SQLException e) {
@@ -163,4 +171,3 @@ public class UsersDAO {
         System.out.println(new UsersDAO().getSize());
     }
 }
-

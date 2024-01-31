@@ -129,6 +129,19 @@ public class SignUpController extends HttpServlet {
         String country = request.getParameter("country");
         int roleId = Integer.parseInt(request.getParameter("role"));
 
+        
+             //CHECK RE-PASS
+        //1. convert to char arr
+        char[] charPass = pass.toCharArray();
+        char[] charRePass = re_pass.toCharArray();
+
+        //2. compare with Arrays.equal(...)
+        if (!Arrays.equals(charPass, charRePass)) {
+            request.setAttribute("status", "password don't match");
+            dispatcher = request.getRequestDispatcher("signupOfficial.jsp");
+            dispatcher.forward(request, response);
+        }
+        
         //VALIDATORS for sign up
         if (uname == null || uname.equals("")) {
             request.setAttribute("status", "invalid username");
@@ -151,16 +164,7 @@ public class SignUpController extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-        //CHECK RE-PASS
-        //1. convert to char arr
-        char[] charPass = pass.toCharArray();
-        char[] charRePass = re_pass.toCharArray();
-
-        //2. compare with Arrays.equal(...)
-        if (!Arrays.equals(charPass, charRePass)) {
-            dispatcher = request.getRequestDispatcher("siginOfficial.jsp");
-            dispatcher.forward(request, response);
-        }
+       
 
         //create a role obj
         Role role = Role.builder().role_id(roleId).build();
@@ -192,7 +196,7 @@ public class SignUpController extends HttpServlet {
         //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        Date dob = null;dateFormat.parse(dobStr);
 //        PrintWriter out = response.getWriter();
-//        out.print(dob);
+//        out.print(userId);
     }
 
     /**
