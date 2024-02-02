@@ -45,14 +45,23 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/bootstrap/_variables.scss</file>
         </group>
         <group name="main">
-            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
-            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/welcome_page.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signupOfficial.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signup_signin.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/ValidateController.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SignUpController.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SignInController.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signinOfficial.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/js/SwalAlert.js</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/QuestionsDAO.java</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/entity/Users.java</file>
-            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SignUpController.java</file>
-            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signupOfficial.jsp</file>
-            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SignInController.java</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/CoursesDAO.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/SendEmailReset.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/css/newSignup.css</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/utils/Validators.java</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
         </group>
     </open-files>
 </project-private>

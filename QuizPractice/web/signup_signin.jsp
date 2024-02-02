@@ -87,7 +87,7 @@ Author     : HP
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         //SWEETALERT LIBRARY TO SHOW MODAL
-//        var status = "<%=session.getAttribute("status")%>";
+//        var status = "<%=request.getAttribute("status")%>";
         var status = document.getElementById("status").value;
         if (status === "invalid username") {
             Swal.fire({
