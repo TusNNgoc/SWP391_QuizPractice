@@ -4,7 +4,7 @@
  */
 package dao;
 
-import Connection.MySQLConnection;
+import connection.MySQLConnection;
 import entity.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

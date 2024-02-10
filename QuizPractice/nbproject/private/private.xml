@@ -57,11 +57,12 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/style.scss</file>
         </group>
         <group>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/connection/MySQLConnection.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/ChangePassword.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/ForgetPassword.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/SendEmailReset.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/dao/PasswordDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/AnswerDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/ChangePassword.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ChangePassword.java</file>
         </group>
     </open-files>
 </project-private>
