@@ -28,8 +28,26 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index.html</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/WEB-INF/web.xml</file>
         </group>
+
+        <group>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Mae_quiz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index.html</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/WEB-INF/web.xml</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Note.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_quiz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_Question.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Ssl.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Mae.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Quizz.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/bootstrap/_root.scss</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/login.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index_1.html</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/index.jsp</file>
+            <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/bootstrap/_variables.scss</file>
+        </group>
         <group name="main">
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Quizz.jsp</file>
+
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/Submit_quiz.jsp</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signup_signin.jsp</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/css/newSignin.css</file>
@@ -55,6 +73,7 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/classic.css</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signinOfficial.jsp</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/style.scss</file>
+
         </group>
         <group>
             <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
@@ -63,6 +82,7 @@
             <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/ChangePassword.jsp</file>
             <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
             <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ChangePassword.java</file>
+
         </group>
     </open-files>
 </project-private>
