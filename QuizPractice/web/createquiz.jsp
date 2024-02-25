@@ -1,54 +1,60 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en" >
     <head>
         <meta charset="UTF-8">
         <title>CodePen - CSS-Only Floating Labels</title>
         <link rel="stylesheet" href="./assets/scss/Createquiz.css">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
         <!-- partial:index.partial.html -->
     <body>
-        <h1>CSS-Only Floating Labels</h1>
+        <h1 style="text-align: center">Create new quiz</h1>
         <div class="container">
             <div class="cta-form">
-                <h2>Fill out the form!</h2> 
-                <p>Check out the comments for line by line explanations. Form-related code starts on line 145.</p>
+                <h2>Let's make a quiz!!</h2> 
+                <p>Notice that your quiz can be viewed by others users.</p>
             </div>
             <form action="" class="form">
 
-                <input type="text" placeholder="Name" class="form__input" id="name" />
-                <label for="name" class="form__label">Name</label>
+                <input type="text" placeholder="Name" class="form__input" id="name" name="quizname"/>
+                <label for="name" class="form__label">Quiz Name</label>
 
-                <input type="email" placeholder="Email" class="form__input" id="email" />
-                <label for="email" class="form__label">Email</label>
+                <input type="text" placeholder="Email" class="form__input" id="email" />
+                <label for="email" class="form__label">Quiz detail</label>
 
-                <input type="text" placeholder="Subject" class="form__input" id="subject" />
-                <label for="subject" class="form__label">Subject</label>
-
+                <input type="number" placeholder="Subject" class="form__input" id="subject" name="quizid"/>
+                <label for="subject" class="form__label">Quiz ID</label>
+                
+                <button type="button" class="btn btn-light">Lưu lại</button>
+                <!<!-- send input action to servlet to know what action need -->
+                <input type="hidden" name="action" value="add"/>
             </form>
         </div>
-<!--        <div class="explanation">
-            <p>
-                Before we get started, we have to understand how labels, placeholders, and input fields work and how they are used from a UX perspective.
-            </p>
-            <ul>
-                <li>Input fields, by default, have outlines when they are in focus.*</li>
-                <li>Placeholders are used to show users what information is needed in their respective fields.</li>
-                <li>Placeholders are created using the <code>placeholder=""</code> attribute.</li>
-                <li>Placeholders, by default, disappear when text fills the input field. This affects the <code>:placeholder-shown</code> pseudo-selector.*</li>
-                <li>Labels are used for the same reason as placeholders, but don't disappear when text is in the input field. This is great because it allows users to always see what information is required.</li>
-                <li>UX best practices tell us that labels should accompany items in forms (input fields, text areas, checkboxes, etc.).</li>
-            </ul>
-            <p>We'll be using several pseudo-selectors to create this effect.<br>This is the ONLY way to achieve this effect without any JavaScript.</p>
-            <ul>
-                <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus">:focus</a></code> ? Represents an element (such as a form input) that has received focus.</li>
-                <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not">:not()</a></code> ? Prevents the items passed into the argument from being selected.</li>
-                <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder">:placeholder</a></code> ? Represents the placeholder text of <code>input</code> and <code>textarea</code> elements.</li>
-                <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:placeholder-shown">:placeholder-shown</a></code> ? Represents any <code>input</code> or <code>textarea</code> element that is currently displaying placeholder text.</li>
-            </ul>
-            <p>A non-SCSS version can be found <a href="https://codepen.io/kvncnls/pen/eYzbJJL" target="_blank">here</a> for those that don't use SCSS. Note that this older CodePen has a ROOT font-size of 10px, so any 'rem' values are based on 10px.</p>
-        </div>-->
+        <!--        <div class="explanation">
+                    <p>
+                        Before we get started, we have to understand how labels, placeholders, and input fields work and how they are used from a UX perspective.
+                    </p>
+                    <ul>
+                        <li>Input fields, by default, have outlines when they are in focus.*</li>
+                        <li>Placeholders are used to show users what information is needed in their respective fields.</li>
+                        <li>Placeholders are created using the <code>placeholder=""</code> attribute.</li>
+                        <li>Placeholders, by default, disappear when text fills the input field. This affects the <code>:placeholder-shown</code> pseudo-selector.*</li>
+                        <li>Labels are used for the same reason as placeholders, but don't disappear when text is in the input field. This is great because it allows users to always see what information is required.</li>
+                        <li>UX best practices tell us that labels should accompany items in forms (input fields, text areas, checkboxes, etc.).</li>
+                    </ul>
+                    <p>We'll be using several pseudo-selectors to create this effect.<br>This is the ONLY way to achieve this effect without any JavaScript.</p>
+                    <ul>
+                        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus">:focus</a></code> — Represents an element (such as a form input) that has received focus.</li>
+                        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not">:not()</a></code> — Prevents the items passed into the argument from being selected.</li>
+                        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder">:placeholder</a></code> — Represents the placeholder text of <code>input</code> and <code>textarea</code> elements.</li>
+                        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:placeholder-shown">:placeholder-shown</a></code> — Represents any <code>input</code> or <code>textarea</code> element that is currently displaying placeholder text.</li>
+                    </ul>
+                    <p>A non-SCSS version can be found <a href="https://codepen.io/kvncnls/pen/eYzbJJL" target="_blank">here</a> for those that don't use SCSS. Note that this older CodePen has a ROOT font-size of 10px, so any 'rem' values are based on 10px.</p>
+                </div>-->
     </body>
     <!-- partial -->
     <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>

@@ -26,13 +26,13 @@ html body {
   background-color: #EDEEE9;
   color: #303030;
   font-family: "Inter", sans-serif;
-  min-height: 100vh;
+  
   width: 100%;
   padding: 2.5vh 10vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  
 }
 html body h1 {
   font-size: clamp(1rem, 6vw, 10rem);
@@ -82,6 +82,7 @@ html body .container {
   justify-content: center;
   align-items: center;
   padding: 2rem 2rem 1.5rem;
+  margin-left: 13rem;
   background-color: #D8DBCE;
 }
 @media (min-width: 768px) {

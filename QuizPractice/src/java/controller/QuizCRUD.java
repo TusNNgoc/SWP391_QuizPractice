@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.TeacherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -57,7 +59,12 @@ public class QuizCRUD extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        TeacherDAO dao = new TeacherDAO();
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        if("add".equals(action)){
+            request.getRequestDispatcher("/createquiz.jsp").forward(request, response);
+        }
     }
 
     /**
