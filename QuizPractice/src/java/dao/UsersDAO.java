@@ -23,7 +23,7 @@ public class UsersDAO {
 
     public int getSize() {
 
-        String mysql = "Select count(`user_id`) as `totalTeacher`  FROM `users` WHERE `role_id` = 1 and `account_actived` = 1;";
+        String mysql = "Select count(`user_id`) as `totalTeacher`  FROM `users` WHERE  `account_actived` = 1;";
 
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(mysql);) {
             ResultSet rs = ps.executeQuery();
@@ -38,11 +38,11 @@ public class UsersDAO {
 
     public Users authenticate(String username, String pass) {
 
-        String sql = "SELECT u.username, u.email, u.fullname, u.nationality, u.address, u.gender, u.dob, u.phone, r.role_name \n"
+        String sql = "SELECT u.username, u.email, u.fullname, u.country, u.address, u.gender, u.dob, u.phone, r.role_name \n"
                 + "from `users` u join `role` r on u.role_id = r.role_id\n"
                 + "Where u.username = ? And u.password = ? AND account_actived = 1;";
-
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            String ePassword = PasswordEncrypt.hashPassword(pass);
             ps.setString(1, username);
             ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
@@ -62,6 +62,7 @@ public class UsersDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
+
         }
 
         return null;

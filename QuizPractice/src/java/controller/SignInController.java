@@ -81,6 +81,9 @@ public class SignInController extends HttpServlet {
         String pass = request.getParameter("pass");
 
         UsersDAO ud = new UsersDAO();
+        
+        PrintWriter out = response.getWriter();
+        
 
         if (ud.authenticate(username, pass) == null) {
             request.setAttribute("err", "Wrong username or password ");
