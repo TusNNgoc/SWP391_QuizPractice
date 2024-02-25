@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class PasswordEncrypt {
     public static String hashPassword (String pass){
+        
         try{
             MessageDigest md = MessageDigest.getInstance("SHA");
             md.update(pass.getBytes());

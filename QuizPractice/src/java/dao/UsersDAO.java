@@ -27,7 +27,7 @@ public class UsersDAO {
 
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(mysql);) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next() ) {
                 return rs.getInt("totalTeacher");
             }
         } catch (SQLException e) {
