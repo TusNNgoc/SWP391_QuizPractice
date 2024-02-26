@@ -21,8 +21,8 @@ import lombok.ToString;
 public class Quiz {
     private int quiz_id;
     private String quiz_name;
-    private String contentQuiz;
     private Users creator_id;
+    private Courses course_id;
     
 }
 

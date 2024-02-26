@@ -21,8 +21,8 @@ import lombok.ToString;
 public class Courses {
     private int course_id;
     private String course_name;
-    private Users student_id; //fix to user_id in db
-    private Quiz quiz_id;
+    private Users student_id; 
+    private String course_content;
     
     
 }

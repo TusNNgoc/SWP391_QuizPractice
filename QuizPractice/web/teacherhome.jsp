@@ -99,8 +99,8 @@ Users user = (Users) session.getAttribute("user");
                                             <div class="avatar-lg"><img src="assets/img/profile.jpg" alt="image profile"
                                                                         class="avatar-img rounded"></div>
                                             <div class="u-text">
-                                                <h4>Hizrian</h4>
-                                                <p class="text-muted">hello@example.com</p><a href="userprofile.html"
+                                                <h4><%= user.getFullname()%></h4>
+                                                <p class="text-muted"><%= user.getEmail()%></p><a href="teacher_profile.jsp"
                                                                                               class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                             </div>
                                         </div>
@@ -250,7 +250,7 @@ Users user = (Users) session.getAttribute("user");
                                     <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
-                                    <div class="dropdown-divider"></div>
+<!--                                    <div class="dropdown-divider"></div>-->
                                     <a class="dropdown-item" href="#">Separated link</a>
                                 </div>
                             </div>
