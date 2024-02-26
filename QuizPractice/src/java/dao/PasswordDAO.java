@@ -29,21 +29,19 @@ public class PasswordDAO{
         try {
             // Use try-with-resources to ensure proper resource management
             try (Connection con = MySQLConnection.getConnection()) {
-                String strSelect = "Select user_id, password, username, email, account_actived, role_id from users WHERE email = ?";
+                String strSelect = "Select user_id, password, username, email, role_id from users WHERE email = ?";
                 ps = con.prepareStatement(strSelect);
                 ps.setString(1, email);
                 rs = ps.executeQuery();
                 
                 while (rs.next()) {
                     Role r = new Role(rs.getInt("role_id"));
-                    return new Users(
-                            rs.getInt(1),
-                            rs.getString(2),
-                            rs.getString(3),
-                            rs.getString(4),
-                            rs.getBoolean(5),
-                            r
-                    );
+                    return  Users.builder().user_id(rs.getInt(1))
+                            .password(rs.getString(2))
+                            .username(rs.getString(3))
+                            .email(rs.getString(4))      
+                            .build();
+ 
                 }
                 con.close();
             }

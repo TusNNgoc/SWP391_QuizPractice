@@ -94,6 +94,8 @@ danger-color : #f3545d
 
 -------------------------------------------------------------------*/
 /* 	 Background Body */
+
+
 body {
   background: #f9fbfd; }
   body[data-background-color="bg1"] {
@@ -7704,4 +7706,10 @@ div.table-responsive > div.dataTables_wrapper > div.row {
     width: 100% !important;
     padding: 60px 15px !important; } }
 
+.intro-text {
+    position: relative; /* Sử dụng relative để có thể di chuyển nội dung dựa trên vị trí gốc */
+    float: right; /* Đẩy phần tử về bên phải */
+    margin-left: 10px; /* Tạo khoảng cách giữa ảnh và câu văn */
+    color: white; /* Màu chữ trắng */
+}
 /*# sourceMappingURL=azzara.css.map */

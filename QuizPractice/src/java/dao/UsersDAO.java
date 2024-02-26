@@ -51,6 +51,7 @@ public class UsersDAO {
                         .username(rs.getString("username"))
                         .email(rs.getString("email"))
                         .fullname(rs.getString("fullname"))
+                        .roleName(rs.getString("role_name"))
                         .country(rs.getString("country"))
                         .address(rs.getString("address"))
                         .gender(rs.getString("gender"))
