@@ -23,7 +23,7 @@ import java.sql.Statement;
 public class MySQLConnection {
 
     private static  String PORT = "3306";
-    private static String DB_NAME = "quizpracticedb1";
+    private static String DB_NAME = "quizpracticedb";
 
     
     private static String DB_URL = "jdbc:mysql://localhost:"+PORT+"/" + DB_NAME;

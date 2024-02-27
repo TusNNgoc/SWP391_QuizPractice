@@ -89,12 +89,15 @@ public class SignInController extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if (username == null || pass == null) {
-            if(action.equalsIgnoreCase("course")){
-            Users userAuthenticate = ud.authenticate(username_session, pass_session);
-            session.setAttribute("user", userAuthenticate);
-            request.getRequestDispatcher("teacher").forward(request, response);
+            if (action.equalsIgnoreCase("course")) {
+                Users userAuthenticate = ud.authenticate(username_session, pass_session);
+                request.setAttribute("user", userAuthenticate);
+                request.getRequestDispatcher("teacher").forward(request, response);
+            } else if (action.equalsIgnoreCase("quiz")) {
+                Users userAuthenticate = ud.authenticate(username_session, pass_session);
+                request.setAttribute("user", userAuthenticate);
+                request.getRequestDispatcher("quiz").forward(request, response);
             }
-            
 
         } else {
 
@@ -114,7 +117,7 @@ public class SignInController extends HttpServlet {
                     session.setAttribute("user", userAuthenticate);
                     session.setAttribute("username", username);
                     session.setAttribute("pass", pass);
-                    
+
 //                request.getRequestDispatcher("teacherhome.jsp").forward(request, response);
                     request.getRequestDispatcher("teacher").forward(request, response);
                 }
