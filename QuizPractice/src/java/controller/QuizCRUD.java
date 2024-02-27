@@ -38,7 +38,7 @@ public class QuizCRUD extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizCRUD</title>");            
+            out.println("<title>Servlet QuizCRUD</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet QuizCRUD at " + request.getContextPath() + "</h1>");
@@ -62,8 +62,13 @@ public class QuizCRUD extends HttpServlet {
         TeacherDAO dao = new TeacherDAO();
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        if("add".equals(action)){
+        if ("add".equals(action)) {
+            request.setAttribute("error", "");
             request.getRequestDispatcher("/createquiz.jsp").forward(request, response);
+        } else if("addquestion".equals(action)){
+            String quizid = request.getParameter("quizid");
+            request.setAttribute("error", "");
+            request.getRequestDispatcher("/createquestion.jsp").forward(request, response);
         }
     }
 
@@ -78,7 +83,22 @@ public class QuizCRUD extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        TeacherDAO dao = new TeacherDAO();
+        String action = request.getParameter("action");
+        if ("add".equals(action)) {
+            String quizname = request.getParameter("quizname");
+            String quizid = request.getParameter("quizid");
+            int creatorid=51;
+            if (dao.isQuizIdExist(quizid)){
+                request.setAttribute("error", "QuizId already existed");
+                request.getRequestDispatcher("/createquiz.jsp").forward(request, response);
+            }else{
+                dao.createQuiz(quizid, quizname, creatorid);
+                response.sendRedirect("/QuizPractice/quizcrud?action=addquestion&quizid="+quizid);
+            }
+        }else if("addquestion".equals(action)){
+            
+        }
     }
 
     /**

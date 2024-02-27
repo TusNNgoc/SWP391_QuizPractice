@@ -56,9 +56,26 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/signinOfficial.jsp</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/web/assets/scss/style.scss</file>
         </group>
-        <group/>
         <group>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/createquestion.jsp</file>
             <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/TeacherDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/QuizCRUD.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/connection/MySQLConnection.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/assets/scss/Createquiz.css</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/createquiz.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/ForgetPassword.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/createquestion.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/TeacherDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/QuizCRUD.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/assets/scss/Createquiz.css</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/createquiz.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/ForgetPassword.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
         </group>
     </open-files>
 </project-private>

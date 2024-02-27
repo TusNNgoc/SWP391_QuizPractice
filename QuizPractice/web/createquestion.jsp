@@ -5,26 +5,26 @@
 <html lang="en" >
     <head>
         <meta charset="UTF-8">
-        <title>Create quiz</title>
+        <title>Create question</title>
         <link rel="stylesheet" href="./assets/scss/Createquiz.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
         <!-- partial:index.partial.html -->
     <body>
-        <h1 style="text-align: center">Create new quiz</h1>
+        <h1 style="text-align: center">Add questions</h1>
         <div class="container">
             <div class="cta-form">
-                <h2>Let's make a quiz!!</h2> 
+                <h2>Add question to your quiz!!</h2> 
                 <p>Notice that your quiz can be viewed by others users.</p>
             </div>
             <form action="quizcrud" class="form" method="POST">
 
-                <input type="text" placeholder="" class="form__input" id="name" name="quizname"/>
-                <label for="name" class="form__label">Quiz Name</label>
+                <input type="text" placeholder="" class="form__input" id="name" name="question" required/>
+                <label for="name" class="form__label">Question</label>
 
-                <input type="number" placeholder="" class="form__input" id="subject" name="quizid"/>
-                <label for="subject" class="form__label">Quiz ID</label>
+                <input type="number" placeholder="" class="form__input" id="subject" name="quizid" required/>
+                <label for="subject" class="form__label">Type</label>
                 <c:if test="${error != null}">
                     <span class="text-danger">${error}</span><br>
                 </c:if>
@@ -33,7 +33,7 @@
                     <a href="/autopart" class="btn btn-light float-right" style="text-decoration: none;" role="button" aria-pressed="true"><span style="text-decoration: none;">Hủy</span></a>
                 </div>
                 <!-- send input action to servlet to know what action need -->
-                <input type="hidden" name="action" value="add"/>
+                <input type="hidden" name="action" value="addquestion"/>
             </form>
         </div>
         
