@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -63,11 +64,15 @@ public class QuizCRUD extends HttpServlet {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         if ("add".equals(action)) {
-            request.setAttribute("error", "");
+            List courseList = dao.getAllCourseName();
+            request.setAttribute("courseList", courseList);
             request.getRequestDispatcher("/createquiz.jsp").forward(request, response);
         } else if("addquestion".equals(action)){
             String quizid = request.getParameter("quizid");
-            request.setAttribute("error", "");
+            List typeList = dao.getAllType();
+            request.setAttribute(action, dao);
+            request.setAttribute("quizid", quizid);
+            request.setAttribute("typeList", typeList);
             request.getRequestDispatcher("/createquestion.jsp").forward(request, response);
         }
     }
@@ -87,15 +92,11 @@ public class QuizCRUD extends HttpServlet {
         String action = request.getParameter("action");
         if ("add".equals(action)) {
             String quizname = request.getParameter("quizname");
-            String quizid = request.getParameter("quizid");
+            String courseid = request.getParameter("courseid");
             int creatorid=51;
-            if (dao.isQuizIdExist(quizid)){
-                request.setAttribute("error", "QuizId already existed");
-                request.getRequestDispatcher("/createquiz.jsp").forward(request, response);
-            }else{
-                dao.createQuiz(quizid, quizname, creatorid);
-                response.sendRedirect("/QuizPractice/quizcrud?action=addquestion&quizid="+quizid);
-            }
+                dao.createQuiz(courseid, quizname, creatorid);
+                int id = dao.getNewestQuizId();
+                response.sendRedirect("/QuizPractice/quizcrud?action=addquestion&quizid="+id);
         }else if("addquestion".equals(action)){
             
         }

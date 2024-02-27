@@ -23,7 +23,12 @@
                 <input type="text" placeholder="" class="form__input" id="name" name="question" required/>
                 <label for="name" class="form__label">Question</label>
 
-                <input type="number" placeholder="" class="form__input" id="subject" name="quizid" required/>
+                <select class="form__input" id="subject" name="coursename">
+                    <c:forEach var="type" items="${typeList}">
+                        <option placeholder="Type" class="form__input" id="subject" name="typeid" value="${type.type_id}">${type.type_name}</option>
+                    </c:forEach>
+                </select>
+                <!--<input type="number" placeholder="" class="form__input" id="subject" name="quizid" required/>-->
                 <label for="subject" class="form__label">Type</label>
                 <c:if test="${error != null}">
                     <span class="text-danger">${error}</span><br>
@@ -36,7 +41,7 @@
                 <input type="hidden" name="action" value="addquestion"/>
             </form>
         </div>
-        
+
     </body>
     <!-- partial -->
     <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>

@@ -5,8 +5,10 @@
  */
 package entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,12 +19,19 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Quiz {
     private int quiz_id;
     private String quiz_name;
     private String contentQuiz;
     private Users creator_id;
+
+    public Quiz(int quiz_id) {
+        this.quiz_id = quiz_id;
+    }
+    
     
 }
 

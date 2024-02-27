@@ -20,14 +20,17 @@
             </div>
             <form action="quizcrud" class="form" method="POST">
 
-                <input type="text" placeholder="" class="form__input" id="name" name="quizname"/>
-                <label for="name" class="form__label">Quiz Name</label>
+                <select class="form__input" id="subject" name="coursename">
+                    <c:forEach var="course" items="${courseList}">
+                        <option placeholder="" class="form__input" id="subject" name="courseid" value="${course.course_id}">${course.course_name}</option>
+                    </c:forEach>
+                </select>
+                <!--<input type="number" placeholder="" class="form__input" id="subject" name="coursename"/>-->
+                <label for="subject" class="form__label">Course name</label>
 
-                <input type="number" placeholder="" class="form__input" id="subject" name="quizid"/>
-                <label for="subject" class="form__label">Quiz ID</label>
-                <c:if test="${error != null}">
-                    <span class="text-danger">${error}</span><br>
-                </c:if>
+                <input type="text" placeholder="" class="form__input" id="name" name="quizname" required/>
+                <label for="name" class="form__label">Quiz Name</label>   
+
                 <div class="text-center">
                     <button type="submit" class="btn btn-light" style="margin-right: -60%">Tạo</button>
                     <a href="/autopart" class="btn btn-light float-right" style="text-decoration: none;" role="button" aria-pressed="true"><span style="text-decoration: none;">Hủy</span></a>
@@ -36,7 +39,7 @@
                 <input type="hidden" name="action" value="add"/>
             </form>
         </div>
-        
+
     </body>
     <!-- partial -->
     <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>

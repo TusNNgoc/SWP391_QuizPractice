@@ -49,6 +49,10 @@ public class Users {
         this.role = role;
     }
 
+    public Users(int user_id) {
+        this.user_id = user_id;
+    }
+
 
 
 
