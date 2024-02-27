@@ -21,14 +21,14 @@ import javax.lang.model.util.Types;
  */
 public class UsersDAO {
 
-    public int getSize() {
+    public int getSizeStudent() {
 
-        String mysql = "Select count(`user_id`) as `totalTeacher`  FROM `users` WHERE  `account_actived` = 1;";
+        String mysql = "Select count(`user_id`) as `totalStudent`  FROM `users` WHERE `role_id` = 2 and  `account_actived` = 1;";
 
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(mysql);) {
             ResultSet rs = ps.executeQuery();
             while (rs.next() ) {
-                return rs.getInt("totalTeacher");
+                return rs.getInt("totalStudent");
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -170,6 +170,6 @@ public class UsersDAO {
     }
 
     public static void main(String[] args) {
-        System.out.println(new UsersDAO().getSize());
+        System.out.println(new UsersDAO().getSizeStudent());
     }
 }

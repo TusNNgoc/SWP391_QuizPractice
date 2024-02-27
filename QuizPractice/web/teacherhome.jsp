@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="entity.Users" %>
-
+<%@ page import="entity.Courses" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,8 @@
     <body>
 
         <%
-Users user = (Users) session.getAttribute("user");
+//Users user = (Users) session.getAttribute("user");
+//List<Courses> courses = (List<Courses>) session.getAttribute("courses");
         %>
         <div class="wrapper">
             <!--
@@ -99,9 +101,9 @@ Users user = (Users) session.getAttribute("user");
                                             <div class="avatar-lg"><img src="assets/img/profile.jpg" alt="image profile"
                                                                         class="avatar-img rounded"></div>
                                             <div class="u-text">
-                                                <h4><%= user.getFullname()%></h4>
-                                                <p class="text-muted"><%= user.getEmail()%></p><a href="teacher_profile.jsp"
-                                                                                              class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                                <h4>${ user.getFullname()}></h4>
+                                                <p class="text-muted">${ user.getEmail()}></p><a href="teacher_profile.jsp"
+                                                                                                  class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                             </div>
                                         </div>
                                     </li>
@@ -120,7 +122,7 @@ Users user = (Users) session.getAttribute("user");
 
 
                             <li class="nav-item">
-                                <p class="intro-text"> Xin chào <%= user.getFullname() %></p>
+                                <p class="intro-text"> Xin chào ${ user.getFullname() }</p>
                             </li>
                         </ul>
                     </div>
@@ -141,7 +143,7 @@ Users user = (Users) session.getAttribute("user");
                             <div class="info">
                                 <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                     <span>
-                                        <%= user.getFullname() %>
+                                        ${ user.getFullname() }
                                         <span class="user-level">Teacher</span>
                                         <span class="caret"></span>
                                     </span>
@@ -247,11 +249,17 @@ Users user = (Users) session.getAttribute("user");
 
                                 <div class="dropdown-menu">
                                     <div class="arrow"></div>
-                                    <a class="dropdown-item" href="#">Action</a>
+
+                                    <c:forEach items="${courses}" var="course">
+
+                                        <a class="dropdown-item" href="CourseDetailsServlet?course=${course}">${course.name}</a>
+
+                                    </c:forEach>
+<!--                                    <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
-<!--                                    <div class="dropdown-divider"></div>-->
-                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                                        <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>-->
                                 </div>
                             </div>
                         </div>
@@ -269,7 +277,7 @@ Users user = (Users) session.getAttribute("user");
                                             <div class="col col-stats ml-3 ml-sm-0">
                                                 <div class="numbers">
                                                     <p class="card-category">Course</p>
-                                                    <h4 class="card-title">1303</h4>
+                                                    <h4 class="card-title"></h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -492,7 +500,153 @@ Users user = (Users) session.getAttribute("user");
                                         </div>
                                     </div>
                                 </div>
+                            </div>        <div class="col-md-4">
+                                <div class="card card-secondary">
+                                    <div class="card-header">
+                                        <div class="card-title">Daily Sales</div>
+                                        <div class="card-category">March 25 - April 02</div>
+                                    </div>
+                                    <div class="card-body pb-0">
+                                        <div class="mb-4 mt-2">
+                                            <h1>$4,578.58</h1>
+                                        </div>
+                                        <div class="pull-in">
+                                            <canvas id="dailySalesChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card card-info bg-info-gradient">
+                                    <div class="card-body">
+                                        <h4 class="mb-1 fw-bold">Tasks Progress</h4>
+                                        <div id="task-complete" class="chart-circle mt-4 mb-3"></div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="row row-card-no-pd">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-head-row">
+                                            <h4 class="card-title">Users Geolocation</h4>
+                                            <div class="card-tools">
+                                                <button class="btn btn-icon btn-link btn-primary btn-xs"><span
+                                                        class="fa fa-angle-down"></span></button>
+                                                <button
+                                                    class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span
+                                                        class="fa fa-sync-alt"></span></button>
+                                                <button class="btn btn-icon btn-link btn-primary btn-xs"><span
+                                                        class="fa fa-times"></span></button>
+                                            </div>
+                                        </div>
+                                        <p class="card-category">
+                                            Map of the distribution of users around the world</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="table-responsive table-hover table-sales">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="flag">
+                                                                        <img src="assets/img/flags/id.png"
+                                                                             alt="indonesia">
+                                                                    </div>
+                                                                </td>
+                                                                <td>Indonesia</td>
+                                                                <td class="text-right">
+                                                                    2.320
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    42.18%
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="flag">
+                                                                        <img src="assets/img/flags/us.png"
+                                                                             alt="united states">
+                                                                    </div>
+                                                                </td>
+                                                                <td>USA</td>
+                                                                <td class="text-right">
+                                                                    240
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    4.36%
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="flag">
+                                                                        <img src="assets/img/flags/au.png"
+                                                                             alt="australia">
+                                                                    </div>
+                                                                </td>
+                                                                <td>Australia</td>
+                                                                <td class="text-right">
+                                                                    119
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    2.16%
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="flag">
+                                                                        <img src="assets/img/flags/ru.png" alt="russia">
+                                                                    </div>
+                                                                </td>
+                                                                <td>Russia</td>
+                                                                <td class="text-right">
+                                                                    1.081
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    19.65%
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="flag">
+                                                                        <img src="assets/img/flags/cn.png" alt="china">
+                                                                    </div>
+                                                                </td>
+                                                                <td>China</td>
+                                                                <td class="text-right">
+                                                                    1.100
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    20%
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="flag">
+                                                                        <img src="assets/img/flags/br.png" alt="brazil">
+                                                                    </div>
+                                                                </td>
+                                                                <td>Brasil</td>
+                                                                <td class="text-right">
+                                                                    640
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    11.63%
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mapcontainer">
+                                                    <div id="map-example" class="vmap"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </d
                         </div>
                         <div class="row">
                             <div class="col-md-4">
@@ -698,9 +852,9 @@ Users user = (Users) session.getAttribute("user");
     <!-- Bootstrap Toggle -->
     <script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 
-    <!--	 jQuery Vector Maps 
+<!--    	 jQuery Vector Maps -->
             <script src="assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
-            <script src="assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+            <script src="assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script><!--
     
              Google Maps Plugin 
             <script src="assets/js/plugin/gmaps/gmaps.js"></script>-->
