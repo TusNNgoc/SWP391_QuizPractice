@@ -23,6 +23,7 @@ public class Quiz {
     private String quiz_name;
     private Users creator_id;
     private Courses course_id;
+    private String quiz_content;
     
 }
 

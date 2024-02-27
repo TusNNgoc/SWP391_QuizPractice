@@ -91,12 +91,18 @@ public class SignInController extends HttpServlet {
         if (username == null || pass == null) {
             if (action.equalsIgnoreCase("course")) {
                 Users userAuthenticate = ud.authenticate(username_session, pass_session);
-                request.setAttribute("user", userAuthenticate);
+                session.setAttribute("user", userAuthenticate);
                 request.getRequestDispatcher("teacher").forward(request, response);
-            } else if (action.equalsIgnoreCase("quiz")) {
+            } 
+            if (action.equalsIgnoreCase("quiz")) {
                 Users userAuthenticate = ud.authenticate(username_session, pass_session);
-                request.setAttribute("user", userAuthenticate);
+                session.setAttribute("user", userAuthenticate);
                 request.getRequestDispatcher("quiz").forward(request, response);
+            } 
+            if(action.equalsIgnoreCase("question")){
+                Users userAuthenticate = ud.authenticate(username_session, pass_session);
+                session.setAttribute("user", userAuthenticate);
+                request.getRequestDispatcher("question").forward(request, response);
             }
 
         } else {

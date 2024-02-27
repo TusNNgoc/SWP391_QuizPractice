@@ -4,6 +4,8 @@
  */
 package controller;
 
+import dao.QuizDAO;
+import entity.Quiz;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  *
@@ -36,7 +39,7 @@ public class QuizController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizController</title>");            
+            out.println("<title>Servlet QuizController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet QuizController at " + request.getContextPath() + "</h1>");
@@ -57,7 +60,12 @@ public class QuizController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        QuizDAO qd = new QuizDAO();
+        Quiz quiz = Quiz.builder().build();
+        List<Quiz> listQuiz = qd.getAllQuiz();
+        request.setAttribute("listQuiz", listQuiz);
+        request.getRequestDispatcher("teacher/customer.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +79,24 @@ public class QuizController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        processRequest(request, response);
+        String action = request.getParameter("action");
+        String quizName = request.getParameter("quizName");
+       int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+        String quizContent = request.getParameter("quizContent");
         
+        QuizDAO qd = new QuizDAO();
+
+        if (action.equals("update")) {
+            if(qd.updateQuizById(quizName, quizContent, quiz_id)){
+                doGet(request, response);
+            }else{
+                request.getRequestDispatcher("Home.jsp").forward(request, response);
+            }
+//            PrintWriter out = response.getWriter();
+//            out.println(quizName + quiz_id + quizContent);
+        }
+
     }
 
     /**

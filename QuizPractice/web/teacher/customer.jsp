@@ -11,7 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="teacher/css/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -43,30 +43,30 @@
         <!-- Sidebar menu-->
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar">
-            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="admin/images/user.png" width="50px"
+            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="teacher/images/user.png" width="50px"
                                                 alt="User Image">
                 <div>
-                    <p class="app-sidebar__user-name"><b>${sessionScope.user.user_name}</b></p>
+                    <p class="app-sidebar__user-name"><b>${user.getFullname()}</b></p>
                     <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
                 </div>
             </div>
             <hr>
             <ul class="app-menu">
-                <li><a class="app-menu__item" href="dashboard"><i class='app-menu__icon bx bx-tachometer'></i><span
-                            class="app-menu__label">Bảng điều khiển</span></a></li>
-                <li><a class="app-menu__item" href="customermanager"><i class='app-menu__icon bx bx-user-voice'></i><span
-                            class="app-menu__label">Quản lý khách hàng</span></a></li>
+                <li><a class="app-menu__item" href="signin?action=course"><i class='app-menu__icon bx bx-tachometer'></i><span
+                            class="app-menu__label">Quản lý Course</span></a></li>
+                <li><a class="app-menu__item" href="signin?action=quiz"><i class='app-menu__icon bx bx-user-voice'></i><span
+                            class="app-menu__label">Quản lý Quiz</span></a></li>
                 <li><a class="app-menu__item" href="productmanager"><i
                             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
                 </li>
                 <li><a class="app-menu__item" href="ordermanager"><i class='app-menu__icon bx bx-task'></i><span
-                            class="app-menu__label">Quản lý đơn hàng</span></a></li>
+                            class="app-menu__label">Quản lý Question</span></a></li>
             </ul>
         </aside>
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách người dùng</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách Quiz</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -87,24 +87,25 @@
                                    id="sampleTable">
                                 <thead>
                                     <tr>
-                                        <th>ID khách hàng</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Email</th>
-                                        <th>isAdmin</th>
+                                        <th>Quiz Name</th>
+                                        <th>Quiz Content</th>
+                                        <th>Belong to Course</th>
+
                                         <th width="70">Tính năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${user}" var="u">
+                                    <c:forEach items="${listQuiz}" var="q">
                                         <tr>
-                                            <td>${u.user_id}</td>
-                                            <td>${u.user_name}</td>
-                                            <td>${u.user_email}</td>
-                                            <td>${u.isAdmin}</td>
+                                            <td>${q.quiz_name}</td>
+                                            <td>${q.quiz_content}</td>
+                                            <td>${q.course_id.course_name}</td>
+
                                             <td><button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                                        data-target="#ModalUP${u.user_id}"><i class="fas fa-edit"></i></button></td>
+                                                        data-target="#ModalUP${q.quiz_id}"><i class="fas fa-edit"></i></button></td>
                                         </tr>
                                     </c:forEach>
+
                                 </tbody>
                             </table>
 
@@ -112,51 +113,58 @@
                     </div>
                 </div>
             </div>
-        </main>
-        <c:forEach items="${user}" var="u">           
-            <div class="modal fade" id="ModalUP${u.user_id}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-                 data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <form method="POST" action="customermanager?action=update">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="form-group  col-md-12">
-                                        <span class="thong-tin-thanh-toan">
-                                            <h5>Thêm Làm quản trị viên</h5>
-                                        </span>
+
+            <!-- Modal -->
+            <c:forEach items="${listQuiz}" var="q">
+                <div class="modal fade" id="ModalUP${q.quiz_id}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form method="POST" action="quiz?action=update&quiz_id=${q.quiz_id}">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">  
+                                            <h5>Update Information</h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleSelect1" class="control-label">Quyền quản trị</label>
-                                        <input hidden name="user_id" value="${u.user_id}">
-                                        <select name="permission" class="form-control" id="exampleSelect1">
-                                            <option value="True">Cho phép</option>
-                                            <option value="False">Hủy bỏ</option>
-                                        </select>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleSelect1" class="control-label">Quiz Name</label>
+
+                                            <input type="text" class="form-control" id="quizName" name="quizName" placeholder="Enter Quiz Name">
+                                        </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleSelect1" class="control-label">Quiz Content</label>
+
+                                            <input type="text" class="form-control" id="quizContent" name="quizContent" placeholder="Enter Quiz Content">
+                                        </div>
+                                    </div>
+
+                                    
+
+                                    <button class="btn btn-save" type="submit">Lưu lại</button>
+                                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
                                 </div>
-                                <BR>
-                                <button class="btn btn-save" type="submit">Lưu lại</button>
-                                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                                <BR>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
+                            </form>
+                            <div class="modal-footer"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+
+        </main>
+
         <!-- Essential javascripts for application to work-->
-        <script src="admin/js/jquery-3.2.1.min.js"></script>
-        <script src="admin/js/popper.min.js"></script>
-        <script src="admin/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="admin/js/main.js"></script>
+        <script src="teacher/js/jquery-3.2.1.min.js"></script>
+        <script src="teacher/js/popper.min.js"></script>
+        <script src="teacher/js/bootstrap.min.js"></script>
+        <script src="/ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="teacher/js/main.js"></script>
         <!-- The javascript plugin to display page loading on top-->
-        <script src="admin/js/plugins/pace.min.js"></script>
+        <script src="teacher/js/plugins/pace.min.js"></script>
         <!-- Page specific javascripts-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <!-- Data table plugin-->
@@ -164,25 +172,57 @@
         <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
         <script>
+
             function deleteRow(r) {
                 var i = r.parentNode.parentNode.rowIndex;
                 document.getElementById("myTable").deleteRow(i);
             }
-            jQuery(function () {
-                jQuery(".trash").click(function () {
+//            jQuery(function () {
+//                jQuery(".trash").click(function () {
+//                    swal({
+//                        title: "Cảnh báo",
+//
+//                        text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
+//                        buttons: ["Hủy bỏ", "Đồng ý"],
+//                    })
+//                            .then((willDelete) => {
+//                                if (willDelete) {
+//                                    swal("Đã xóa thành công.!", {
+//
+//                                    });
+//                                }
+//                            });
+//                });
+//            });
+//            jQuery(function () {
+//                jQuery(".trash").click(function () {
+//                    swal({
+//                        title: "Cảnh báo",
+//                        text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
+//                        buttons: ["Hủy bỏ", "Đồng ý"],
+//                    }).then((willDelete) => {
+//                        if (willDelete) {
+//                            swal("Đã xóa thành công.!", {});
+//                        }
+//                    });
+//                });
+//            });
+            $(document).ready(function () {
+                $(".edit").click(function () {
+                    var modalId = $(this).data("target");
+                    $(modalId).modal("show");
+                });
+
+                $(".trash").click(function () {
                     swal({
                         title: "Cảnh báo",
-
                         text: "Bạn có chắc chắn là muốn xóa nhân viên này?",
                         buttons: ["Hủy bỏ", "Đồng ý"],
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    swal("Đã xóa thành công.!", {
-
-                                    });
-                                }
-                            });
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            swal("Đã xóa thành công.!", {});
+                        }
+                    });
                 });
             });
 

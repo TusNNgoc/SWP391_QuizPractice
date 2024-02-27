@@ -48,26 +48,15 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
         </group>
         <group>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/forgotpassword.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/ValidateController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/META-INF/context.xml</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/ChangePassword.java</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/LogoutController.java</file>
             <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/TeacherController.java</file>
             <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/entity/Courses.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/ForgetPassword.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacherhome.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/signup_signin.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/CourseController.java</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/index.jsp</file>
             <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/SignInController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/LogoutController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/signup.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/SendEmailReset.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/SignUpController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher_profile.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/signupOfficial.jsp</file>
             <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/CoursesDAO.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/signinOfficial.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/quiz_home.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/css/main.css</file>
         </group>
     </open-files>
 </project-private>
