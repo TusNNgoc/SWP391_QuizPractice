@@ -122,6 +122,7 @@ public class TeacherDAO {
         }
         return list;
     }
+
     public List<Type> getAllType() {
         List<Type> list = new ArrayList<>();
         try {
@@ -150,6 +151,7 @@ public class TeacherDAO {
         }
         return list;
     }
+
     public int getNewestQuizId() {
         int id = 0;
         try {
@@ -163,7 +165,7 @@ public class TeacherDAO {
                 rs = ps.executeQuery();
                 //if rs has value
                 while (rs.next()) {
-                    id=rs.getInt(1);
+                    id = rs.getInt(1);
                 }
                 // Close resources
                 rs.close();
@@ -178,14 +180,85 @@ public class TeacherDAO {
         return id;
     }
 
+    public int getNewestQuestionId() {
+        int id = 0;
+        try {
+            try (Connection con = MySQLConnection.getConnection()) {
+
+                // SQL query to check if a service exists with the given parameters and is not valid
+                String sql = "SELECT MAX(question_id) FROM question;";
+                // Create a prepared statement
+                ps = con.prepareStatement(sql);
+                // Execute the query
+                rs = ps.executeQuery();
+                //if rs has value
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+                // Close resources
+                rs.close();
+                ps.close();
+                // No matching autoPartID found                
+            }
+        } catch (SQLException e) {
+            // Handle any errors that may occur
+            e.printStackTrace();
+            // Handle the error here and return false or throw an exception
+        }
+        return id;
+    }
+
+    public void addAnswer(String answer_text, String question_id, boolean isCorrect) {
+        try {
+            try (Connection con = MySQLConnection.getConnection()) {
+                String sql = "INSERT INTO answer (question_id, answer_text, is_correct)\n"
+                        + " VALUES (?,?,?);";
+                ps = con.prepareStatement(sql);
+                ps.setString(1, question_id);
+                ps.setString(2, answer_text);
+                ps.setBoolean(3, isCorrect);
+                ps.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Message: " + e.getMessage());
+        }
+    }
+
+    public Quiz getQuizByID(String quizID) {
+    Quiz list = new Quiz();
+        String query = "SELECT quiz_id, quiz_name, course.course_id, course_name from quiz INNER JOIN course\n"
+                + "ON quiz.course_id = course.course_id\n"
+                + "where quiz_id = ?;";
+        try {
+            try (Connection con = MySQLConnection.getConnection()) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, quizID);
+                rs = ps.executeQuery();                
+                while (rs.next()) {
+                    Courses c = new Courses(rs.getInt("course_id"),rs.getString("course_name"));
+                    Quiz a = new Quiz(rs.getInt(1),
+                            rs.getString(2),
+                            c);
+                    list = a;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         TeacherDAO test = new TeacherDAO();
 //        if(test.isQuizIdExist("2")) System.out.println("Existed");
 //        else System.out.println("Not existed");
 //        test.createQuiz("2", "Test", 46);
 //        test.addQuestion("123", "1", "1");
-//        System.out.println(test.getAllCourseName());
+        System.out.println(test.getAllCourseName());
 //        System.out.println(test.getNewestQuizId());
 //        System.out.println(test.getAllType());
+//            test.addAnswer("123", "13", true);
+        System.out.println(test.getQuizByID("5"));
     }
 }

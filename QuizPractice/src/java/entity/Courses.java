@@ -33,6 +33,11 @@ public class Courses {
         this.course_name = course_name;
         this.student_id = student_id;
     }
+
+    public Courses(int course_id, String course_name) {
+        this.course_id = course_id;
+        this.course_name = course_name;
+    }
     
     
 }

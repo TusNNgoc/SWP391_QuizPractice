@@ -5,6 +5,7 @@
 package controller;
 
 import dao.TeacherDAO;
+import entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -67,13 +68,21 @@ public class QuizCRUD extends HttpServlet {
             List courseList = dao.getAllCourseName();
             request.setAttribute("courseList", courseList);
             request.getRequestDispatcher("/createquiz.jsp").forward(request, response);
-        } else if("addquestion".equals(action)){
+        } else if ("addquestion".equals(action)) {
             String quizid = request.getParameter("quizid");
             List typeList = dao.getAllType();
-            request.setAttribute(action, dao);
+            request.setAttribute("questiontext", null);
+            request.setAttribute("gettype", null);
             request.setAttribute("quizid", quizid);
             request.setAttribute("typeList", typeList);
             request.getRequestDispatcher("/createquestion.jsp").forward(request, response);
+        } else if ("updatequiz".equals(action)) {
+            String quizid = request.getParameter("quizid");
+            Quiz quiz = dao.getQuizByID(quizid);
+            List courseList = dao.getAllCourseName();
+            request.setAttribute("courseList", courseList);
+            request.setAttribute("quiz", quiz);
+            request.getRequestDispatcher("/UpdateQuiz.jsp").forward(request, response);
         }
     }
 
@@ -93,12 +102,39 @@ public class QuizCRUD extends HttpServlet {
         if ("add".equals(action)) {
             String quizname = request.getParameter("quizname");
             String courseid = request.getParameter("courseid");
-            int creatorid=51;
-                dao.createQuiz(courseid, quizname, creatorid);
-                int id = dao.getNewestQuizId();
-                response.sendRedirect("/QuizPractice/quizcrud?action=addquestion&quizid="+id);
-        }else if("addquestion".equals(action)){
-            
+            int creatorid = 52;
+            dao.createQuiz(courseid, quizname, creatorid);
+            int id = dao.getNewestQuizId();
+            response.sendRedirect("/QuizPractice/quizcrud?action=addquestion&quizid=" + id);
+        } else if ("addquestion".equals(action)) {
+            String question = request.getParameter("question");
+            String type = request.getParameter("typelist");
+            String quizid = request.getParameter("quizid");
+            dao.addQuestion(question, quizid, type);
+            List typeList = dao.getAllType();
+            request.setAttribute("quizid", quizid);
+            request.setAttribute("questionid", dao.getNewestQuestionId());
+            request.setAttribute("typeList", typeList);
+            request.setAttribute("gettype", type);
+            request.setAttribute("questiontext", question);
+            request.getRequestDispatcher("/createquestion.jsp").forward(request, response);
+        } else if ("addanswer".equals(action)) {
+            String rightanswer = request.getParameter("rightanswer");
+            String wronganswer1 = request.getParameter("wronganswer1");
+            String wronganswer2 = request.getParameter("wronganswer2");
+            String wronganswer3 = request.getParameter("wronganswer3");
+            String questionid = request.getParameter("questionid");
+            String quizid = request.getParameter("quizid");
+            dao.addAnswer(rightanswer, questionid, true);
+            dao.addAnswer(wronganswer1, questionid, false);
+            dao.addAnswer(wronganswer2, questionid, false);
+            dao.addAnswer(wronganswer3, questionid, false);
+            List typeList = dao.getAllType();
+            request.setAttribute("questiontext", null);
+            request.setAttribute("gettype", null);
+            request.setAttribute("quizid", quizid);
+            request.setAttribute("typeList", typeList);
+            request.getRequestDispatcher("/createquestion.jsp").forward(request, response);
         }
     }
 

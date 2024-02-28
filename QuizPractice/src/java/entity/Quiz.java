@@ -25,11 +25,18 @@ import lombok.ToString;
 public class Quiz {
     private int quiz_id;
     private String quiz_name;
-    private String contentQuiz;
+    private Courses CourseID;
     private Users creator_id;
+    
 
     public Quiz(int quiz_id) {
         this.quiz_id = quiz_id;
+    }
+
+    public Quiz(int quiz_id,String quiz_name, Courses CourseID) {
+        this.quiz_id = quiz_id;
+        this.quiz_name = quiz_name;
+        this.CourseID = CourseID;
     }
     
     
