@@ -5,6 +5,7 @@
 package controller;
 
 import dao.TeacherDAO;
+import entity.Courses;
 import entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,10 +80,20 @@ public class QuizCRUD extends HttpServlet {
         } else if ("updatequiz".equals(action)) {
             String quizid = request.getParameter("quizid");
             Quiz quiz = dao.getQuizByID(quizid);
-            List courseList = dao.getAllCourseName();
+            List<Courses> courseList = dao.getAllCourseName();
             request.setAttribute("courseList", courseList);
             request.setAttribute("quiz", quiz);
+            request.setAttribute("quizid", quizid);
             request.getRequestDispatcher("/UpdateQuiz.jsp").forward(request, response);
+        } else if ("partdel".equals(action)) {
+            String id = request.getParameter("autoPartID");
+//            dao.delete2(id, formattedDate, user);
+            request.getSession().setAttribute("deleteSuccess", true);
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("var deleteSuccess = 'true';"); // Simulate delete success
+            out.println("</script>");
+            response.sendRedirect("autopart");
         }
     }
 
@@ -100,8 +111,8 @@ public class QuizCRUD extends HttpServlet {
         TeacherDAO dao = new TeacherDAO();
         String action = request.getParameter("action");
         if ("add".equals(action)) {
-            String quizname = request.getParameter("quizname");
-            String courseid = request.getParameter("courseid");
+            String courseid = request.getParameter("coursename");
+            String quizname = request.getParameter("quizname");          
             int creatorid = 52;
             dao.createQuiz(courseid, quizname, creatorid);
             int id = dao.getNewestQuizId();
@@ -135,6 +146,13 @@ public class QuizCRUD extends HttpServlet {
             request.setAttribute("quizid", quizid);
             request.setAttribute("typeList", typeList);
             request.getRequestDispatcher("/createquestion.jsp").forward(request, response);
+        } else if("updatequiz".equals(action)){
+            String quizname = request.getParameter("quizname");
+            String courseid = request.getParameter("coursename");
+            String quizid = request.getParameter("quizid");
+            System.out.println(quizid + courseid + quizname);
+            dao.updateQuiz(quizid, quizname, courseid);
+            response.sendRedirect("/QuizPractice");
         }
     }
 

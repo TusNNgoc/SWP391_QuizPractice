@@ -33,7 +33,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-light" style="margin-right: -60%">Tạo</button>
-                    <a href="/autopart" class="btn btn-light float-right" style="text-decoration: none;" role="button" aria-pressed="true"><span style="text-decoration: none;">Hủy</span></a>
+                    <a href="/" class="btn btn-light float-right" style="text-decoration: none;" role="button" aria-pressed="true"><span style="text-decoration: none;">Hủy</span></a>
                 </div>
                 <!-- send input action to servlet to know what action need -->
                 <input type="hidden" name="action" value="add"/>

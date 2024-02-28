@@ -237,10 +237,9 @@ public class TeacherDAO {
                 rs = ps.executeQuery();                
                 while (rs.next()) {
                     Courses c = new Courses(rs.getInt("course_id"),rs.getString("course_name"));
-                    Quiz a = new Quiz(rs.getInt(1),
+                    list = new Quiz(rs.getInt(1),
                             rs.getString(2),
                             c);
-                    list = a;
                 }
             }
         } catch (Exception e) {
@@ -248,7 +247,25 @@ public class TeacherDAO {
         }
         return list;
     }
-
+    public void updateQuiz(String quiz_id, String quiz_name, String course_id){
+        String query = "Update quiz\n"
+                + "Set quiz_name=? ,course_id=?\n"
+                + "where quiz_id = ?;";
+        try {
+            try (Connection con = MySQLConnection.getConnection()) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, quiz_name);
+                ps.setString(2, course_id);
+                ps.setString(3, quiz_id);
+                ps.executeUpdate();                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void deleteAnswer(String AnswerID){
+        
+    }
     public static void main(String[] args) {
         TeacherDAO test = new TeacherDAO();
 //        if(test.isQuizIdExist("2")) System.out.println("Existed");
@@ -260,5 +277,6 @@ public class TeacherDAO {
 //        System.out.println(test.getAllType());
 //            test.addAnswer("123", "13", true);
         System.out.println(test.getQuizByID("5"));
+        test.updateQuiz("13", "updated name", "1");
     }
 }
