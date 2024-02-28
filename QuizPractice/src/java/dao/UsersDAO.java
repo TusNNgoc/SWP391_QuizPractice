@@ -169,7 +169,48 @@ public class UsersDAO {
         return null;
     }
 
+//       public boolean updateUser (String fullname, String username, String email, String curpass, String newpass){
+//           String sql = "UPDATE users \n"
+//                + "SET fullname = ?, username = ?, email = ?, curpass = ?, newpass=?\n"
+//                + "WHERE  = ?;";
+//        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+//            ps.setString(1, quizName);
+//            ps.setString(2, quizContent);
+//            ps.setInt(3, quiz_id);
+//            int affectedRows = ps.executeUpdate();
+//            if(affectedRows > 0){
+//                return true;
+//            }
+// 
+//        } catch (SQLException e) {
+//            e.printStackTrace(System.out);
+//        }
+//
+//        return false;
+//       }
+    
+       public boolean updateUser (String fullname, String username, String email, String curpass){
+           String sql = "UPDATE users \n"
+                + "SET fullname = ?, username = ?, email = ?, password=?\n"
+                + "WHERE  user_id = 20 ; ";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setString(1, fullname);
+            ps.setString(2, username);
+            ps.setString(3, email);
+            ps.setString(4, curpass);
+          
+            int affectedRows = ps.executeUpdate();
+            if(affectedRows > 0){
+                return true;
+            }
+ 
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+        return false;
+       }
     public static void main(String[] args) {
-        System.out.println(new UsersDAO().getSizeStudent());
+        System.out.println(new UsersDAO().updateUser("test","test", "test", "test"));
     }
 }

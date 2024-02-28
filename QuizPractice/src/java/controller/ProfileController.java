@@ -4,25 +4,23 @@
  */
 package controller;
 
-import dao.CoursesDAO;
 import dao.UsersDAO;
-import entity.Courses;
-import jakarta.servlet.RequestDispatcher;
+import entity.Users;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author -Pc-
  */
-public class TeacherController extends HttpServlet {
+@WebServlet(name = "ProfileController", urlPatterns = {"/profile"})
+public class ProfileController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class TeacherController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TeacherController</title>");
+            out.println("<title>Servlet ProfileController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TeacherController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProfileController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +60,17 @@ public class TeacherController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        HttpSession session = request.getSession();
+        String username_session = (String) session.getAttribute("username");
+        String pass_session = (String) session.getAttribute("pass");
+//        PrintWriter out = response.getWriter();
+//        out.println(username_session + pass_session);
+        UsersDAO ud = new UsersDAO();
+        Users userAuthenticate = ud.authenticate(username_session, pass_session);
+        session.setAttribute("user", userAuthenticate);
+      
+        
+        request.getRequestDispatcher("teacher/edit_profile.jsp").forward(request, response);
     }
 
     /**
@@ -76,32 +84,17 @@ public class TeacherController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        String action = request.getParameter("action");
-        
-        
-            CoursesDAO cd = new CoursesDAO();
-            UsersDAO ud = new UsersDAO();
-            int studentCount = ud.getSizeStudent();
-
-            List<Courses> courses = cd.getTotalCourses();
-            int coursesCount = courses.size();
-
-           
-            request.setAttribute("courses", courses);
-            session.setAttribute("coursesCount", coursesCount);
-            session.setAttribute("studentCount", studentCount);
-
-            request.getRequestDispatcher("teacher/index.jsp").forward(request, response);
+         HttpSession session = request.getSession();
+        UsersDAO ud = new UsersDAO();
+//        String username_session = (String) session.getAttribute("username");
+//        String pass_session = (String) session.getAttribute("pass");
        
-
-//        response.sendRedirect("teacher/index.jsp");
-//        RequestDispatcher dispatcher = null;
-//        dispatcher = request.getRequestDispatcher("teacherhome.jsp");
-//        dispatcher.forward(request, response);
+        
+        ud.updateUser("Nguyễn Văn Nam", "namvn ", "nguyennam@gmail.com", "nam12345");
+//         Users userAuthenticate = ud.authenticate(username_session, pass_session);
+//        session.setAttribute("user", userAuthenticate);
+        request.getRequestDispatcher("teacher/edit_profile.jsp").forward(request, response);
     }
-
 
     /**
      * Returns a short description of the servlet.

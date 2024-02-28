@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
-        <link rel="stylesheet" type="text/css" href="admin/css/main.css">
+        <link rel="stylesheet" type="text/css" href="teacher/css/main.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <!-- or -->
         <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -47,10 +47,10 @@
         <!-- Sidebar menu-->
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar">
-            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="admin/images/user.png" width="50px"
+            <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="teacher/images/user.png" width="50px"
                                                 alt="User Image">
                 <div>
-                    <p class="app-sidebar__user-name"><b>${sessionScope.user.user_name}</b></p>
+                    <p class="app-sidebar__user-name"><b>${user.fullname}</b></p>
                     <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
                 </div>
             </div>
@@ -70,7 +70,7 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách câu hỏi</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
@@ -92,25 +92,27 @@
                                 <table class="table table-hover table-bordered" id="sampleTable">
                                     <thead>
                                         <tr>
-                                            <th>Mã sản phẩm</th>
-                                            <th>Danh mục</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Giá</th>
+                                            <th>Mã câu hỏi</th>
+                                            <th>Nội dung câu hỏi</th>
+                                           <th>Belong to Quiz</th>
+<!--                                            <th>Giá</th>
                                             <th>Size</th>
                                             <th>Màu</th>
                                             <th>Thông tin</th>
                                             <th>Số lượng</th>
                                             <th>Ảnh</th>
-                                            <th>Chức năng</th>
+                                            <th>Chức năng</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${ProductData}" var="p">
+                                        <c:forEach items="${questions}" var="q">
                                             <tr>
-                                                <td>${p.product_id}</td>
-                                                <td>${p.cate.category_name}</td>
-                                                <td>${p.product_name}</td>
-                                                <td>${p.product_price}</td>
+                                                <td>${q.question_id}</td>
+                                                <td>${q.question_text}</td>
+                                                <td>${q.quiz_id.quiz_name}</td>
+                                                
+                                                
+                                                
                                                 <td>
                                                     <c:forEach items="${SizeData}" var="s">
                                                         <c:if test="${p.product_id==s.product_id}">
@@ -118,7 +120,7 @@
                                                         </c:if>
                                                     </c:forEach>
                                                 </td>
-
+ 
                                                 <td>
                                                     <c:forEach items="${ColorData}" var="c">
                                                         <c:if test="${p.product_id==c.product_id}">
@@ -237,18 +239,18 @@
 
 
         <!-- Essential javascripts for application to work-->
-        <script src="admin/js/jquery-3.2.1.min.js"></script>
-        <script src="admin/js/popper.min.js"></script>
-        <script src="admin/js/bootstrap.min.js"></script>
+        <script src="teacher/js/jquery-3.2.1.min.js"></script>
+        <script src="teacher/js/popper.min.js"></script>
+        <script src="teacher/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="admin/js/main.js"></script>
+        <script src="teacher/js/main.js"></script>
         <!-- The javascript plugin to display page loading on top-->
-        <script src="admin/js/plugins/pace.min.js"></script>
+        <script src="teacher/js/plugins/pace.min.js"></script>
         <!-- Page specific javascripts-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <!-- Data table plugin-->
-        <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="teacher/js/plugins/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="teacher/js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">
                                                                         $('#sampleTable').DataTable();
                                                                         //Thời Gian

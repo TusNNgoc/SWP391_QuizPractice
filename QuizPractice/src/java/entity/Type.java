@@ -5,10 +5,19 @@
  */
 package entity;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  *
- * @author HP
+ * @author DELL
  */
+@Builder
+@Getter
+@Setter
+@ToString
 public class Type {
     private int type_id;
     private String type_name;
