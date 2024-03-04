@@ -85,15 +85,21 @@ public class QuizCRUD extends HttpServlet {
             request.setAttribute("quiz", quiz);
             request.setAttribute("quizid", quizid);
             request.getRequestDispatcher("/UpdateQuiz.jsp").forward(request, response);
-        } else if ("partdel".equals(action)) {
+        } else if ("deletequiz".equals(action)) {
             String id = request.getParameter("autoPartID");
-//            dao.delete2(id, formattedDate, user);
+//            dao.deleteallanswer;
+//          dao.deleteallquestion
+//          dao.deletequiz
             request.getSession().setAttribute("deleteSuccess", true);
             PrintWriter out = response.getWriter();
             out.println("<script>");
             out.println("var deleteSuccess = 'true';"); // Simulate delete success
             out.println("</script>");
             response.sendRedirect("autopart");
+        } else if ("deleteanswer".equals(action)){
+            //deleteallanswer
+            //deletequestion
+            
         }
     }
 
