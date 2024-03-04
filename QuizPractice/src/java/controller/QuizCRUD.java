@@ -5,7 +5,9 @@
 package controller;
 
 import dao.TeacherDAO;
+import entity.Answer;
 import entity.Courses;
+import entity.Questions;
 import entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,8 +87,18 @@ public class QuizCRUD extends HttpServlet {
             request.setAttribute("quiz", quiz);
             request.setAttribute("quizid", quizid);
             request.getRequestDispatcher("/UpdateQuiz.jsp").forward(request, response);
-        } else if ("deletequiz".equals(action)) {
-            String id = request.getParameter("autoPartID");
+        }else if ("updatequestion".equals(action)){
+            String questionid = request.getParameter("questionid");
+            Questions question = dao.getQuestionByID(questionid);
+            List<Answer> answers = dao.getAnswerByQuestion(questionid);
+            List typeList = dao.getAllType();
+            request.setAttribute("gettype", "1");
+            request.setAttribute("typeList", typeList);
+            request.setAttribute("answers", answers);
+            request.setAttribute("question", question);
+            request.getRequestDispatcher("/UpdateQuestion.jsp").forward(request, response);
+        }else if ("deletequiz".equals(action)) {
+            String id = request.getParameter("quizid");
 //            dao.deleteallanswer;
 //          dao.deleteallquestion
 //          dao.deletequiz
@@ -96,7 +108,7 @@ public class QuizCRUD extends HttpServlet {
             out.println("var deleteSuccess = 'true';"); // Simulate delete success
             out.println("</script>");
             response.sendRedirect("autopart");
-        } else if ("deleteanswer".equals(action)){
+        } else if ("deletequestion".equals(action)){
             //deleteallanswer
             //deletequestion
             
@@ -160,6 +172,24 @@ public class QuizCRUD extends HttpServlet {
             System.out.println(quizid + courseid + quizname);
             dao.updateQuiz(quizid, quizname, courseid);
             response.sendRedirect("/QuizPractice");
+        } else if("updatequestion".equals(action)){
+            String question = request.getParameter("question");
+            String type = request.getParameter("typelist");
+            String rightanswer = request.getParameter("rightanswer");
+            String answerid0 = request.getParameter("answerid0");
+            String wronganswer1 = request.getParameter("wronganswer1");
+            String answerid1 = request.getParameter("answerid1");
+            String wronganswer2 = request.getParameter("wronganswer2");
+            String answerid2 = request.getParameter("answerid2");
+            String wronganswer3 = request.getParameter("wronganswer3");
+            String answerid3 = request.getParameter("answerid3");
+            String questionid = request.getParameter("questionid");
+            dao.updateQuestion(questionid, question, type);
+            dao.updateAnswer(answerid0, rightanswer);
+            dao.updateAnswer(answerid1, wronganswer1);
+            dao.updateAnswer(answerid2, wronganswer2);
+            dao.updateAnswer(answerid3, wronganswer3);
+            response.sendRedirect("signin?action=Quiz");
         }
     }
 

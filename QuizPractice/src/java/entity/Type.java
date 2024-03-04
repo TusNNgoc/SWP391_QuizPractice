@@ -25,5 +25,10 @@ import lombok.ToString;
 public class Type {
     private int type_id;
     private String type_name;
+
+    public Type(int type_id) {
+        this.type_id = type_id;
+    }
+    
 }
 
