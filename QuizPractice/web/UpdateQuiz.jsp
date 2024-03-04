@@ -92,7 +92,10 @@
                                                 <label for="quizname" class="form__label">Quiz Name</label>
                                                 <input type="text" class="form-control" id="quizname" name="quizname" value="${quiz.quiz_name}" required size="20"/>
                                             </div>
-
+                                            <div class="form-group">
+                                                <label for="quizcontent">Quiz Content</label>
+                                                <textarea class="form-control custom-size" id="quizcontent" name="quizcontent" rows="5" required></textarea>
+                                            </div>
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-light">Sửa</button>
                                                 <a href="signin?action=quiz" class="btn btn-light ml-2" style="text-decoration: none;">Hủy</a>

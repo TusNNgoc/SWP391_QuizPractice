@@ -27,15 +27,16 @@ public class TeacherDAO {
     public ResultSet rs = null;
     public String xSql = null;
 
-    public void createQuiz(String course_id, String quiz_name, int creator_id) {
+    public void createQuiz(String course_id, String quiz_name, int creator_id,String quiz_content) {
         try {
             try (Connection con = MySQLConnection.getConnection()) {
-                String sql = "INSERT INTO quiz (quiz_name, creator_id, course_id)\n"
-                        + " VALUES (?,?,?);";
+                String sql = "INSERT INTO quiz (quiz_name, creator_id, course_id, quiz_content)\n"
+                        + " VALUES (?,?,?,?);";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, quiz_name);
                 ps.setInt(2, creator_id);
                 ps.setString(3, course_id);
+                ps.setString(4, quiz_content);
                 ps.executeUpdate();
             }
         } catch (Exception e) {

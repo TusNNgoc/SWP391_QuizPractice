@@ -118,9 +118,10 @@ public class QuizCRUD extends HttpServlet {
         String action = request.getParameter("action");
         if ("add".equals(action)) {
             String courseid = request.getParameter("coursename");
-            String quizname = request.getParameter("quizname");          
+            String quizname = request.getParameter("quizname");
+            String quizcontent = request.getParameter("quizcontent");
             int creatorid = 52;
-            dao.createQuiz(courseid, quizname, creatorid);
+            dao.createQuiz(courseid, quizname, creatorid,quizcontent);
             int id = dao.getNewestQuizId();
             response.sendRedirect("/QuizPractice/quizcrud?action=addquestion&quizid=" + id);
         } else if ("addquestion".equals(action)) {
