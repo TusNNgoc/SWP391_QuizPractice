@@ -25,20 +25,26 @@ import lombok.ToString;
 public class Quiz {
     private int quiz_id;
     private String quiz_name;
-    private Courses CourseID;
     private Users creator_id;
+    private Courses course_id;
+    private String quiz_content;
     
-
-    public Quiz(int quiz_id) {
+        public Quiz(int quiz_id) {
         this.quiz_id = quiz_id;
     }
 
-    public Quiz(int quiz_id,String quiz_name, Courses CourseID) {
+    public Quiz(int quiz_id,String quiz_name, Courses course_id) {
         this.quiz_id = quiz_id;
         this.quiz_name = quiz_name;
-        this.CourseID = CourseID;
+        this.course_id = course_id;
     }
-    
+
+    public Quiz(int quiz_id, String quiz_name, Courses course_id, String quiz_content) {
+        this.quiz_id = quiz_id;
+        this.quiz_name = quiz_name;
+        this.course_id = course_id;
+        this.quiz_content = quiz_content;
+    }
     
 }
 

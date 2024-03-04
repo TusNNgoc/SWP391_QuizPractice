@@ -8,24 +8,27 @@ package dao;
 import connection.MySQLConnection;
 import entity.Users;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.lang.model.util.Types;
 
 /**
  *
  * @author HP
  */
 public class UsersDAO {
-    public int getSize() {
 
-        String mysql = "Select count(`user_id`) as `totalTeacher`  FROM `users` WHERE `role_id` = 1 and `account_actived` = 1;";
+    public int getSizeStudent() {
+
+        String mysql = "Select count(`user_id`) as `totalStudent`  FROM `users` WHERE `role_id` = 2 and  `account_actived` = 1;";
 
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(mysql);) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getInt("totalTeacher");
+            while (rs.next() ) {
+                return rs.getInt("totalStudent");
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -35,40 +38,41 @@ public class UsersDAO {
 
     public Users authenticate(String username, String pass) {
 
-        String sql = "SELECT u.username, u.email, u.fullname, u.nationality, u.address, u.gender, u.dob, u.phone, r.role_name \n"
+        String sql = "SELECT u.username, u.email, u.fullname, u.country, u.address, u.gender, u.dob, u.phone, r.role_name \n"
                 + "from `users` u join `role` r on u.role_id = r.role_id\n"
                 + "Where u.username = ? And u.password = ? AND account_actived = 1;";
-
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            String ePassword = PasswordEncrypt.hashPassword(pass);
             ps.setString(1, username);
             ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Users u = Users.builder()
                         .username(rs.getString("username"))
                         .email(rs.getString("email"))
                         .fullname(rs.getString("fullname"))
-                        .nationality(rs.getString("nationality"))
+                        .roleName(rs.getString("role_name"))
+                        .country(rs.getString("country"))
                         .address(rs.getString("address"))
                         .gender(rs.getString("gender"))
                         .dob(rs.getDate("dob"))
                         .phone(rs.getString("phone"))
                         .build();
-                
+
                 return u;
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
+
         }
-   
-        
+
         return null;
     }
 
     public int register(Users user) {
         int generatedKey = 0;
-        String sql = "INSERT INTO users(username, password, role_id,email , account_actived)"
-                + " VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users(username, password, role_id, email , account_actived, country, address, gender, dob, phone, fullname)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
             // Thiết lập các tham số trong câu lệnh SQL
@@ -76,9 +80,24 @@ public class UsersDAO {
             ps.setString(2, user.getPassword());
             ps.setInt(3, user.getRole().getRole_id());
             ps.setString(4, user.getEmail());
-            
-
             ps.setInt(5, 1);
+            ps.setString(6, user.getCountry());
+            ps.setString(7, user.getAddress());
+            ps.setString(8, user.getGender());
+
+            //NOTE:::::::::
+//            java.sql.Date sqlDate = new java.sql.Date(user.getDob().getTime());
+//            ps.setDate(9,  sqlDate);
+            java.util.Date dob = user.getDob();
+            if (dob != null) {
+                java.sql.Date sqlDate = new java.sql.Date(dob.getTime());
+                ps.setDate(9, sqlDate);
+            } else {
+                ;
+            }
+
+            ps.setString(10, user.getPhone());
+            ps.setString(11, user.getFullname());
 
             // Thực hiện câu lệnh SQL
             int affectedRows = ps.executeUpdate();
@@ -93,7 +112,7 @@ public class UsersDAO {
                         return generatedKey;
                     } else {
                         System.out.println("nothing in here");
-                        return -1;
+                        return -3;
                     }
 
                 } catch (SQLException e) {
@@ -150,8 +169,48 @@ public class UsersDAO {
         return null;
     }
 
+//       public boolean updateUser (String fullname, String username, String email, String curpass, String newpass){
+//           String sql = "UPDATE users \n"
+//                + "SET fullname = ?, username = ?, email = ?, curpass = ?, newpass=?\n"
+//                + "WHERE  = ?;";
+//        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+//            ps.setString(1, quizName);
+//            ps.setString(2, quizContent);
+//            ps.setInt(3, quiz_id);
+//            int affectedRows = ps.executeUpdate();
+//            if(affectedRows > 0){
+//                return true;
+//            }
+// 
+//        } catch (SQLException e) {
+//            e.printStackTrace(System.out);
+//        }
+//
+//        return false;
+//       }
+    
+       public boolean updateUser (String fullname, String username, String email, String curpass){
+           String sql = "UPDATE users \n"
+                + "SET fullname = ?, username = ?, email = ?, password=?\n"
+                + "WHERE  user_id = 20 ; ";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setString(1, fullname);
+            ps.setString(2, username);
+            ps.setString(3, email);
+            ps.setString(4, curpass);
+          
+            int affectedRows = ps.executeUpdate();
+            if(affectedRows > 0){
+                return true;
+            }
+ 
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+        return false;
+       }
     public static void main(String[] args) {
-        System.out.println(new UsersDAO().getSize());
+        System.out.println(new UsersDAO().updateUser("test","test", "test", "test"));
     }
 }
-

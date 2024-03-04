@@ -23,7 +23,7 @@
                 <span>or use your email for registration</span>
                 <input type="text" id="username" name="username" placeholder="User Name"  autofocus="" required />
                 <input type="email" id="email" name="email" placeholder="Email" />
-                <input type="text" id="fullname" name="fullname" placeholder="Fullname" />
+                <input type="date" id="fullname" name="fullname" placeholder="Fullname" />
                 <input type="password" id="pass" name="pass" placeholder="Password" required/>
                 <!-- Add additional input fields as needed -->
                 <label>

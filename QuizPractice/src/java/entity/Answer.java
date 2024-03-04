@@ -5,10 +5,8 @@
  */
 package entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,16 +17,11 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString
 public class Answer {
     private int answer_id;
     private Questions question_id;
     private String answer_text;
-    private boolean is_correct;
-
-
-    
-    
+    private byte is_correct;
 }
 

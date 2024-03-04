@@ -6,12 +6,14 @@
 package controller;
 
 import dao.UsersDAO;
+import entity.Users;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -60,7 +62,7 @@ public class SignInController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -74,22 +76,67 @@ public class SignInController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         RequestDispatcher dispatcher = null;
 
         String username = request.getParameter("username");
         String pass = request.getParameter("pass");
-
+        String username_session = (String) session.getAttribute("username");
+        String pass_session = (String) session.getAttribute("pass");
+        String action = request.getParameter("action");
         UsersDAO ud = new UsersDAO();
 
-        if (ud.authenticate(username, pass) == null) {
-            request.setAttribute("err", "Wrong username or password ");
-            dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
-            dispatcher.forward(request, response);
+        PrintWriter out = response.getWriter();
+
+        if (username == null || pass == null) {
+            if (action.equalsIgnoreCase("course")) {
+                Users userAuthenticate = ud.authenticate(username_session, pass_session);
+                session.setAttribute("user", userAuthenticate);
+                request.getRequestDispatcher("teacher").forward(request, response);
+            } 
+            if (action.equalsIgnoreCase("quiz")) {
+                Users userAuthenticate = ud.authenticate(username_session, pass_session);
+                session.setAttribute("user", userAuthenticate);
+                request.getRequestDispatcher("quiz").forward(request, response);
+            } 
+            if(action.equalsIgnoreCase("question")){
+                Users userAuthenticate = ud.authenticate(username_session, pass_session);
+                session.setAttribute("user", userAuthenticate);
+                request.getRequestDispatcher("question").forward(request, response);
+            }
+
         } else {
-            request.setAttribute("err", "Please don't leave username or password blank");
-            dispatcher = request.getRequestDispatcher("Home.jsp");
-            dispatcher.forward(request, response);
+
+            if (ud.authenticate(username, pass) == null) {
+                request.setAttribute("err", "Wrong username or password ");
+                dispatcher = request.getRequestDispatcher("signinOfficial.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                Users userAuthenticate = ud.authenticate(username, pass);
+                if (userAuthenticate.getRoleName().equals("admin")) {
+                    // Xử lý cho admin
+                    session.setAttribute("user", userAuthenticate);
+                    request.getRequestDispatcher("teacherHome.jsp").forward(request, response);
+                }
+                if (userAuthenticate.getRoleName().equalsIgnoreCase("teacher")) {
+                    // Xử lý cho teacher
+                    session.setAttribute("user", userAuthenticate);
+                    session.setAttribute("username", username);
+                    session.setAttribute("pass", pass);
+
+//                request.getRequestDispatcher("teacherhome.jsp").forward(request, response);
+                    request.getRequestDispatcher("teacher").forward(request, response);
+                }
+                if (userAuthenticate.getRoleName().equals("student")) {
+                    // Xử lý cho student
+                    session.setAttribute("user", userAuthenticate);
+                    request.getRequestDispatcher("teacherHome.jsp").forward(request, response);
+                }
+
+//            request.setAttribute("err", "Please don't leave username or password blank");
+//            dispatcher = request.getRequestDispatcher("Home.jsp");
+//            dispatcher.forward(request, response);
+            }
         }
     }
 
@@ -104,4 +151,3 @@ public class SignInController extends HttpServlet {
     }// </editor-fold>
 
 }
-

@@ -16,7 +16,7 @@
           <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #e3f2fd;">
               
-              <a class="navbar-brand" href="index.html"><h4><i>Q</i>uiz</h4></a>
+              <a class="navbar-brand" href="teacherhome.jsp"><h4><i>Q</i>uiz</h4></a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -302,7 +302,7 @@
             I've used HTML, CSS, JavaScript, Bootstrap, Core Java, JSP and Java JDBC to create this website.
                
             <p><h6>My Email:</h6><a href="https://mail.google.com/mail/">group6_swp391@gmail.com</a></p>
-            <a href="index.html" class="btn btn-outline-primary">Back To Home</a>
+            <a href="teacherhome.jsp" class="btn btn-outline-primary">Back To Home</a>
           </div>
           </div>
         </div>
