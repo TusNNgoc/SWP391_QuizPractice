@@ -5,11 +5,14 @@
 package controller;
 
 import dao.CoursesDAO;
+import dao.UsersDAO;
+import entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -37,7 +40,7 @@ public class CourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseController</title>");            
+            out.println("<title>Servlet CourseController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CourseController at " + request.getContextPath() + "</h1>");
@@ -72,13 +75,29 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String course_name = request.getParameter("courseName");
-        String course_content = request.getParameter("courseDes");
-        
+        HttpSession session = request.getSession();
+        UsersDAO ud = new UsersDAO();
+        String course_name = request.getParameter("course_name");
+        String course_content = request.getParameter("course_content");
+        int status = Integer.parseInt(request.getParameter("status"));
+        String username = (String) session.getAttribute("username");
+        String pass = (String) session.getAttribute("pass");
+        String action = request.getParameter("action");
+        String course_id = request.getParameter("course_id");
+        Users u = ud.authenticate(username, pass);
+
         CoursesDAO cd = new CoursesDAO();
-        if(cd.insertCourse(course_name, course_content)){
-            request.getRequestDispatcher("teacher").forward(request, response);
+
+        if (action.equalsIgnoreCase("add")) {
+            if (cd.insertCourseByTeacher(course_name, u.getUser_id(), course_content, status)) {
+                request.getRequestDispatcher("teacher").forward(request, response);
+            }
         }
+        if (action.equalsIgnoreCase("edit")) {
+            PrintWriter out = response.getWriter();
+            out.println(course_name);
+        }
+
     }
 
     /**

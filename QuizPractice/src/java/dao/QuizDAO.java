@@ -43,13 +43,16 @@ public class QuizDAO {
         return null;
     }
 
-    public List<Quiz> getAllQuiz() {
-        String sql = "select * from quiz q join course c on c.course_id = q.course_id";
+    public List<Quiz> getQuizByCourseId(int course_id) {
+        String sql = "select * from quiz q join course c on c.course_id = q.course_id where q.course_id = ? ";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setInt(1, course_id);
             ResultSet rs = ps.executeQuery();
             List<Quiz> list = new ArrayList<>();
             while (rs.next()) {
-
+                
+    
+                
                 Courses course = Courses.builder().build();
                 course.setCourse_name(rs.getString("course_name"));
 

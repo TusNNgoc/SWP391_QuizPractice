@@ -80,60 +80,49 @@
                         <div class="tile-body">
                             <div class="row element-button">
                                 <div class="col-sm-2">
-                                    <a class="btn btn-add btn-sm" href="productmanager?action=insert" title="Thêm"><i class="fas fa-plus"></i>
-                                        Tạo mới sản phẩm</a>
+                                    <a class="btn btn-add btn-sm" href="teacher/addQuestion.jsp" title="Thêm"><i class="fas fa-plus" data-toggle="modal" data-target="#modalNewQuestion"></i>
+                                        Tạo mới câu hỏi</a>
                                 </div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
                                             class="fas fa-print"></i> In dữ liệu</a>
                                 </div>
                             </div>
+
+                            <input type="text" id="myInputTable" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
                             <form action="productmanager?action=updateproduct" method="POST">
                                 <table class="table table-hover table-bordered" id="sampleTable">
                                     <thead>
                                         <tr>
                                             <th>Mã câu hỏi</th>
                                             <th>Nội dung câu hỏi</th>
-                                           <th>Belong to Quiz</th>
-<!--                                            <th>Giá</th>
-                                            <th>Size</th>
-                                            <th>Màu</th>
-                                            <th>Thông tin</th>
-                                            <th>Số lượng</th>
-                                            <th>Ảnh</th>
-                                            <th>Chức năng</th>-->
+                                            <th>Belong to Quiz</th>
+                                            <!--                                            <th>Giá</th>
+                                                                                        <th>Size</th>
+                                                                                        <th>Màu</th>
+                                                                                        <th>Thông tin</th>
+                                                                                        <th>Số lượng</th>
+                                                                                        <th>Ảnh</th>
+                                                                                        <th>Chức năng</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${questions}" var="q">
                                             <tr>
                                                 <td>${q.question_id}</td>
-                                                <td>${q.question_text}</td>
+                                                <td><a href="answer?questionId=${q.question_id}">
+                                                        ${q.question_text}
+                                                    </a></td>
                                                 <td>${q.quiz_id.quiz_name}</td>
-                                                
-                                                
-                                                
-                                                <td>
-                                                    <c:forEach items="${SizeData}" var="s">
-                                                        <c:if test="${p.product_id==s.product_id}">
-                                                            ${s.size}   
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </td>
- 
-                                                <td>
-                                                    <c:forEach items="${ColorData}" var="c">
-                                                        <c:if test="${p.product_id==c.product_id}">
-                                                            ${c.color}   
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </td>
-                                                <td>${p.product_describe}</td>
-                                                <td>${p.quantity}</td>
-                                                <td><img src="${p.img}" alt="" width="100px;"></td>
+
+
 
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" value="${p.product_id}"><i
+
+                                                    <form id="deleteForm" action="question?action=delete" method="POST" style="display: none;">
+                                                        <input type="hidden" name="questionId" id="questionIdInput">
+                                                    </form>
+                                                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" value="${q.question_id}" onclick="submitForm('${q.question_id}')"><i
                                                             class="fas fa-trash-alt"></i>
                                                     </button>
                                                     <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
@@ -141,6 +130,11 @@
                                                     </button>
                                                 </td>
                                             </tr>
+
+
+
+
+
 
                                             <!--
                                             MODAL
@@ -234,24 +228,27 @@
                     </div>
                 </div>
             </div>
-        </main>
 
 
 
-        <!-- Essential javascripts for application to work-->
-        <script src="teacher/js/jquery-3.2.1.min.js"></script>
-        <script src="teacher/js/popper.min.js"></script>
-        <script src="teacher/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="teacher/js/main.js"></script>
-        <!-- The javascript plugin to display page loading on top-->
-        <script src="teacher/js/plugins/pace.min.js"></script>
-        <!-- Page specific javascripts-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-        <!-- Data table plugin-->
-        <script type="text/javascript" src="teacher/js/plugins/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="teacher/js/plugins/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript">
+
+
+            <!-- Essential javascripts for application to work-->
+            <script src="teacher/js/jquery-3.2.1.min.js"></script>
+            <script src="teacher/js/popper.min.js"></script>
+            <script src="teacher/js/bootstrap.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="teacher/js/main.js"></script>
+            <!-- The javascript plugin to display page loading on top-->
+            <script src="teacher/js/plugins/pace.min.js"></script>
+            <!-- Page specific javascripts-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+            <!-- Data table plugin-->
+            <script type="text/javascript" src="teacher/js/plugins/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="teacher/js/plugins/dataTables.bootstrap.min.js"></script>
+            <script type="text/javascript">
+
+
                                                                         $('#sampleTable').DataTable();
                                                                         //Thời Gian
                                                                         function time() {
@@ -293,37 +290,86 @@
                                                                                 return i;
                                                                             }
                                                                         }
-        </script>
-        <script>
+            </script>
+            <script>
 
-            $(document).ready(jQuery(function () {
-                jQuery(".trash").click(function () {
-                    swal({
-                        title: "Cảnh báo",
-                        text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                        buttons: ["Hủy bỏ", "Đồng ý"],
-                    })
-                            .then((willDelete) => {
-                                if (willDelete) {
-                                    window.location = "productmanager?action=deleteproduct&product_id=" + $(this).attr("value");
-                                    swal("Đã xóa thành công.!", {
-                                    });
-                                }
-                            });
-                });
-            }));
-        </script>
-        <script>
-            var myApp = new function () {
-                this.printTable = function () {
-                    var tab = document.getElementById('sampleTable');
-                    var win = window.open('', '', 'height=700,width=700');
-                    win.document.write(tab.outerHTML);
-                    win.document.close();
-                    win.print();
+                $(document).ready(jQuery(function () {
+                    jQuery(".trash").click(function () {
+                        swal({
+                            title: "Cảnh báo",
+                            text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+                            buttons: ["Hủy bỏ", "Đồng ý"],
+                        })
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        window.location = "productmanager?action=deleteproduct&product_id=" + $(this).attr("value");
+                                        swal("Đã xóa thành công.!", {
+                                        });
+                                    }
+                                });
+                    });
+                }));
+            </script>
+
+            <!-- SCRIPT CHO NÚT VIEW -->
+            <script>
+                function redirectToServlet(courseId) {
+                    // Chuyển hướng đến servlet với courseId
+                    window.location.href = 'quiz?courseId=' + courseId;
                 }
-            }
-        </script>
+            </script>
+            <script>
+                var myApp = new function () {
+                    this.printTable = function () {
+                        var tab = document.getElementById('sampleTable');
+                        var win = window.open('', '', 'height=700,width=700');
+                        win.document.write(tab.outerHTML);
+                        win.document.close();
+                        win.print();
+                    }
+                }
+            </script>
+
+            <script>
+                function submitForm(questionId) {
+                    // Thiết lập giá trị questionId trong input ẩn
+                    document.getElementById('questionIdInput').value = questionId;
+
+                    // Gửi biểu mẫu
+                    document.getElementById('deleteForm').submit();
+                }
+            </script>
+
+            <script>
+                function redirectToServlet(questionId) {
+                    // Chuyển hướng đến servlet với courseId
+                    window.location.href = 'question?questionId=' + questionId + '&action=delete';
+                }
+            </script>
+
+            <!-- SEARCH -->
+            <script>
+                function myFunction() {
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("myInputTable");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("sampleTable");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[1];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            </script>          
+
+
     </body>
 
 </html>

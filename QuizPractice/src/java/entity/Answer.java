@@ -22,6 +22,6 @@ public class Answer {
     private int answer_id;
     private Questions question_id;
     private String answer_text;
-    private byte is_correct;
+    private int is_correct;
 }
 

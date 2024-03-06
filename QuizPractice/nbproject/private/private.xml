@@ -47,16 +47,6 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/utils/Validators.java</file>
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
         </group>
-        <group>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/LogoutController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/TeacherController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/entity/Courses.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/CourseController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/index.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/SignInController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/CoursesDAO.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/css/main.css</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -83,16 +83,18 @@ public class TeacherController extends HttpServlet {
         
             CoursesDAO cd = new CoursesDAO();
             UsersDAO ud = new UsersDAO();
-            int studentCount = ud.getSizeStudent();
-
-            List<Courses> courses = cd.getTotalCourses();
+//            int studentCount = ud.getSizeStudent();
+            
+            String username =(String) session.getAttribute("username");
+            List<Courses> courses = cd.getCourseByTeacherName(username);
             int coursesCount = courses.size();
 
            
+
             request.setAttribute("courses", courses);
             session.setAttribute("coursesCount", coursesCount);
-            session.setAttribute("studentCount", studentCount);
-
+//            session.setAttribute("studentCount", studentCount);
+//
             request.getRequestDispatcher("teacher/index.jsp").forward(request, response);
        
 

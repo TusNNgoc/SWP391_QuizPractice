@@ -23,6 +23,14 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+        <!-- DataTables JavaScript -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+
     </head>
 
     <body onload="time()" class="app sidebar-mini rtl">
@@ -70,7 +78,7 @@
                 </ul>
                 <div id="clock"></div>
             </div>
-
+             
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
@@ -82,7 +90,7 @@
                                             class="fas fa-print"></i> In dữ liệu</a>
                                 </div>
                             </div>
-
+                            <input type="text" id="myInputTable" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
                             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
                                    id="sampleTable">
                                 <thead>
@@ -102,7 +110,12 @@
                                             <td>${q.course_id.course_name}</td>
 
                                             <td><button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                                        data-target="#ModalUP${q.quiz_id}"><i class="fas fa-edit"></i></button></td>
+                                                        data-target="#ModalUP${q.quiz_id}"><i class="fas fa-edit"></i></button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${q.quiz_id}" onclick="redirectToServlet('${q.quiz_id}')">
+                                                    <i class="fa fa-eye"></i> 
+                                                </button>
+
+                                            </td>
                                         </tr>
                                     </c:forEach>
 
@@ -143,7 +156,7 @@
                                         </div>
                                     </div>
 
-                                    
+
 
                                     <button class="btn btn-save" type="submit">Lưu lại</button>
                                     <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
@@ -171,6 +184,13 @@
         <script type="text/javascript" src="admin/js/plugins/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="admin/js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+        <script>
+            function redirectToServlet(quizId) {
+                // Chuyển hướng đến servlet với courseId
+                window.location.href = 'question?quizId=' + quizId ;
+            }
+        </script>
         <script>
 
             function deleteRow(r) {
@@ -278,6 +298,29 @@
             }
 
         </script>
+        
+        <!-- SEARCH -->
+        <script>
+                function myFunction() {
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("myInputTable");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("sampleTable");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            </script>          
+
     </body>
 
 </html>

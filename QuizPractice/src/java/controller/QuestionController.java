@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -39,7 +40,7 @@ public class QuestionController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuestionController</title>");            
+            out.println("<title>Servlet QuestionController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet QuestionController at " + request.getContextPath() + "</h1>");
@@ -60,11 +61,32 @@ public class QuestionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+
         QuestionsDAO questionDAO = new QuestionsDAO();
-        List<Questions> questions = questionDAO.getAllQuestion();
-        request.setAttribute("questions", questions);
-        request.getRequestDispatcher("teacher/product.jsp").forward(request, response);
+    
+        String quiz = request.getParameter("quizId");
+
+
+
+        if (quiz != null) {
+            int quiz_id = Integer.parseInt(quiz);
+
+            List<Questions> questions = questionDAO.getQuestionByQuizId(quiz_id);
+            request.setAttribute("questions", questions);
+
+            session.setAttribute("quizId", quiz_id);
+            request.getRequestDispatcher("teacher/product.jsp").forward(request, response);
+        }
+        else{
+            int quizId = (int) session.getAttribute("quizId");
+            List<Questions> questions = questionDAO.getQuestionByQuizId(quizId);
+            request.setAttribute("questions", questions);
+           
+            request.getRequestDispatcher("teacher/product.jsp").forward(request, response);
+        }
+
     }
 
     /**
@@ -78,7 +100,28 @@ public class QuestionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+
+        if (action.equalsIgnoreCase("insert")) {
+            QuestionsDAO questionDAO = new QuestionsDAO();
+            int quizId = (int) session.getAttribute("quizId");
+            String question_content = request.getParameter("question_text");
+
+
+            if (questionDAO.insertQuestion(question_content, quizId)) {
+                doGet(request, response);
+            }
+
+//                request.getRequestDispatcher("Home.jsp").forward(request, response);
+        }
+        if(action.equalsIgnoreCase("delete")){
+            String question_id = request.getParameter("questionId");
+                          PrintWriter out = response.getWriter();
+            out.println(question_id);
+
+
+        }
     }
 
     /**
