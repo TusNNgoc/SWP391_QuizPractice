@@ -5,10 +5,8 @@
  */
 package entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,8 +17,6 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Quiz {
     private int quiz_id;
@@ -28,23 +24,6 @@ public class Quiz {
     private Users creator_id;
     private Courses course_id;
     private String quiz_content;
-    
-        public Quiz(int quiz_id) {
-        this.quiz_id = quiz_id;
-    }
-
-    public Quiz(int quiz_id,String quiz_name, Courses course_id) {
-        this.quiz_id = quiz_id;
-        this.quiz_name = quiz_name;
-        this.course_id = course_id;
-    }
-
-    public Quiz(int quiz_id, String quiz_name, Courses course_id, String quiz_content) {
-        this.quiz_id = quiz_id;
-        this.quiz_name = quiz_name;
-        this.course_id = course_id;
-        this.quiz_content = quiz_content;
-    }
     
 }
 

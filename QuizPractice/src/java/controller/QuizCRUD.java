@@ -82,12 +82,13 @@ public class QuizCRUD extends HttpServlet {
         } else if ("updatequiz".equals(action)) {
             String quizid = request.getParameter("quizid");
             Quiz quiz = dao.getQuizByID(quizid);
+            System.out.println(quiz);
             List<Courses> courseList = dao.getAllCourseName();
             request.setAttribute("courseList", courseList);
             request.setAttribute("quiz", quiz);
             request.setAttribute("quizid", quizid);
             request.getRequestDispatcher("/UpdateQuiz.jsp").forward(request, response);
-        }else if ("updatequestion".equals(action)){
+        } else if ("updatequestion".equals(action)){
             String questionid = request.getParameter("questionid");
             Questions question = dao.getQuestionByID(questionid);
             List<Answer> answers = dao.getAnswerByQuestion(questionid);
@@ -97,21 +98,6 @@ public class QuizCRUD extends HttpServlet {
             request.setAttribute("answers", answers);
             request.setAttribute("question", question);
             request.getRequestDispatcher("/UpdateQuestion.jsp").forward(request, response);
-        }else if ("deletequiz".equals(action)) {
-            String id = request.getParameter("quizid");
-//            dao.deleteallanswer;
-//          dao.deleteallquestion
-//          dao.deletequiz
-            request.getSession().setAttribute("deleteSuccess", true);
-            PrintWriter out = response.getWriter();
-            out.println("<script>");
-            out.println("var deleteSuccess = 'true';"); // Simulate delete success
-            out.println("</script>");
-            response.sendRedirect("autopart");
-        } else if ("deletequestion".equals(action)){
-            //deleteallanswer
-            //deletequestion
-            
         }
     }
 
@@ -169,9 +155,10 @@ public class QuizCRUD extends HttpServlet {
             String quizname = request.getParameter("quizname");
             String courseid = request.getParameter("coursename");
             String quizid = request.getParameter("quizid");
+            String quizcontent = request.getParameter("quizcontent");
             System.out.println(quizid + courseid + quizname);
-            dao.updateQuiz(quizid, quizname, courseid);
-            response.sendRedirect("/QuizPractice");
+            dao.updateQuiz(quizid, quizname, courseid, quizcontent);
+            response.sendRedirect("/QuizPractice/signin?action=Quiz");
         } else if("updatequestion".equals(action)){
             String question = request.getParameter("question");
             String type = request.getParameter("typelist");

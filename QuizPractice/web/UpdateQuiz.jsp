@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="quizcontent">Quiz Content</label>
-                                                <textarea class="form-control custom-size" id="quizcontent" name="quizcontent" rows="5" required></textarea>
+                                                <textarea class="form-control custom-size" id="quizcontent" name="quizcontent" rows="5" value="${quiz.quiz_content}" required></textarea>
                                             </div>
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-light">Sửa</button>

@@ -229,8 +229,8 @@ public class TeacherDAO {
     }
 
     public Quiz getQuizByID(String quizID) {
-        Quiz list = new Quiz();
-        String query = "SELECT quiz_id, quiz_name, course.course_id, course_name from quiz INNER JOIN course\n"
+        Quiz list = Quiz.builder().build();
+        String query = "SELECT quiz_id, quiz_name, quiz_content, course.course_id, course_name from quiz INNER JOIN course\n"
                 + "ON quiz.course_id = course.course_id\n"
                 + "where quiz_id = ?;";
         try {
@@ -240,9 +240,11 @@ public class TeacherDAO {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Courses c = new Courses(rs.getInt("course_id"), rs.getString("course_name"));
-                    list = new Quiz(rs.getInt(1),
-                            rs.getString(2),
-                            c);
+//                    list = new Quiz(rs.getInt("quiz_id"),rs.getString("quiz_name"),rs.getString("quiz_content"),c);
+                    list = Quiz.builder().quiz_id(rs.getInt("quiz_id"))
+                            .quiz_name(rs.getString("quiz_name"))
+                            .quiz_content(rs.getString("quiz_content"))
+                            .course_id(c).build();
                 }
             }
         } catch (Exception e) {
@@ -261,7 +263,7 @@ public class TeacherDAO {
                 ps.setString(1, questionID);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    Quiz c = new Quiz(rs.getInt("quiz_id"));
+                    Quiz c = Quiz.builder().quiz_id(rs.getInt("quiz_id")).build();
                     Type t = new Type(rs.getInt("type_id"));
                     list = new Questions(rs.getInt(1), t,
                             rs.getString(3),
@@ -299,16 +301,17 @@ public class TeacherDAO {
         return list;
     }
 
-    public void updateQuiz(String quiz_id, String quiz_name, String course_id) {
+    public void updateQuiz(String quiz_id, String quiz_name, String course_id, String quiz_content) {
         String query = "Update quiz\n"
-                + "Set quiz_name=? ,course_id=?\n"
+                + "Set quiz_name=? ,course_id=?, quiz_content=?\n"
                 + "where quiz_id = ?;";
         try {
             try (Connection con = MySQLConnection.getConnection()) {
                 ps = con.prepareStatement(query);
                 ps.setString(1, quiz_name);
                 ps.setString(2, course_id);
-                ps.setString(3, quiz_id);
+                ps.setString(3, quiz_content);
+                ps.setString(4, quiz_id);
                 ps.executeUpdate();
             }
         } catch (Exception e) {
@@ -395,14 +398,14 @@ public class TeacherDAO {
         List<Questions> list = new ArrayList<>();
         String query = "SELECT * FROM question "
                 + "WHERE quiz_id = ? ";
-
         try {
             try (Connection con = MySQLConnection.getConnection()) {
                 ps = con.prepareStatement(query);
                 ps.setString(1, quiz_id);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    Quiz c = new Quiz(rs.getInt("quiz_id"));
+//                    Quiz c = new Quiz(rs.getInt("quiz_id"));
+                    Quiz c = Quiz.builder().quiz_id(rs.getInt("quiz_id")).build();
                     Type t = new Type(rs.getByte("type_id"));
                     Questions q = new Questions(rs.getInt(1), t, rs.getString(3),
                             c);
@@ -425,10 +428,10 @@ public class TeacherDAO {
 //        System.out.println(test.getNewestQuizId());
 //        System.out.println(test.getAllType());
 //        test.addAnswer("123", "13", true);
-//        System.out.println(test.getQuizByID("5"));
+        System.out.println(test.getQuizByID("5"));
 //        test.updateQuiz("13", "updated name", "1");
 //        System.out.println(test.getQuestionByID("1"));
 //        System.out.println(test.getAnswerByQuestion("1"));
-        System.out.println(test.getQuestionByQuizID("2"));
+//        System.out.println(test.getQuestionByQuizID("2"));
     }
 }
