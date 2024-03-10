@@ -38,7 +38,7 @@ public class UsersDAO {
 
     public Users authenticate(String username, String pass) {
 
-        String sql = "SELECT u.username, u.email, u.fullname, u.country, u.address, u.gender, u.dob, u.phone, r.role_name \n"
+        String sql = "SELECT u.user_id, u.username, u.email, u.fullname, u.country, u.address, u.gender, u.dob, u.phone, r.role_name \n"
                 + "from `users` u join `role` r on u.role_id = r.role_id\n"
                 + "Where u.username = ? And u.password = ? AND account_actived = 1;";
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
@@ -48,6 +48,7 @@ public class UsersDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Users u = Users.builder()
+                        .user_id(rs.getInt("user_id"))
                         .username(rs.getString("username"))
                         .email(rs.getString("email"))
                         .fullname(rs.getString("fullname"))
@@ -192,7 +193,7 @@ public class UsersDAO {
        public boolean updateUser (String fullname, String username, String email, String curpass){
            String sql = "UPDATE users \n"
                 + "SET fullname = ?, username = ?, email = ?, password=?\n"
-                + "WHERE  user_id = 20 ; ";
+                + "WHERE  user_id = 42 ; ";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
             ps.setString(1, fullname);
             ps.setString(2, username);

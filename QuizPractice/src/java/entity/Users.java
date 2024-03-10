@@ -41,16 +41,12 @@ public class Users {
     private Date dob;
     private String phone;
 
-    public Users(int user_id, String password, String username, String email, boolean accountActived, Role role) {
-        this.user_id = user_id;
-        this.password = password;
-        this.username = username;
-        this.email = email;
-        this.accountActived = accountActived;
-        this.role = role;
-    }
-
-    public Users(int user_id) {
-        this.user_id = user_id;
-    }
+//    public Users(int user_id, String password, String username, String email, boolean accountActived, Role role) {
+//        this.user_id = user_id;
+//        this.password = password;
+//        this.username = username;
+//        this.email = email;
+//        this.accountActived = accountActived;
+//        this.role = role;
+//    }
 }

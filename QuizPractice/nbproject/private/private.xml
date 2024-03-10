@@ -48,16 +48,12 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/QuizPractice/QuizPractice/src/java/dao/PasswordDAO.java</file>
         </group>
         <group>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/createquestion.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/UpdateQuestion.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/UpdateQuiz.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/TeacherDAO.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/QuizCRUD.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/teacher/customer.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/entity/Quiz.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/createquiz.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/entity/Courses.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/entity/Questions.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/RoleController.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/web/role/ListRole.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/dao/RoleDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/dao/TeacherDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/controller/TeacherController.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/web/UpdateQuestion.jsp</file>
         </group>
     </open-files>
 </project-private>

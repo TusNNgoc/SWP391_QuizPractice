@@ -20,15 +20,17 @@ import java.util.List;
  */
 public class CoursesDAO {
 
-    public boolean insertCourse(String course_name, String course_content) {
-        String sql = "INSERT INTO course(course_name, course_content)"
-                + " VALUES(?, ?)";
+    public boolean insertCourseByTeacher(String course_name, int user_id_course, String course_content, int status) {
+        String sql = "INSERT INTO course(course_name, user_id_course, course_content, isActive )"
+                + " VALUES(?, ?, ?, ?)";
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
-           ps.setString(1, course_name);
-           ps.setString(2, course_content);
-            
+            ps.setString(1, course_name);
+            ps.setInt(2, user_id_course);
+            ps.setString(3, course_content);
+            ps.setInt(4, status);
+
             int affectedRows = ps.executeUpdate();
-            if(affectedRows > 0){
+            if (affectedRows > 0) {
                 return true;
             }
 
@@ -42,19 +44,16 @@ public class CoursesDAO {
     public List<Courses> getTotalCourses() {
         List<Courses> totalCourses = new ArrayList<>();
         String sql = "SELECT * FROM course";
-                
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               
 
                 Courses course = Courses.builder()
                         .course_id(rs.getInt("course_id"))
                         .course_name(rs.getString("course_name"))
                         .course_content(rs.getString("course_content"))
-                    
                         .build();
 
                 totalCourses.add(course);
@@ -64,6 +63,89 @@ public class CoursesDAO {
             e.printStackTrace(System.out);
         }
         return null;
+    }
+
+    public List<Courses> getCourseByTeacherName(String username) {
+        List<Courses> totalCourses = new ArrayList<>();
+        String sql = "select * from course c join users u on c.user_id_course = u.user_id\n"
+                + "where role_id = 1 and username = ?;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Users user = Users.builder().build();
+                user.setUser_id(rs.getInt("user_id_course"));
+                Courses course = Courses.builder()
+                        .course_id(rs.getInt("course_id"))
+                        .course_name(rs.getString("course_name"))
+                        .course_content(rs.getString("course_content"))
+                        .isActive(rs.getInt("isActive"))
+                        .user_id_course(user)
+                        .build();
+
+                totalCourses.add(course);
+            }
+            return totalCourses;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public List<Courses> getCourseByStudentId() {
+        List<Courses> totalCourses = new ArrayList<>();
+        String sql = "select * from course c join users u on c.user_id_course = u.user_id\n"
+                + "where role_id = 2;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Users user = Users.builder().build();
+                user.setUser_id(rs.getInt("user_id_course"));
+                Courses course = Courses.builder()
+                        .course_id(rs.getInt("course_id"))
+                        .course_name(rs.getString("course_name"))
+                        .course_content(rs.getString("course_content"))
+                        .isActive(rs.getInt("isActive"))
+                        .user_id_course(user)
+                        .build();
+
+                totalCourses.add(course);
+            }
+            return totalCourses;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public boolean updateCourseForStudentAndTeacher(String new_course_name, String course_name, String course_content, int status) {
+        String sql = "SET SQL_SAFE_UPDATES = 0;\n"
+                + "UPDATE course\n"
+                + "SET course_name = ? , course_content= ?, isActive = ?\n"
+                + "WHERE course_name = ? ;\n"
+                + "SET SQL_SAFE_UPDATES = 1;";
+        try(Connection con = MySQLConnection.getConnection();
+        PreparedStatement ps = con.prepareCall(sql)
+            ) {
+            ps.setString(1, new_course_name);
+            ps.setString(2, course_content);
+            ps.setInt(3, status);
+            ps.setString(4, course_name);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+        return false;
     }
 
     public static void main(String[] args) {

@@ -28,6 +28,12 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+        <!-- Boosttrap-->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </head>
 
@@ -154,14 +160,17 @@
                         <div class="col-md-12">
                             <div class="tile">
                                 <h3 class="tile-title">Khóa học</h3>
+                                <input type="text" id="myInputTable" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
                                 <div>
-                                    <table class="table table-bordered">
+                                    <table id="myTable" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>ID khóa học</th>
-                                                <th>Tên khóa học</th>
-                                                <th>Mô tả</th>
+                                                <th>ID</th>
+                                                <th>Course Name</th>
+                                                <th>Description</th>
+                                                <th> Status </th>
                                                 <th>Action</th>
+
 
 
                                             </tr>
@@ -173,72 +182,242 @@
                                                     <td>${c.course_name}</td>
                                                     <td>${c.course_content}</td>
 
+                                                    <td>           
+                                                        <c:choose>
+                                                            <c:when test="${c.isActive eq '1'}">
+                                                                <span class="badge badge-success">Active</span>
+                                                            </c:when>                                                       
+                                                            <c:otherwise>
+                                                                <span class="badge badge-danger">Inactive</span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+
 <!--                                                    <td><span class="badge bg-success">${b.payment}</span></td>                                  -->
-                                                    <td><a style=" color: rgb(245 157 57);background-color: rgb(251 226 197); padding: 5px;border-radius: 5px;" href="course?action=showdetail&course_id=${c.course_id}"><i class="fa"></i>Chi tiết khóa học</a></td>
+                                                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${c.course_id}" onclick="redirectToServlet('${c.course_id}')">
+                                                            <i class="fa fa-eye"></i> 
+                                                        </button>
+
+                                                        <!-- EditCourseModal BUTTON-->
+                                                        <button type="button" class="btn btn-warning"
+                                                                data-toggle="modal"
+                                                                data-target="#EditCourseModal"
+                                                                onclick="openEditModal('${c.course_id}', '${c.course_name}', '${c.course_content}', '${c.isActive eq '1' ? 1 : 0}')">
+                                                            <i class="fa fa-edit"></i> 
+                                                        </button
+                                                    </td> 
+
+
+         <!--                                                <td><a style=" color: rgb(245 157 57);background-color: rgb(251 226 197); padding: 5px;border-radius: 5px;" href="course?action=showdetail&course_id=${c.course_id}"><i class="fa"></i>Chi tiết khóa học</a></td>-->
                                                     <td> <div>
-                                                <a href="javascript:demoFromHTML()" class="button">Download sources</a>
-                                                <div id="content">
-                                                    <h1 style="display: none;">
-                                                        This is document about java.... update
-                                                    </h1>
-                                                </div>
+                                                            <a href="javascript:demoFromHTML()" class="button">Download sources</a>
+                                                            <div id="content">
+                                                                <h1 style="display: none;">
+                                                                    This is document about java.... update
+                                                                </h1>
+                                                            </div>
                                                         </div></td>
-                                            </tr>
-                                        </c:forEach>
+                                                </tr>
+                                            </c:forEach>
 
                                         </tbody>
                                     </table>
+                                    
+                                    <!-- SCRIPT CHO NÚT VIEW -->
+                                    <script>
+                                        function redirectToServlet(courseId) {
+                                            // Chuyển hướng đến servlet với courseId
+                                            window.location.href = 'quiz?courseId=' + courseId;
+                                        }
+                                    </script>
                                 </div>
 
-                                <button type="button" id="addCourseButton" class="btn btn-success mt-3">Thêm khóa học</button>
-                                <!-- Modal -->
-                                <div id="addCourseModal">
-                                    <div class="modal-content">
-                                        <h2>Thêm khóa học</h2>
-                                        <form action="course" method="post">
-                                            <label for="courseName">Tên khóa học:</label><br>
-                                            <input type="text" id="courseName" name="courseName"><br><br>
-                                            <label for="courseDes">Mô tả:</label><br>
-                                            <textarea id="courseDes" name="courseDes"></textarea><br><br>
-                                            <div class="button-group">
-                                                <button type="submit" id="saveCourseButton">Save</button>
-                                                <button type="button" id="closeModalButton">Close</button>
-                                            </div>
-                                        </form>
 
+                                <style>/* Thêm đoạn CSS cho thanh trượt */
+                                    .form-group {
+                                        margin-bottom: 20px;
+                                    }
+
+                                    #statusSlider {
+                                        width: 100%;
+                                    }
+
+                                    #statusText {
+                                        display: block;
+                                        margin-top: 10px;
+                                        font-weight: bold;
+
+                                    }
+                                    #statusSlider {
+                                        width: 15%; /* Điều chỉnh độ rộng theo ý muốn */
+                                    }
+
+                                    #statusText {
+                                        display: block;
+                                        margin-top: 10px;
+                                        font-weight: bold;
+                                    }
+                                </style>
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCourseModal">
+                                    Add Course
+                                </button>
+
+                                <!-- AddCourseModal -->
+                                <div class="modal fade" id="AddCourseModal" tabindex="-1" role="dialog" aria-labelledby="AddCourseModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="AddCourseModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="needs-validation" novalidate action="course?action=add" method="post">
+                                                    <!-- Trường 1 - Course Name -->
+                                                    <div class="form-group">
+                                                        <label for="inputCourseName">Course Name </label>
+                                                        <input type="text" class="form-control" id="inputCourseName" aria-describedby="emailHelp" placeholder="Enter course name" name="course_name" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a course name
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Trường 2 - Description -->
+                                                    <div class="form-group">
+                                                        <label for="inputDescription">Description</label>
+                                                        <input type="text" class="form-control" id="inputDescription" placeholder="Nhập description" name="course_content" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a description
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <!-- Trường 4 - Slide Trượt (Active/Inactive) -->
+                                                    <div class="form-group">
+                                                        <label>Status</label>
+                                                        <input type="range" class="form-control-range" id="statusSlider" min="0" max="1" step="1" value="1">
+                                                        <span id="statusText">Active</span>
+                                                    </div>
+                                                    <input type="hidden" id="status" name="status" value="1">
+
+                                                    <script>
+                                                        document.getElementById('statusSlider').addEventListener('input', function () {
+                                                            var statusText = document.getElementById('statusText');
+                                                            var statusSlider = document.getElementById('statusSlider');
+                                                            var hiddenStatus = document.getElementById('status');
+
+                                                            // Nếu giá trị thanh trượt là 1, hiển thị Active, ngược lại hiển thị Inactive
+                                                            if (statusSlider.value == 1) {
+                                                                statusText.textContent = 'Active';
+                                                            } else {
+                                                                statusText.textContent = 'Inactive';
+                                                            }
+
+                                                            // Gán giá trị của thanh trượt vào hidden input
+                                                            hiddenStatus.value = statusSlider.value;
+                                                        });
+
+                                                    </script>
+                                                    <!-- END OF SLIDE BUTTON -->
+
+
+
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <!-- AddCourseModal -->
+                                <div class="modal fade" id="AddCourseModal" tabindex="-1" role="dialog" aria-labelledby="AddCourseModalLabel" aria-hidden="true">
+                                    <!-- Mã HTML cho modal AddCourseModal -->
+                                </div>
+
+                                <!-- EditCourseModal -->
+                                <div class="modal fade" id="EditCourseModal" tabindex="-1" role="dialog" aria-labelledby="EditCourseModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="EditCourseModalLabel">Edit Course</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="needs-validation" novalidate action="course?action=edit" method="post">
+                                                    <!-- Trường 1 - Course Name -->
+                                                    <div class="form-group">
+                                                        <label for="inputCourseName">Course Naádasme </label>
+                                                        <input type="text" class="form-control" id="inputEditCourseName" aria-describedby="emailHelp" placeholder="Enter course name" name="course_name" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a course name
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Trường 2 - Description -->
+                                                    <div class="form-group">
+                                                        <label for="inputDescription">Description</label>
+                                                        <input type="text" class="form-control" id="inputEditDescription" placeholder="Enter description" name="course_content" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a description
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Trường 4 - Slide Trượt (Active/Inactive) -->
+                                                    <div class="form-group">
+                                                        <label>Status</label>
+                                                        <input type="range" class="form-control-range" id="statusSliderEdit" min="0" max="1" step="1" value="1">
+                                                        <span id="statusTextEdit">Active</span>
+                                                    </div>
+                                                    <input type="hidden" id="statusEdit" name="status" value="1">
+
+                                                    <input type="hidden" id="hiddenCourseId" name="course_id">
+
+                                                    <!-- Nút Submit -->
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <script>
-                                    // JavaScript để hiển thị và đóng modal
-                                    document.addEventListener("DOMContentLoaded", function () {
-                                        var addCourseButton = document.getElementById("addCourseButton");
-                                        var addCourseModal = document.getElementById("addCourseModal");
-                                        var closeModalButton = document.getElementById("closeModalButton");
 
-                                        // Hiển thị modal khi nhấn nút
-                                        addCourseButton.addEventListener("click", function () {
-                                            addCourseModal.style.display = "block";
-                                        });
+                                    function openEditModal(courseId, courseName, courseContent, status) {
+                                        var form = $('#editCourseForm');
+                                        form.attr('action', 'course?action=update');
+                                        console.log(courseName, courseContent, status);
+                                        // Đặt giá trị cho các trường của form
+                                        form.find('#inputEditCourseName').val(courseName);
+                                        form.find('#inputEditDescription').val(courseContent);
+                                        form.find('#statusSliderEdit').val(status).change();
 
-                                        // Đóng modal khi nhấn nút đóng hoặc bấm nút Esc
-                                        window.addEventListener("click", function (event) {
-                                            if (event.target == addCourseModal) {
-                                                addCourseModal.style.display = "none";
-                                            }
-                                        });
+                                        // Đặt giá trị cho course_id trong input ẩn
+                                        $('#hiddenCourseId').val(courseId);
 
-                                        closeModalButton.addEventListener("click", function () {
-                                            addCourseModal.style.display = "none";
-                                        });
+                                        var statusTextEdit = $('#statusTextEdit');
+                                        statusTextEdit.text(status == 1 ? 'Hoạt động' : 'Không hoạt động');
+                                    }
+                                </script>
 
-                                        document.addEventListener("keydown", function (event) {
-                                            if (event.key === "Escape" || event.keyCode === 27) {
-                                                addCourseModal.style.display = "none";
-                                            }
-                                        });
-                                    });
-                                </script>   
+
+
+
+
+
 
 
                                 <!-- / div trống-->
@@ -249,47 +428,29 @@
                 </div>
             </div>
 
+            <!-- comment -->
             <script>
-                function demoFromHTML() {
-                    var pdf = new jsPDF('p', 'pt', 'letter');
-                    // source can be HTML-formatted string, or a reference
-                    // to an actual DOM element from which the text will be scraped.
-                    source = $('#content')[0];
-
-                    // we support special element handlers. Register them with jQuery-style 
-                    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-                    // There is no support for any other type of selectors 
-                    // (class, of compound) at this time.
-                    specialElementHandlers = {
-                        // element with id of "bypass" - jQuery style selector
-                        '#bypassme': function (element, renderer) {
-                            // true = "handled elsewhere, bypass text extraction"
-                            return true
+                function myFunction() {
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("myInputTable");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("myTable");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[1];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
                         }
-                    };
-                    margins = {
-                        top: 80,
-                        bottom: 60,
-                        left: 40,
-                        width: 522
-                    };
-                    // all coords and widths are in jsPDF instance's declared units
-                    // 'inches' in this case
-                    pdf.fromHTML(
-                            source, // HTML string or DOM elem ref.
-                            margins.left, // x coord
-                            margins.top, {// y coord
-                                'width': margins.width, // max width of content on PDF
-                                'elementHandlers': specialElementHandlers
-                            },
-                            function (dispose) {
-                                // dispose: object with X, Y of the last line add to the PDF 
-                                //          this allow the insertion of new lines after html
-                                pdf.save('Test.pdf');
-                            }, margins
-                            );
+                    }
                 }
-            </script>           
+            </script>          
+
+
 
 
             <div class="text-center" style="font-size: 13px">

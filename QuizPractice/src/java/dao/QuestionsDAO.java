@@ -22,16 +22,18 @@ import java.util.List;
  * @author HP
  */
 public class QuestionsDAO {
-    public List<Questions> getAllQuestion() {
-        String sql = "select * from question q join quiz i on q.quiz_id = i.quiz_id join type t on q.type_id = t.type_id";
+
+    public List<Questions> getQuestionByQuizId(int quiz_id) {
+        String sql = "select * from question q join quiz i on q.quiz_id = i.quiz_id join type t on q.type_id = t.type_id where q.quiz_id = ?";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setInt(1, quiz_id);
             ResultSet rs = ps.executeQuery();
             List<Questions> list = new ArrayList<>();
             while (rs.next()) {
 
                 Quiz quiz = Quiz.builder().build();
                 quiz.setQuiz_name(rs.getString("quiz_name"));
-                
+
                 Type type = Type.builder().build();
                 type.setType_name(rs.getString("type_name"));
 
@@ -50,5 +52,23 @@ public class QuestionsDAO {
 
         return null;
     }
+    
+    //them quiz vao dang fix cung la type
+    //auto la true
+    public boolean insertQuestion(String question_text, int quiz_id) {
+        String sql = "INSERT INTO question (question_text, quiz_id, type_id)\n"
+                + "VALUES (?, ?, 1);";
+        try(Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);){
+            ps.setString(1, question_text);
+            ps.setInt(2, quiz_id);
+            
+            int rowAffected = ps.executeUpdate();
+            if(rowAffected > 0){
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace(System.out);
+        }
+        return true;
+    }
 }
-

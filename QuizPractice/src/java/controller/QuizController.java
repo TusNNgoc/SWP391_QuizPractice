@@ -60,10 +60,14 @@ public class QuizController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        int course_id = Integer.parseInt(request.getParameter("courseId"));
         QuizDAO qd = new QuizDAO();
         Quiz quiz = Quiz.builder().build();
-        List<Quiz> listQuiz = qd.getAllQuiz();
+        List<Quiz> listQuiz = qd.getQuizByCourseId(course_id);
+        
+//        PrintWriter out = response.getWriter();
+//        out.println(listQuiz);
+        
         request.setAttribute("listQuiz", listQuiz);
         request.getRequestDispatcher("teacher/customer.jsp").forward(request, response);
     }
@@ -93,8 +97,7 @@ public class QuizController extends HttpServlet {
             }else{
                 request.getRequestDispatcher("Home.jsp").forward(request, response);
             }
-//            PrintWriter out = response.getWriter();
-//            out.println(quizName + quiz_id + quizContent);
+
         }
 
     }

@@ -102,15 +102,19 @@ public class TeacherDAO {
             try (Connection con = MySQLConnection.getConnection()) {
 
                 // SQL query to check if a service exists with the given parameters and is not valid
-                String sql = "SELECT course_id, course_name, student_id FROM course;";
+                String sql = "SELECT course_id, course_name, user_id_course FROM course;";
                 // Create a prepared statement
                 ps = con.prepareStatement(sql);
                 // Execute the query
                 rs = ps.executeQuery();
                 //if rs has value
                 while (rs.next()) {
-                    Users u = new Users(rs.getInt("student_id"));
-                    Courses c = new Courses(rs.getInt(1), rs.getString(2), u);
+                    Users u = Users.builder()
+                            .user_id(rs.getInt("user_id_course")).build();
+                    Courses c =Courses.builder()
+                            .course_id(rs.getInt(1))
+                            .course_name(rs.getString(2))
+                            .user_id_course(u).build();
                     list.add(c);
                 }
                 // Close resources
@@ -139,7 +143,7 @@ public class TeacherDAO {
                 rs = ps.executeQuery();
                 //if rs has value
                 while (rs.next()) {
-                    Type c = new Type(rs.getInt(1), rs.getString(2));
+                    Type c = Type.builder().type_id(rs.getInt(1)).type_name(rs.getString(2)).build();
                     list.add(c);
                 }
                 // Close resources
@@ -239,7 +243,8 @@ public class TeacherDAO {
                 ps.setString(1, quizID);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    Courses c = new Courses(rs.getInt("course_id"), rs.getString("course_name"));
+                    Courses c =Courses.builder().course_id(rs.getInt("course_id"))
+                            .course_name(rs.getString("course_name")).build();
 //                    list = new Quiz(rs.getInt("quiz_id"),rs.getString("quiz_name"),rs.getString("quiz_content"),c);
                     list = Quiz.builder().quiz_id(rs.getInt("quiz_id"))
                             .quiz_name(rs.getString("quiz_name"))
@@ -254,7 +259,7 @@ public class TeacherDAO {
     }
 
     public Questions getQuestionByID(String questionID) {
-        Questions list = new Questions();
+        Questions list = Questions.builder().build();
         String query = "SELECT question_id, type_id, question_text, quiz_id from question \n"
                 + "where quiz_id = ?;";
         try {
@@ -264,10 +269,12 @@ public class TeacherDAO {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Quiz c = Quiz.builder().quiz_id(rs.getInt("quiz_id")).build();
-                    Type t = new Type(rs.getInt("type_id"));
-                    list = new Questions(rs.getInt(1), t,
-                            rs.getString(3),
-                            c);
+                    Type t = Type.builder().type_id(rs.getInt("type_id")).build();
+                    list = Questions.builder()
+                            .question_id(rs.getInt(1))
+                            .type_id(t)
+                            .question_text(rs.getString(3))
+                            .quiz_id(c).build();
                 }
             }
         } catch (Exception e) {
@@ -288,10 +295,12 @@ public class TeacherDAO {
                 ps.setString(1, questionID);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    Questions c = new Questions(rs.getInt("question_id"));
-                    Answer q = new Answer(rs.getInt(1), c,
-                            rs.getString(3),
-                            rs.getByte(4));
+                    Questions c = Questions.builder().question_id(rs.getInt("question_id")).build();
+                    Answer q = Answer.builder()
+                            .answer_id(rs.getInt(1))
+                            .question_id(c)
+                            .answer_text(rs.getString(3))
+                            .is_correct(rs.getByte(4)).build();
                     list.add(q);
                 }
             }
@@ -406,9 +415,12 @@ public class TeacherDAO {
                 while (rs.next()) {
 //                    Quiz c = new Quiz(rs.getInt("quiz_id"));
                     Quiz c = Quiz.builder().quiz_id(rs.getInt("quiz_id")).build();
-                    Type t = new Type(rs.getByte("type_id"));
-                    Questions q = new Questions(rs.getInt(1), t, rs.getString(3),
-                            c);
+                    Type t = Type.builder().type_id(rs.getByte("type_id")).build();
+                    Questions q =Questions.builder()
+                            .question_id(rs.getInt(1))
+                            .type_id(t)
+                            .question_text(rs.getString(3))
+                            .quiz_id(c).build();
                     list.add(q);
                 }
             }
@@ -419,7 +431,7 @@ public class TeacherDAO {
     }
 
     public static void main(String[] args) {
-        TeacherDAO test = new TeacherDAO();
+//        TeacherDAO test = new TeacherDAO();
 //        if(test.isQuizIdExist("2")) System.out.println("Existed");
 //        else System.out.println("Not existed");
 //        test.createQuiz("2", "Test", 46);
@@ -428,7 +440,7 @@ public class TeacherDAO {
 //        System.out.println(test.getNewestQuizId());
 //        System.out.println(test.getAllType());
 //        test.addAnswer("123", "13", true);
-        System.out.println(test.getQuizByID("5"));
+//        System.out.println(test.getQuizByID("5"));
 //        test.updateQuiz("13", "updated name", "1");
 //        System.out.println(test.getQuestionByID("1"));
 //        System.out.println(test.getAnswerByQuestion("1"));
