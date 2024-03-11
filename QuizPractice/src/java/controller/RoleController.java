@@ -99,7 +99,7 @@ public class RoleController extends HttpServlet {
             request.setAttribute("userlist", user);
             request.setAttribute("size", i);
             request.setAttribute("count", count);
-            request.getRequestDispatcher("role/ListRole.jsp").forward(request, response);
+            request.getRequestDispatcher("role/ListRole2.jsp").forward(request, response);
         }else if (action.equalsIgnoreCase("addrole")) {
             int role_id = 1;
             String role_name = request.getParameter("rolename");
