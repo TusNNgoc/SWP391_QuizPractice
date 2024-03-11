@@ -31,7 +31,7 @@
                     <textarea class="form-control" rows="3" id="answerText" name="answerText" required></textarea>
                 </div>
                 <div class="form-check">
-                    <input type="hidden" name="isCorrect" value="false">
+                    
                     <input type="checkbox" class="form-check-input" id="isCorrect" name="isCorrect">
                     <label class="form-check-label" for="isCorrect">Câu trả lời đúng</label>
                 </div>

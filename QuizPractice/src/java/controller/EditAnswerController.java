@@ -4,8 +4,7 @@
  */
 package controller;
 
-import dao.QuizDAO;
-import entity.Quiz;
+import dao.AnswerDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,14 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name = "QuizController", urlPatterns = {"/quiz"})
-public class QuizController extends HttpServlet {
+@WebServlet(name = "EditAnswerController", urlPatterns = {"/EditAnswer"})
+public class EditAnswerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +37,10 @@ public class QuizController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizController</title>");
+            out.println("<title>Servlet EditAnswerController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet QuizController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditAnswerController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,16 +58,9 @@ public class QuizController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int course_id = Integer.parseInt(request.getParameter("courseId"));
-        QuizDAO qd = new QuizDAO();
-        Quiz quiz = Quiz.builder().build();
-        List<Quiz> listQuiz = qd.getQuizByCourseId(course_id);
+        int answer_id = Integer.parseInt(request.getParameter("answerId"));
+        AnswerDAO ad = new AnswerDAO();
         
-//        PrintWriter out = response.getWriter();
-//        out.println(listQuiz);
-        
-        request.setAttribute("listQuiz", listQuiz);
-        request.getRequestDispatcher("teacher/quiz.jsp").forward(request, response);
     }
 
     /**
@@ -83,23 +74,7 @@ public class QuizController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        String action = request.getParameter("action");
-        String quizName = request.getParameter("quizName");
-       int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
-        String quizContent = request.getParameter("quizContent");
-        
-        QuizDAO qd = new QuizDAO();
-
-        if (action.equals("update")) {
-            if(qd.updateQuizById(quizName, quizContent, quiz_id)){
-                doGet(request, response);
-            }else{
-                request.getRequestDispatcher("Home.jsp").forward(request, response);
-            }
-
-        }
-
+        processRequest(request, response);
     }
 
     /**

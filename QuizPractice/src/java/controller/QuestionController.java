@@ -77,14 +77,14 @@ public class QuestionController extends HttpServlet {
             request.setAttribute("questions", questions);
 
             session.setAttribute("quizId", quiz_id);
-            request.getRequestDispatcher("teacher/product.jsp").forward(request, response);
+            request.getRequestDispatcher("teacher/question.jsp").forward(request, response);
         }
         else{
             int quizId = (int) session.getAttribute("quizId");
             List<Questions> questions = questionDAO.getQuestionByQuizId(quizId);
             request.setAttribute("questions", questions);
            
-            request.getRequestDispatcher("teacher/product.jsp").forward(request, response);
+            request.getRequestDispatcher("teacher/question.jsp").forward(request, response);
         }
 
     }

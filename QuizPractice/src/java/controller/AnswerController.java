@@ -62,7 +62,11 @@ public class AnswerController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        
+        
         int question_id = Integer.parseInt(request.getParameter("questionId"));
+        
+        
         AnswerDAO ad = new AnswerDAO();
         List<Answer> answerList = ad.getAnswerByQuestionId(question_id);
 //        PrintWriter out = response.getWriter();

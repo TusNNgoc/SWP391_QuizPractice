@@ -20,6 +20,12 @@ import java.util.List;
  */
 public class AnswerDAO {
 
+    public Answer getAnswerByAnswerId(int answer_id){
+        String sql = "select * from answer where answer_id = ?";
+        
+        return null;
+    }
+    
     public List<Answer> getAnswerByQuestionId(int quiz_id) {
         String sql = "select * from answer a join question q on a.question_id = q.question_id where a.question_id = ?";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
@@ -44,7 +50,7 @@ public class AnswerDAO {
     }
 
     public boolean insertAnswer(int question_id, String answer_text, int is_correct) {
-        String sql = "INSERT INTO question (answer_text, question_id, is_correct)\n"
+        String sql = "INSERT INTO answer (answer_text, question_id, is_correct)\n"
                 + "VALUES (?, ?, ?);";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
             ps.setString(1, answer_text);

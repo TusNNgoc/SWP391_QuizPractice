@@ -89,18 +89,7 @@
                             <li class="breadcrumb-item"><a href="#"><b>Bảng điều khiển</b></a></li>
 
                         </ul>
-                        <div><button id="toggleCoursesBtn">Total Courses</button>
-
-                            <div id="coursesList">
-                                <c:forEach items="${requestScope.courses}" var="course">
-                                    <p>
-                                        <a class="course-link" href="CourseDetailsServlet?courseId=${course.course_id}">
-                                            ${course.course_name}
-                                        </a>
-                                    </p>
-                                </c:forEach>
-                            </div>
-                        </div>
+                        
                         <div id="clock"></div>
                     </div>
                 </div>

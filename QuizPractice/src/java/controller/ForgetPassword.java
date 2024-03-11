@@ -134,6 +134,8 @@ public class ForgetPassword extends HttpServlet {
                 if (pass.equals(repass)) {
                     // If they match, create an instance of AccountDAO and update the password
                     PasswordDAO DAO = new PasswordDAO();
+                    
+            ///////////////ADD ECRIPT PASSOWRD TO RESET PASSWORD/////////////////////////
                     DAO.updatePassword2(email, pass);
 
                     // Send a JavaScript alert to inform the user that the password has been changed
