@@ -5,16 +5,24 @@
         <servlet-class>controller.TeacherController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Admin_add</servlet-name>
-        <servlet-class>controller.Admin_add</servlet-class>
+        <servlet-name>AddAccount</servlet-name>
+        <servlet-class>controller.AddAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAccount</servlet-name>
+        <servlet-class>controller.UpdateAccount</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TeacherController</servlet-name>
         <url-pattern>/teacher</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Admin_add</servlet-name>
+        <servlet-name>AddAccount</servlet-name>
         <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccount</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

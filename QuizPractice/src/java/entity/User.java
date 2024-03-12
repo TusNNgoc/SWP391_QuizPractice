@@ -134,4 +134,9 @@ public class User {
     public String getPhone() {
         return phone;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "user_id=" + user_id + ", fullname=" + fullname + ", password=" + password + ", username=" + username + ", email=" + email + ", accountActived=" + accountActived + ", role_id=" + role_id + ", country=" + country + ", address=" + address + ", gender=" + gender + ", dob=" + dob + ", phone=" + phone + '}';
+    }
 }

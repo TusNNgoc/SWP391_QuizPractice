@@ -10,10 +10,10 @@ import static connection.MySQLConnection.getConnection;
 import entity.User;
 import entity.Users;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -376,11 +376,7 @@ public class UsersDAO {
         return list;
     }
 
-
-
     //tim Users_id
-
-
     public static boolean deleteAccount(int user_id) {
         String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = MySQLConnection.getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
@@ -393,125 +389,112 @@ public class UsersDAO {
         }
     }
 
-//    public boolean updateAccount(User user) {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        try {
-//            conn = MySQLConnection.getConnection(); // Lấy kết nối đến cơ sở dữ liệu
-//
-//            // Câu lệnh SQL để cập nhật thông tin người dùng
-//            String sql = "UPDATE users SET fullname=?, username=?, password=?, email=?, country=?, address=?, gender=?, dob=?, phone=? WHERE user_id=?";
-//
-//            stmt = conn.prepareStatement(sql);
-//
-//            // Thiết lập các tham số cho câu lệnh SQL
-//            stmt.setString(1, user.getFullname());
-//            stmt.setString(2, user.getUsername());
-//            stmt.setString(3, user.getPassword());
-//            stmt.setString(4, user.getEmail());
-//            stmt.setString(5, user.getCountry());
-//            stmt.setString(6, user.getAddress());
-//            stmt.setString(7, user.getGender());
-//            stmt.setDate(8, new java.sql.Date(user.getDob().getTime())); // Chuyển đổi java.util.Date sang java.sql.Date
-//            stmt.setString(9, user.getPhone());
-//            stmt.setInt(10, user.getUser_id());
-//
-//            // Thực thi câu lệnh SQL để cập nhật dữ liệu
-//            int rowsAffected = stmt.executeUpdate();
-//
-//            // Trả về true nếu có ít nhất một hàng được cập nhật thành công
-//            return rowsAffected > 0;
-//        } catch (SQLException ex) {
-//            // Xử lý các ngoại lệ SQL
-//            ex.printStackTrace();
-//            return false; // Trả về false nếu có lỗi xảy ra
-//        } finally {
-//            // Đóng các tài nguyên (connection, statement) sau khi sử dụng
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//    }
+    public static void insertStudent(String fullname, String password, String username, String email, boolean accountActived, int role, String country, String address, String gender, java.util.Date dob, String phone) {
+        // Convert Date to String
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dobString = dateFormat.format(dob);
 
-//    public boolean addUser(User user) {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        try {
-//            // Làm kết nối cơ sở dữ liệu và thêm người dùng vào bảng tương ứng
-//            conn = MySQLConnection.getConnection(); // Lấy kết nối đến cơ sở dữ liệu
-//            String query = "INSERT INTO users (fullname, username, password, email, role, country, address, gender, dob, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//            stmt = conn.prepareStatement(query);
-//            stmt.setString(1, user.getFullname());
-//            stmt.setString(2, user.getUsername());
-//            stmt.setString(3, user.getPassword());
-//            stmt.setString(4, user.getEmail());
-//            stmt.setInt(5, user.getRole());
-//            stmt.setString(6, user.getCountry());
-//            stmt.setString(7, user.getAddress());
-//            stmt.setString(8, user.getGender());
-//            java.sql.Date dob = new java.sql.Date(user.getDob().getTime());
-//            stmt.setDate(9, dob);
-//            stmt.setString(10, user.getPhone());
-//
-//            int rowsInserted = stmt.executeUpdate();
-//            return rowsInserted > 0;
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//            return false;
-//        } finally {
-//            // Đóng các tài nguyên
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//    }
-    
-    
-    
+        // Convert int to String
+        String roleString = String.valueOf(role);
+
+        // Your insertion logic here
+        // For example:
+        String sql = "INSERT INTO users (fullname, username, password, email, account_actived, role_id, country, address, gender, dob, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = MySQLConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, fullname);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            statement.setString(4, email);
+            statement.setBoolean(5, accountActived);
+            statement.setString(6, roleString);
+            statement.setString(7, country);
+            statement.setString(8, address);
+            statement.setString(9, gender);
+            statement.setString(10, dobString);
+            statement.setString(11, phone);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User getUserByID(String user_id) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        try (Connection conn = getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, user_id); // Thiết lập giá trị cho tham số trong câu lệnh SQL
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("password"), rs.getString("username"),
+                            rs.getString("email"), rs.getBoolean("account_actived"),
+                            rs.getInt("role_id"), rs.getString("country"),
+                            rs.getString("address"), rs.getString("gender"),
+                            rs.getDate("dob"), rs.getString("phone"));
+                    return u;
+                }
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ SQLException
+            System.err.println("Lỗi khi lấy người dùng từ cơ sở dữ liệu: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void updateAllUser(String userId, String fullname, String username, String password, String email, int role, String country, String address, String gender, String dob, String phone) {
+        String sql = "UPDATE users SET fullname = ?, username = ?, password = ?, email = ?, role_id = ?, country = ?, address = ?, gender = ?, dob = ?, phone = ? WHERE user_id = ?";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setString(1, fullname);
+            ps.setString(2, username);
+            ps.setString(3, password);
+            ps.setString(4, email);
+            ps.setInt(5, role);
+            ps.setString(6, country);
+            ps.setString(7, address);
+            ps.setString(8, gender);
+            ps.setString(9, dob);
+            ps.setString(10, phone);
+            ps.setString(11, userId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public boolean isUsernameUnique(String username, String userId) {
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND user_id != ?";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count == 0; // Trả về true nếu không có người dùng nào khác sử dụng tên người dùng này, trừ người dùng hiện tại
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Trả về false nếu có lỗi xảy ra hoặc không thể kiểm tra
+    }
 
     public static void main(String[] args) {
-        System.out.println(new UsersDAO().updateUser("test", "test", "test", "test"));
-        int total = getTotalUsersWithRole1();
-        System.out.println(total);
-        int to = getTotalUsersWithRole2();
-        System.out.println(to);
-        int tt = getTotalActiveUsersWithRole();
-        System.out.println(tt);
-        int t1 = getTotalAccounts();
-        System.out.println(t1);
 
-        List<User> accountList = UsersDAO.getAccount();
+        UsersDAO dao = new UsersDAO();
 
-        // Hiển thị thông tin của từng tài khoản
-        for (User user : accountList) {
-            System.out.println("User ID: " + user.getUser_id());
-            System.out.println("Username: " + user.getUsername());
-            System.out.println("Email: " + user.getEmail());
-            System.out.println("Account Activated: " + user.isAccountActived());
-            System.out.println("Role ID: " + user.getRole());
-            System.out.println("country: " + user.getCountry());
-            System.out.println("Address: " + user.getAddress());
-            System.out.println("Gender: " + user.getGender());
-            System.out.println("Date of Birth: " + user.getDob());
-            System.out.println("Phone: " + user.getPhone());
-            System.out.println("--------------------------------------------");
-        }
+        // Get user by ID
+        User u = dao.getUserByID("79");
 
+        // Print the retrieved user
+        System.out.println(u);
+
+        // Perform update operation
+        dao.updateAllUser("41", "Tú Ngu ", "johndoe", "newpassword", "johndoe@example.com", 2, "USA", "123 Main St", "Male", "1990-01-01", "1234567890");
+
+        // Print a message after update operation
+        System.out.println("User updated successfully.");
     }
+
 }

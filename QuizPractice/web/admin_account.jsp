@@ -185,6 +185,13 @@
                     <div class="container-fluid">
                         <div class="card">
 
+                            <!-- Các đoạn mã HTML khác đã được bỏ qua -->
+
+                            <!-- Phần search và filter -->
+
+                            <!-- Các đoạn mã HTML khác đã được bỏ qua -->
+
+                        </div>
 
 
 
@@ -197,99 +204,165 @@
 
 
 
-                            <!--                            //------------------------------------------------------------------------------------>
-
-                            <div class="wrapper">
-                                <div class="content" style="">
 
 
-                                    <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
-                                        <h1>Student List</h1>
-                                        <div class="row">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead class="thead-dark">
-                                                    <tr class="text-center col-md-12">
-                                                        <th class="col-1">ID</th>
-                                                        <th class="col-3">Full Name</th>
-                                                        <th class="col-1">Pass</th>
-                                                        <th class="col-2">Username</th>
-                                                        <th class="col-1">Status</th>
-                                                        <th class="col-1">Role</th>
-                                                        <th class="col-2">Nation</th>
-                                                        <th class="col-1">Address</th>
-                                                        <th class="col-2">Gender</th>
-                                                        <th class="col-1">Date of birth</th>
-                                                        <th class="col-2">Email</th>
-                                                        <th class="col-1">Phone</th>
-                                                        <th class="col-2">Edit</th>
-                                                        <th class="col-1">Delete</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% 
-                                                                                                        int i = 1;
-                                                                                                        ArrayList<User> allaccounts = UsersDAO.getAccount();
-                                                                                                        for(User u : allaccounts) {
-                                                    %>
+                        <!--                            //------------------------------------------------------------------------------------>
 
-                                                    <tr>
-                                                        <td><%=i++%></td>
-                                                        <td><%=u.getFullname() %></td>
-                                                        <td><%=u.getPassword() %></td>
-                                                        <td><%=u.getUsername() %></td>
-                                                        <td><%=u.isAccountActived() %></td>
-                                                        <td><%=u.getRole() %></td>
-                                                        <td><%=u.getCountry() %></td>
-                                                        <td><%=u.getAddress() %></td>
-                                                        <td><%=u.getGender() %></td>
-                                                        <td><%=u.getDob() %></td>
-                                                        <td><%=u.getEmail() %></td>
-                                                        <td><%=u.getPhone() %></td>
-                                                        <td> <a href="update?id=<%=u.getUser_id()%>" class="update-btn"><i class="fas fa-edit"></i> Update</a></td>
-                                                        <td>     <a href="delete_account.jsp?user_id=<%=u.getUser_id()%>" class="delete-btn">
-                                                                <i class="fas fa-trash-alt"></i> Delete
-                                                            </a></td>
-                                                    </tr>
-                                                    <% } %>
-                                                </tbody>
-                                            </table>
+                        <div class="wrapper">
+                            <div class="content" style="">
 
-                                        </div>
-                                        <div >
-                                            <button type="button" class="btn btn-outline-success">
-                                                <div><h3> <a href="admin_add.jsp" style="margin-top: 5px;
-                                                             margin-right: 20px;
-                                                             margin-bottom: 15px;
-                                                             margin-left: 10px;">  Add Account  </a></h3></div>
-                                            </button>
-                                        </div>
-                                        <div>
 
-                                        </div>
+
+                                <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
+                                    <div class="search-filter-container">
+                                        <form action="search.jsp" method="GET" class="search-form">
+                                            <input type="text" name="query" placeholder="Search..." class="search-input">
+                                            <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                                        </form>
+
+                                        <select name="filter" class="filter-select">
+                                            <option value="all">All</option>
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
                                     </div>
+                                    <h1 style="text-align: center;
+                                        font-size: 28px;
+                                        margin-bottom: 20px;
+                                        color: #333; /* Màu chữ */
+                                        text-transform: uppercase; /* Chuyển đổi chữ thành in hoa */
+                                        font-weight: bold; /* Chữ đậm */">Account List</h1>
+                                    <div class="row">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead class="thead-dark">
+                                                <tr class="text-center col-md-12">
+                                                    <th class="col-1">ID</th>
+                                                    <th class="col-3">Full Name</th>
+                                                    <th class="col-1">Pass</th>
+                                                    <th class="col-2">Username</th>
+                                                    <th class="col-1">Status</th>
+                                                    <th class="col-1">Role</th>
+                                                    <th class="col-2">Nation</th>
+                                                    <th class="col-1">Address</th>
+                                                    <th class="col-2">Gender</th>
+                                                    <th class="col-1">Date of birth</th>
+                                                    <th class="col-2">Email</th>
+                                                    <th class="col-1">Phone</th>
+                                                    <th class="col-2">Edit</th>
+                                                    <th class="col-1">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% 
+                                                                                                    int i = 1;
+                                                                                                    ArrayList<User> allaccounts = UsersDAO.getAccount();
+                                                                                                    for(User u : allaccounts) {
+                                                %>
 
+                                                <tr>
+                                                    <td><%=i++%></td>
+                                                    <td><%=u.getFullname() %></td>
+                                                    <td><%=u.getPassword() %></td>
+                                                    <td><%=u.getUsername() %></td>
+                                                    <td><%=u.isAccountActived() %></td>
+                                                    <td><%=u.getRole() %></td>
+                                                    <td><%=u.getCountry() %></td>
+                                                    <td><%=u.getAddress() %></td>
+                                                    <td><%=u.getGender() %></td>
+                                                    <td><%=u.getDob() %></td>
+                                                    <td><%=u.getEmail() %></td>
+                                                    <td><%=u.getPhone() %></td>
+                                                    <td> 
+                                                        <a href="update?user_id=<%=u.getUser_id()%>" class="update-btn">
+                                                            <i class="fas fa-edit"></i> Update
+                                                        </a>
+                                                    </td>
 
+                                                    <td>     <a href="delete_account.jsp?user_id=<%=u.getUser_id()%>" class="delete-btn">
+                                                            <i class="fas fa-trash-alt"></i> Delete
+                                                        </a></td>
+                                                </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
 
-
+                                    </div>
                                     <div >
+                                        <button type="button" class="btn btn-outline-success">
+                                            <div><h3> <a href="admin_add.jsp" style="margin-top: 5px;
+                                                         margin-right: 20px;
+                                                         margin-bottom: 15px;
+                                                         margin-left: 10px;">  Add Account  </a></h3></div>
+                                        </button>
                                     </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <div >
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--                                            //------------------------------------------------------------------------------------------------>
-
-
-
-
                 </div>
+
+                <!--                                            //------------------------------------------------------------------------------------------------>
+
+
+
+
             </div>
         </div>
     </div>
+</div>
 
 </body>
 <style>
+    /* Các đoạn mã CSS khác đã được bỏ qua */
+
+    /* Phần search và filter */
+    .search-filter-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-form {
+        margin-right: 10px;
+    }
+
+    .search-input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .search-button {
+        padding: 8px 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+    .filter-select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -350,5 +423,7 @@
     .header:hover .logo img {
         transform: translate(-50%, -50%) scale(1.1); /* Phóng to hình ảnh logo khi rê chuột vào header */
     }
+
+
 </style>
 </html>

@@ -204,8 +204,24 @@
 
 
                                     <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
-                                        <h1>Student List</h1>
-                                        <div class="row">
+                                        <div class="search-filter-container">
+                                            <form action="search.jsp" method="GET" class="search-form">
+                                                <input type="text" name="query" placeholder="Search..." class="search-input">
+                                                <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                                            </form>
+
+                                            <select name="filter" class="filter-select">
+                                                <option value="all">All</option>
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                        </div>
+                                        <h1 style="text-align: center;
+                                            font-size: 28px;
+                                            margin-bottom: 20px;
+                                            color: #333; /* Màu chữ */
+                                            text-transform: uppercase; /* Chuyển đổi chữ thành in hoa */
+                                            font-weight: bold; /* Chữ đậm */">Account List</h1>                                        <div class="row">
                                             <table class="table table-bordered table-hover table-striped">
                                                 <thead class="thead-dark">
                                                     <tr class="text-center col-md-12">
@@ -245,8 +261,15 @@
                                                         <td><%=u.getDob() %></td>
                                                         <td><%=u.getEmail() %></td>
                                                         <td><%=u.getPhone() %></td>
-                                                        <td> <a href="update?id=<%=u.getUser_id()%>" class="update-btn"><i class="fas fa-edit"></i> Update</a></td>
-                                                        <td> <a href="delete_account.jsp?user_id=<%=u.getUser_id()%>" class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                                                        <td> 
+                                                            <a href="update?user_id=<%=u.getUser_id()%>" class="update-btn">
+                                                                <i class="fas fa-edit"></i> Update
+                                                            </a>
+                                                        </td>
+
+                                                        <td>     <a href="delete_account.jsp?user_id=<%=u.getUser_id()%>" class="delete-btn">
+                                                                <i class="fas fa-trash-alt"></i> Delete
+                                                            </a></td>
                                                     </tr>
                                                     <% 
                                                         }
@@ -293,6 +316,47 @@
 
 </body>
 <style>
+    /* Các đoạn mã CSS khác đã được bỏ qua */
+
+    /* Phần search và filter */
+    .search-filter-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-form {
+        margin-right: 10px;
+    }
+
+    .search-input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .search-button {
+        padding: 8px 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+    .filter-select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
     * {
         margin: 0;
         padding: 0;
