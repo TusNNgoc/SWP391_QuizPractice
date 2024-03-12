@@ -4,13 +4,16 @@
  */
 package controller;
 
+import dao.CoursesDAO;
 import dao.UsersDAO;
+import entity.Courses;
 import entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -60,10 +63,12 @@ public class MangeStudentTeacherController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession session = request.getSession();
         String course_name = request.getParameter("course_name");
         UsersDAO ud = new UsersDAO();
         List<Users> listStudent = ud.getStudentByCourseName(course_name);
-
+        
+        session.setAttribute("course_name", course_name);
         request.setAttribute("listStudent", listStudent);
         request.getRequestDispatcher("teacher/student.jsp").forward(request, response);
     }
@@ -82,14 +87,16 @@ public class MangeStudentTeacherController extends HttpServlet {
 //        processRequest(request, response);
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         UsersDAO ud = new UsersDAO();
+        CoursesDAO cd = new CoursesDAO();
         Users student = ud.getUserById(user_id);
-        request.setAttribute("Student", student);
-                PrintWriter out = response.getWriter();
-        out.print(student);
-//        request.getRequestDispatcher("teacher/about_student.jsp").forward(request, response);
-    
+        List<Courses> listCourse = cd.getCourseByStudentId(user_id);
+        request.setAttribute("student", student);
+        request.setAttribute("listCourse", listCourse);
+//                PrintWriter out = response.getWriter();
+//        out.print(listCourse);
+        request.getRequestDispatcher("teacher/about_student.jsp").forward(request, response);
 
-}
+    }
 
     /**
      * Returns a short description of the servlet.

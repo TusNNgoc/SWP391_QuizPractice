@@ -41,6 +41,7 @@ public class Users {
     private Date dob;
     private String phone;
     private String course_name;
+    private String description;
     
 
 

@@ -6,6 +6,7 @@
 package dao;
 
 import connection.MySQLConnection;
+import entity.Role;
 import entity.Users;
 import java.sql.Connection;
 import java.sql.Date;
@@ -180,6 +181,8 @@ public class UsersDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
+           
+                
                 Users std = Users.builder()
                         .user_id(rs.getInt("user_id"))
                         .username(rs.getString("username"))
@@ -191,6 +194,8 @@ public class UsersDAO {
                         .dob(rs.getDate("dob"))
                         .phone(rs.getString("phone"))
                         .course_name(rs.getString("course_name"))
+                        .description(rs.getString("description"))
+                        
                         .build();
 
                 l.add(std);
@@ -203,12 +208,14 @@ public class UsersDAO {
     }
 
     public Users getUserById(int user_id) {
-        String sql = "select * from users  where user_id = ?";
+        String sql = "select * from users u join role r on u.role_id = r.role_id  where user_id = ?";
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                Role role = Role.builder().build();
+                role.setRole_name(rs.getString("role_name"));
                 
                 Users user = Users.builder()
                         .user_id(rs.getInt("user_id"))
@@ -220,7 +227,8 @@ public class UsersDAO {
                         .gender(rs.getString("gender"))
                         .dob(rs.getDate("dob"))
                         .phone(rs.getString("phone"))
-                        
+                        .description(rs.getString("description"))
+                        .role(role)
                         .build();
 
                 return user;

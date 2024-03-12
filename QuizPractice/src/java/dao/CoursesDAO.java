@@ -94,11 +94,12 @@ public class CoursesDAO {
         return null;
     }
 
-    public List<Courses> getCourseByStudentId() {
+    public List<Courses> getCourseByStudentId(int user_id) {
         List<Courses> totalCourses = new ArrayList<>();
         String sql = "select * from course c join users u on c.user_id_course = u.user_id\n"
-                + "where role_id = 2;";
+                + "where role_id = 2 and user_id = ?;";
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
