@@ -1,3 +1,9 @@
+<%-- 
+    Document   : student
+    Created on : Mar 12, 2024, 10:32:38 AM
+    Author     : -Pc-
+--%>
+
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -6,7 +12,7 @@
 <html lang="en">
 
     <head>
-        <title>Quản lý Quiz | Teacher</title>
+        <title>Quản lý học sinh | Teacher</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,11 +80,11 @@
         <main class="app-content">
             <div class="app-title">
                 <ul class="app-breadcrumb breadcrumb side">
-                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách Quiz</b></a></li>
+                    <li class="breadcrumb-item active"><a href="#"><b>Danh sách Student</b></a></li>
                 </ul>
                 <div id="clock"></div>
             </div>
-             
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
@@ -95,25 +101,31 @@
                                    id="sampleTable">
                                 <thead>
                                     <tr>
-                                        <th>Quiz Name</th>
-                                        <th>Quiz Content</th>
+                                        <th>Id</th>
+                                        <th>Username</th>
+                                        <th>Fullname</th>
+                                        <th>Email</th>
                                         <th>Belong to Course</th>
-
                                         <th width="70">Tính năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listQuiz}" var="q">
+                                    <c:forEach items="${listStudent}" var="s">
                                         <tr>
-                                            <td>${q.quiz_name}</td>
-                                            <td>${q.quiz_content}</td>
-                                            <td>${q.course_id.course_name}</td>
+                                            <td>${s.user_id}</td>
+                                            <td>${s.username}</td>
+                                            <td>${s.fullname}</td>
+                                            <td>${s.email}</td>
+                                            <td>${s.course_name}</td>
 
-                                            <td><button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
-                                                        data-target="#ModalUP${q.quiz_id}"><i class="fas fa-edit"></i></button>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${q.quiz_id}" onclick="redirectToServlet('${q.quiz_id}')">
-                                                    <i class="fa fa-eye"></i> 
-                                                </button>
+                                            <td>
+                                                <form action="managestudent" method="post">
+                                                   <input type="hidden" name="user_id" value="${s.user_id}" />
+                                                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${s.user_id}" >
+                                                        <i class="fa fa-eye"></i> 
+                                                    </button>
+                                                </form>
+
 
                                             </td>
                                         </tr>
@@ -186,9 +198,9 @@
         <script type="text/javascript">$('#sampleTable').DataTable();</script>
 
         <script>
-            function redirectToServlet(quizId) {
+            function redirectToServletManageStudent(user_id) {
                 // Chuyển hướng đến servlet với courseId
-                window.location.href = 'question?quizId=' + quizId ;
+                window.location.href = 'managestudent?user_id=' + user_id;
             }
         </script>
         <script>
@@ -298,29 +310,30 @@
             }
 
         </script>
-        
+
         <!-- SEARCH -->
         <script>
-                function myFunction() {
-                    var input, filter, table, tr, td, i, txtValue;
-                    input = document.getElementById("myInputTable");
-                    filter = input.value.toUpperCase();
-                    table = document.getElementById("sampleTable");
-                    tr = table.getElementsByTagName("tr");
-                    for (i = 0; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[0];
-                        if (td) {
-                            txtValue = td.textContent || td.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
-                            }
+            function myFunction() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("myInputTable");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("sampleTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
                         }
                     }
                 }
-            </script>          
+            }
+        </script>          
 
     </body>
 
 </html>
+

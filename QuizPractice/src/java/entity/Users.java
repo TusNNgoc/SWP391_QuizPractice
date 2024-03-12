@@ -40,13 +40,8 @@ public class Users {
     private String gender;
     private Date dob;
     private String phone;
+    private String course_name;
+    
 
-//    public Users(int user_id, String password, String username, String email, boolean accountActived, Role role) {
-//        this.user_id = user_id;
-//        this.password = password;
-//        this.username = username;
-//        this.email = email;
-//        this.accountActived = accountActived;
-//        this.role = role;
-//    }
+
 }

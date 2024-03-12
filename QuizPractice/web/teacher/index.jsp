@@ -89,7 +89,7 @@
                             <li class="breadcrumb-item"><a href="#"><b>Bảng điều khiển</b></a></li>
 
                         </ul>
-                        
+
                         <div id="clock"></div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                                                     </td>
 
 <!--                                                    <td><span class="badge bg-success">${b.payment}</span></td>                                  -->
-                                                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${c.course_id}" onclick="redirectToServlet('${c.course_id}')">
+                                                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${c.course_id}" onclick="redirectToServletQuiz('${c.course_id}')">
                                                             <i class="fa fa-eye"></i> 
                                                         </button>
 
@@ -193,7 +193,10 @@
                                                                 data-target="#EditCourseModal"
                                                                 onclick="openEditModal('${c.course_id}', '${c.course_name}', '${c.course_content}', '${c.isActive eq '1' ? 1 : 0}')">
                                                             <i class="fa fa-edit"></i> 
-                                                        </button
+                                                        </button>
+                                                        <button type="button" class="btn btn-info" data-toggle="modal" onclick="redirectToServletManageStudent('${c.course_name}')">
+                                                            <i class="bx bx-user"></i>
+                                                        </button>
                                                     </td> 
 
 
@@ -211,12 +214,20 @@
 
                                         </tbody>
                                     </table>
-                                    
+
                                     <!-- SCRIPT CHO NÚT VIEW -->
                                     <script>
-                                        function redirectToServlet(courseId) {
+                                        function redirectToServletQuiz(courseId) {
                                             // Chuyển hướng đến servlet với courseId
                                             window.location.href = 'quiz?courseId=' + courseId;
+                                        }
+                                    </script>
+                                    
+                                     <!-- SCRIPT CHO NÚT user -->
+                                    <script>
+                                        function redirectToServletManageStudent(course_name) {
+                                            // Chuyển hướng đến servlet với courseId
+                                            window.location.href = 'managestudent?course_name=' + course_name;
                                         }
                                     </script>
                                 </div>

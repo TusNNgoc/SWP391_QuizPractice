@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.lang.model.util.Types;
 
 /**
@@ -27,7 +29,7 @@ public class UsersDAO {
 
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(mysql);) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next() ) {
+            while (rs.next()) {
                 return rs.getInt("totalStudent");
             }
         } catch (SQLException e) {
@@ -170,28 +172,68 @@ public class UsersDAO {
         return null;
     }
 
-//       public boolean updateUser (String fullname, String username, String email, String curpass, String newpass){
-//           String sql = "UPDATE users \n"
-//                + "SET fullname = ?, username = ?, email = ?, curpass = ?, newpass=?\n"
-//                + "WHERE  = ?;";
-//        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
-//            ps.setString(1, quizName);
-//            ps.setString(2, quizContent);
-//            ps.setInt(3, quiz_id);
-//            int affectedRows = ps.executeUpdate();
-//            if(affectedRows > 0){
-//                return true;
-//            }
-// 
-//        } catch (SQLException e) {
-//            e.printStackTrace(System.out);
-//        }
-//
-//        return false;
-//       }
-    
-       public boolean updateUser (String fullname, String username, String email, String curpass){
-           String sql = "UPDATE users \n"
+    public List<Users> getStudentByCourseName(String course_name) {
+        String sql = "select * from users u join course c on c.user_id_course = user_id where role_id  = 2 and course_name = ?";
+        List<Users> l = new ArrayList<>();
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setString(1, course_name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Users std = Users.builder()
+                        .user_id(rs.getInt("user_id"))
+                        .username(rs.getString("username"))
+                        .fullname(rs.getString("fullname"))
+                        .email(rs.getString("email"))
+                        .country(rs.getString("country"))
+                        .address(rs.getString("address"))
+                        .gender(rs.getString("gender"))
+                        .dob(rs.getDate("dob"))
+                        .phone(rs.getString("phone"))
+                        .course_name(rs.getString("course_name"))
+                        .build();
+
+                l.add(std);
+            }
+            return l;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public Users getUserById(int user_id) {
+        String sql = "select * from users  where user_id = ?";
+
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setInt(1, user_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                Users user = Users.builder()
+                        .user_id(rs.getInt("user_id"))
+                        .username(rs.getString("username"))
+                        .fullname(rs.getString("fullname"))
+                        .email(rs.getString("email"))
+                        .country(rs.getString("country"))
+                        .address(rs.getString("address"))
+                        .gender(rs.getString("gender"))
+                        .dob(rs.getDate("dob"))
+                        .phone(rs.getString("phone"))
+                        
+                        .build();
+
+                return user;
+            }
+          
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public boolean updateUser(String fullname, String username, String email, String curpass) {
+        String sql = "UPDATE users \n"
                 + "SET fullname = ?, username = ?, email = ?, password=?\n"
                 + "WHERE  user_id = 42 ; ";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
@@ -199,19 +241,20 @@ public class UsersDAO {
             ps.setString(2, username);
             ps.setString(3, email);
             ps.setString(4, curpass);
-          
+
             int affectedRows = ps.executeUpdate();
-            if(affectedRows > 0){
+            if (affectedRows > 0) {
                 return true;
             }
- 
+
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
 
         return false;
-       }
+    }
+
     public static void main(String[] args) {
-        System.out.println(new UsersDAO().updateUser("test","test", "test", "test"));
+        System.out.println(new UsersDAO().updateUser("test", "test", "test", "test"));
     }
 }
