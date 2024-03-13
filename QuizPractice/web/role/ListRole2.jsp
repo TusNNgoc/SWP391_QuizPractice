@@ -222,14 +222,17 @@
                                                 </script>  
                                             </div>
                                             <div class="search">
-                                                <form action="role" method="get">
-                                                    <div class="search-box">
+                                                <form action="role" method="get" >
+                                                    <div class="search-box" >
                                                         <label>
-                                                            Tìm kiếm:<input type="search" value="${name}" name="name" class="form-control form-control-sm" placeholder="Nhập từ khóa cần tìm " aria-controls="sampleTable">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>Tìm kiếm:</div>          
+                                                            </div>
+                                                            <input type="search" value="${name}" name="name" class="form-control form-control-sm ml-2" placeholder="Nhập từ khóa cần tìm" aria-controls="sampleTable" style="margin-left: 0px !important">
                                                         </label>
                                                         <input type="hidden" name="index" value="1" />
                                                         <input type="hidden" name="quantity" value="${quantity}" />
-                                                        <button type="submit" class="btn btn-outline-danger">Search</button>
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm" style="margin-bottom: 3px">Search</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -431,7 +434,7 @@
         justify-content: space-between; /* Distribute space between items */
         margin: 0px;
         padding: 0px;
-        max-width: 1080px !important; 
+        max-width: 1080px !important;
     }
 
     .quantity, .search {
