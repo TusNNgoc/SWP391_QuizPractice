@@ -1,9 +1,9 @@
+package controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
-
 import dao.CoursesDAO;
 import dao.UsersDAO;
 import entity.Courses;
@@ -22,8 +22,8 @@ import java.util.List;
  *
  * @author -Pc-
  */
-@WebServlet(name = "MangeStudentTeacher", urlPatterns = {"/managestudent"})
-public class MangeStudentTeacherController extends HttpServlet {
+@WebServlet(name = "AddStudentTeacherController", urlPatterns = {"/addstdcourse"})
+public class AddStudentCourseController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +42,10 @@ public class MangeStudentTeacherController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MangeStudentTeacher</title>");
+            out.println("<title>Servlet AddStudentController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MangeStudentTeacher at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddStudentController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,13 +64,14 @@ public class MangeStudentTeacherController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String course_name = request.getParameter("course_name");
+        Users user = (Users) session.getAttribute("user");
 
-        UsersDAO ud = new UsersDAO();
-        List<Users> listStudent = ud.getStudentByCourseName(course_name);
-        session.setAttribute("course_name", course_name);
-        request.setAttribute("listStudent", listStudent);
-        request.getRequestDispatcher("teacher/student.jsp").forward(request, response);
+        CoursesDAO cd = new CoursesDAO();
+        List<Courses> listCourse = cd.getCourseByTeacherId(user.getUser_id());
+
+        request.setAttribute("listCourse", listCourse);
+        request.getRequestDispatcher("teacher/add_student_to_course.jsp").forward(request, response);
+
     }
 
     /**
@@ -85,24 +86,32 @@ public class MangeStudentTeacherController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        HttpSession session = request.getSession();
-        int user_id = Integer.parseInt(request.getParameter("user_id"));
-        String action = request.getParameter("action");
-        String course_name = (String) session.getAttribute("course_name");
-
         UsersDAO ud = new UsersDAO();
         CoursesDAO cd = new CoursesDAO();
-        Users student = ud.getUserById(user_id);
-        List<Courses> listCourse = cd.getCourseByStudentId(user_id);
-        if (action.equalsIgnoreCase("view")) {
-            request.setAttribute("student", student);
-            request.setAttribute("listCourse", listCourse);
-            request.getRequestDispatcher("teacher/about_student.jsp").forward(request, response);
+        
+        String username = request.getParameter("username");
+        String action = request.getParameter("action");
+
+        if (action.equalsIgnoreCase("check")) {
+            if (ud.checkUsername(username)) {
+                request.setAttribute("msg", "valid username");
+                request.setAttribute("us", username);
+                doGet(request, response);
+            }
+            if (!ud.checkUsername(username)) {
+                request.setAttribute("msg", "invalid username");
+                doGet(request, response);
+            }
         }
-        if (action.equalsIgnoreCase("delete")) {
-            cd.deleteStudentByCoursenameAndUserid(user_id, course_name);
-            response.sendRedirect("/QuizPractice/managestudent?course_name=" + course_name);
-             
+        
+        if(action.equalsIgnoreCase("add")){
+            String course_name = request.getParameter("course_name");
+            Users u = ud.getOneByUsername(username);
+            Courses c = cd.getCourseByCoursename(course_name);
+            if(cd.addStudentbyCoursename(course_name, u.getUser_id(), c.getCourse_content())){
+                  response.sendRedirect("/QuizPractice/managestudent?course_name=" + c.getCourse_name());
+            }
+            
         }
 
     }

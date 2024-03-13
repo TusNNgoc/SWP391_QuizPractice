@@ -94,10 +94,65 @@ public class CoursesDAO {
         return null;
     }
 
+    public Courses getCourseByCoursename(String course_name) {
+
+        String sql = "select * from course \n"
+                + "where course_name = ?;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setString(1, course_name);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Courses course = Courses.builder()
+                        .course_id(rs.getInt("course_id"))
+                        .course_name(rs.getString("course_name"))
+                        .course_content(rs.getString("course_content"))
+                        .isActive(rs.getInt("isActive"))
+                        .build();
+                return course;
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
     public List<Courses> getCourseByStudentId(int user_id) {
         List<Courses> totalCourses = new ArrayList<>();
         String sql = "select * from course c join users u on c.user_id_course = u.user_id\n"
                 + "where role_id = 2 and user_id = ?;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setInt(1, user_id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Users user = Users.builder().build();
+                user.setUser_id(rs.getInt("user_id_course"));
+                Courses course = Courses.builder()
+                        .course_id(rs.getInt("course_id"))
+                        .course_name(rs.getString("course_name"))
+                        .course_content(rs.getString("course_content"))
+                        .isActive(rs.getInt("isActive"))
+                        .user_id_course(user)
+                        .build();
+
+                totalCourses.add(course);
+            }
+            return totalCourses;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+
+    public List<Courses> getCourseByTeacherId(int user_id) {
+        List<Courses> totalCourses = new ArrayList<>();
+        String sql = "select * from course c join users u on c.user_id_course = u.user_id\n"
+                + "where role_id = 1 and user_id = ?;";
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
@@ -129,9 +184,7 @@ public class CoursesDAO {
                 + "SET course_name = ? , course_content= ?, isActive = ?\n"
                 + "WHERE course_name = ? ;\n"
                 + "SET SQL_SAFE_UPDATES = 1;";
-        try(Connection con = MySQLConnection.getConnection();
-        PreparedStatement ps = con.prepareCall(sql)
-            ) {
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ps.setString(1, new_course_name);
             ps.setString(2, course_content);
             ps.setInt(3, status);
@@ -142,10 +195,47 @@ public class CoursesDAO {
                 return true;
             }
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
 
+        return false;
+    }
+
+    public boolean addStudentbyCoursename(String course_name, int user_id, String course_content) {
+        String sql = "INSERT INTO course (course_name, user_id_course, course_content)\n"
+                + "VALUES (?, ?, ?);";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setString(1, course_name);
+            ps.setInt(2, user_id);
+            ps.setString(3, course_content);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return false;
+    }
+
+    public boolean deleteStudentByCoursenameAndUserid(int user_id, String course_name) {
+        String sql = "DELETE FROM course WHERE user_id_course = ? and course_name = ?;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+
+            ps.setInt(1, user_id);
+            ps.setString(2, course_name);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
         return false;
     }
 

@@ -153,7 +153,7 @@ public class UsersDAO {
         return null;
     }
 
-    public Users getOneByUser(String username) {
+    public Users getOneByUsername(String username) {
         String sql = "SELECT * FROM users \n"
                 + "WHERE `username` = ?;";
 
@@ -162,7 +162,10 @@ public class UsersDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Users u = Users.builder().username(rs.getString("username")).build();
+                Users u = Users.builder()
+                        .username(rs.getString("username"))
+                        .user_id(rs.getInt("user_id"))
+                        .build();
                 return u;
             }
 
@@ -181,8 +184,6 @@ public class UsersDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
-           
-                
                 Users std = Users.builder()
                         .user_id(rs.getInt("user_id"))
                         .username(rs.getString("username"))
@@ -195,7 +196,6 @@ public class UsersDAO {
                         .phone(rs.getString("phone"))
                         .course_name(rs.getString("course_name"))
                         .description(rs.getString("description"))
-                        
                         .build();
 
                 l.add(std);
@@ -216,7 +216,7 @@ public class UsersDAO {
             while (rs.next()) {
                 Role role = Role.builder().build();
                 role.setRole_name(rs.getString("role_name"));
-                
+
                 Users user = Users.builder()
                         .user_id(rs.getInt("user_id"))
                         .username(rs.getString("username"))
@@ -233,7 +233,7 @@ public class UsersDAO {
 
                 return user;
             }
-          
+
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -259,6 +259,22 @@ public class UsersDAO {
             e.printStackTrace(System.out);
         }
 
+        return false;
+    }
+
+    public boolean checkUsername(String username) {
+        String sql = "select * from users where username= ?";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
         return false;
     }
 

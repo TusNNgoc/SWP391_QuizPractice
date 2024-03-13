@@ -92,6 +92,11 @@
 
                             <div class="row element-button">
                                 <div class="col-sm-2">
+                                    <a class="btn btn-add btn-sm" href="addstdcourse" title="Thêm"><i class="fas fa-plus" data-toggle="modal" data-target="#modalNewQuestion"></i>
+                                        Add student into course</a>
+                                </div>
+                                <div class="col-sm-2">
+
                                     <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
                                             class="fas fa-print"></i> In dữ liệu</a>
                                 </div>
@@ -119,10 +124,14 @@
                                             <td>${s.course_name}</td>
 
                                             <td>
-                                                <form action="managestudent" method="post">
-                                                   <input type="hidden" name="user_id" value="${s.user_id}" />
-                                                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${s.user_id}" >
+                                                <form action="managestudent" method="post" id="userForm">
+                                                    <input type="hidden" name="user_id" value="${s.user_id}" />
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseModal_${s.user_id}" onclick="viewAction()" >
                                                         <i class="fa fa-eye"></i> 
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-primary btn-delete" data-toggle="modal" data-target="#courseModal_${s.user_id}" onclick="deleteAction(${s.user_id})" >
+                                                        <i class="fa fa-trash"></i> 
                                                     </button>
                                                 </form>
 
@@ -202,6 +211,27 @@
                 // Chuyển hướng đến servlet với courseId
                 window.location.href = 'managestudent?user_id=' + user_id;
             }
+
+            function viewAction() {
+                // Thực hiện kiểm tra nếu cần thiết
+
+                // Thay đổi action của form
+                document.getElementById('userForm').action = 'managestudent?action=view';
+
+                // Gọi hàm submit() để gửi dữ liệu đến servlet
+                document.getElementById('userForm').submit();
+            }
+
+            function deleteAction() {
+                // Thực hiện kiểm tra nếu cần thiết
+
+                // Thay đổi action của form
+                document.getElementById('userForm').action = 'managestudent?action=delete';
+
+                // Gọi hàm submit() để gửi dữ liệu đến servlet
+                document.getElementById('userForm').submit();
+            }
+
         </script>
         <script>
 
