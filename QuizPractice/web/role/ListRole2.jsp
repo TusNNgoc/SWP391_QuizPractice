@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-........" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="assets/css/styles.min.css">
+        <link rel="stylesheet" href="assets/css/styles.min_1.css">
 
     </head>
     <body>
@@ -325,7 +325,7 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="roleName">Role Name</label>
-                                                                        <input type="text" class="form-control" id="roleName" name="rolename" value="${role.role_name}">
+                                                                        <input type="text" class="form-control" id="roleName" name="rolename" value="${role.role_name}" required>
                                                                     </div>
                                                                     <input type="hidden" name="action" value="updaterole"/>
                                                                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -388,7 +388,7 @@
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="rolename">Role Name</label>
-                                                                <input type="text" class="form-control" id="roleName" placeholder="Enter role name" name="rolename">
+                                                                <input type="text" class="form-control" id="roleName" placeholder="Enter role name" name="rolename" required>
                                                             </div>
                                                         </div>
                                                         <!-- Add more form inputs as needed -->
