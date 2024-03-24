@@ -19,7 +19,7 @@
         <meta name="author" content="Bootlab">
         <title>Change Password</title>
         <link rel="preconnect" href="//fonts.gstatic.com/" crossorigin="">
-        <link href="classic.css" rel="stylesheet">
+        <link href="assets/css/classic.css" rel="stylesheet">
     </head>
 
     <body>
@@ -32,7 +32,7 @@
                                 <div class="card-body">
                                     <div class="m-sm-4">
                                         <div class="text-center">
-                                            <img src="./assets/img/Quizz.jpg" alt="avatar"
+                                            <img src="assets/img/icon.png" alt="avatar"
                                                  class="img-fluid rounded-circle" width="132" height="132">
                                         </div>
                                         <div>Reset your password</div>

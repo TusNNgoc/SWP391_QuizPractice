@@ -38,7 +38,7 @@
                             <input type="password" name="pass" id="pass" placeholder="Password">
                         </div>
                         <div class="modal-buttons">
-                            <a href="forgotpassword.jsp" class="">Forgot your password?</a>
+                            <a href="resetpassword" class="">Forgot your password?</a>
                             <button class="input-button">Login</button>
                         </div>
                     </form>

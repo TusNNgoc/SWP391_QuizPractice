@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Reset Password</title>
         <link rel="preconnect" href="//fonts.gstatic.com/" crossorigin="">
-        <link href="classic.css" rel="stylesheet">
+        <link href="assets/css/classic.css" rel="stylesheet">
     </head>
 
     <body>

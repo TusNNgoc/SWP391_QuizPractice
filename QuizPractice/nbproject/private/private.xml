@@ -40,17 +40,10 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/TeacherController.java</file>
         </group>
         <group>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/UsersDAO.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/AddAnswerController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/MangeStudentTeacherController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/student.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/AnswerController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/add_student_to_course.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/signupOfficial.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/AddStudentCourseController.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/index.jsp</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/CoursesDAO.java</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/productinsert.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/Home.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/bakup/Home.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/register.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/login.jsp</file>
         </group>
     </open-files>
 </project-private>

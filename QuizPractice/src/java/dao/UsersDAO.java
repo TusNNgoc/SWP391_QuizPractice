@@ -6,7 +6,9 @@
 package dao;
 
 import connection.MySQLConnection;
+import static connection.MySQLConnection.getConnection;
 import entity.Role;
+import entity.User;
 import entity.Users;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.lang.model.util.Types;
@@ -153,12 +156,12 @@ public class UsersDAO {
         return null;
     }
 
-    public Users getOneByUsername(String username) {
+    public Users getOneByUsername(String coursename) {
         String sql = "SELECT * FROM users \n"
                 + "WHERE `username` = ?;";
 
         try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, username);
+            ps.setString(1, coursename);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -240,6 +243,45 @@ public class UsersDAO {
         return null;
     }
 
+    public boolean checkUsername(String username) {
+        String sql = "select * from users where username= ?";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return false;
+    }
+
+    /////////////////////////////ADMIN////////////////////////////////
+    public void updateAllUser(String userId, String fullname, String username, String password, String email, int role, String country, String address, String gender, String dob, String phone) {
+        String sql = "UPDATE users SET fullname = ?, username = ?, password = ?, email = ?, role_id = ?, country = ?, address = ?, gender = ?, dob = ?, phone = ? WHERE user_id = ?";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setString(1, fullname);
+            ps.setString(2, username);
+            ps.setString(3, password);
+            ps.setString(4, email);
+            ps.setInt(5, role);
+            ps.setString(6, country);
+            ps.setString(7, address);
+            ps.setString(8, gender);
+            ps.setString(9, dob);
+            ps.setString(10, phone);
+            ps.setString(11, userId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
     public boolean updateUser(String fullname, String username, String email, String curpass) {
         String sql = "UPDATE users \n"
                 + "SET fullname = ?, username = ?, email = ?, password=?\n"
@@ -262,20 +304,354 @@ public class UsersDAO {
         return false;
     }
 
-    public boolean checkUsername(String username) {
-        String sql = "select * from users where username= ?";
-        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
-            ps.setString(1, username);
+    public static int getTotalUsersWithRole1() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int totalUsers = 0;
+        ResultSet rs = null;
+        try {
+            conn = getConnection(); // Sử dụng kết nối từ lớp cha
+            String sql = "SELECT COUNT(*) AS TotalUsersWithRole1 FROM users WHERE role_id = 1";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalUsers = rs.getInt("TotalUsersWithRole1");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalUsers;
+    }
 
-            ResultSet rs = ps.executeQuery();
+    public static int getTotalUsersWithRole2() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int totalUsers = 0;
+        ResultSet rs = null;
+        try {
+            conn = getConnection(); // Sử dụng kết nối từ lớp cha
+            String sql = "SELECT COUNT(*) AS TotalUsersWithRole2 FROM users WHERE role_id = 2";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalUsers = rs.getInt("TotalUsersWithRole2");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalUsers;
+    }
+
+    public static int getTotalActiveUsersWithRole() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int totalUsers = 0;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            String sql = "SELECT COUNT(*) AS TotalActiveUsersWithRole FROM users WHERE role_id AND account_actived = 1";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalUsers = rs.getInt("TotalActiveUsersWithRole");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalUsers;
+    }
+
+    public static int getTotalAccounts() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int totalAccounts = 0;
+        ResultSet rs = null;
+        try {
+            conn = getConnection(); // Lấy kết nối đến cơ sở dữ liệu
+            String sql = "SELECT COUNT(*) AS TotalAccounts FROM users";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalAccounts = rs.getInt("TotalAccounts");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Đóng kết nối, câu lệnh và ResultSet
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalAccounts;
+    }
+
+    public static ArrayList<User> getAccount() {
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM users;";
+
+        try (Connection conn = getConnection(); PreparedStatement st = conn.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+
             while (rs.next()) {
-                return true;
+                User u = new User(rs.getInt("user_id"), rs.getString("username"),
+                        rs.getString("password"), rs.getString("fullname"),
+                        rs.getString("email"), rs.getBoolean("account_actived"),
+                        rs.getInt("role_id"), rs.getString("country"),
+                        rs.getString("address"), rs.getString("gender"),
+                        rs.getDate("dob"), rs.getString("phone"));
+                list.add(u);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace();
         }
-        return false;
+
+        return list;
+    }
+
+    //tim Users_id
+    public static boolean deleteAccount(int user_id) {
+        String sql = "DELETE FROM users WHERE user_id = ?";
+        try (Connection conn = MySQLConnection.getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setInt(1, user_id);
+            int rowsDeleted = st.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void insertStudent(String fullname, String password, String username, String email, boolean accountActived, int role, String country, String address, String gender, java.util.Date dob, String phone) {
+        // Convert Date to String
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dobString = dateFormat.format(dob);
+
+        // Convert int to String
+        String roleString = String.valueOf(role);
+
+        // Your insertion logic here
+        // For example:
+        String sql = "INSERT INTO users (fullname, username, password, email, account_actived, role_id, country, address, gender, dob, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = MySQLConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, fullname);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            statement.setString(4, email);
+            statement.setBoolean(5, accountActived);
+            statement.setString(6, roleString);
+            statement.setString(7, country);
+            statement.setString(8, address);
+            statement.setString(9, gender);
+            statement.setString(10, dobString);
+            statement.setString(11, phone);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User getUserByID(String user_id) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        try (Connection conn = getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, user_id); // Thiết lập giá trị cho tham số trong câu lệnh SQL
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User(rs.getInt("user_id"), rs.getString("username"),
+                            rs.getString("password"), rs.getString("fullname"),
+                            rs.getString("email"), rs.getBoolean("account_actived"),
+                            rs.getInt("role_id"), rs.getString("country"),
+                            rs.getString("address"), rs.getString("gender"),
+                            rs.getDate("dob"), rs.getString("phone"));
+                    return u;
+                }
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ SQLException
+            System.err.println("Lỗi khi lấy người dùng từ cơ sở dữ liệu: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean isUsernameUnique(String username, String userId) {
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND user_id != ?";
+        try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count == 0; // Trả về true nếu không có người dùng nào khác sử dụng tên người dùng này, trừ người dùng hiện tại
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Trả về false nếu có lỗi xảy ra hoặc không thể kiểm tra
+    }
+
+    public static List<User> searchUser(String txtSearch) {
+        List<User> userList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM users WHERE ";
+            sql += "username LIKE ? OR ";
+            sql += "fullname LIKE ? OR ";
+            sql += "user_id = ? OR ";
+            sql += "password LIKE ? OR ";
+            sql += "address LIKE ? OR ";
+            sql += "gender LIKE ? OR ";
+            sql += "dob LIKE ? OR ";
+            sql += "phone LIKE ?";
+
+            connection = MySQLConnection.getConnection();
+            ps = connection.prepareStatement(sql);
+            for (int i = 1; i <= 8; i++) {
+                ps.setString(i, "%" + txtSearch + "%");
+            }
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Tạo một đối tượng User từ dữ liệu cột của kết quả ResultSet
+                User user = new User();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setFullname(rs.getString("fullname"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setAddress(rs.getString("address"));
+                user.setGender(rs.getString("gender"));
+                user.setDob(rs.getDate("dob"));
+                user.setPhone(rs.getString("phone"));
+                // Thêm user vào danh sách userList
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            // Xử lý các ngoại lệ SQL
+            e.printStackTrace();
+        } finally {
+            // Đóng tất cả các tài nguyên
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                // Xử lý ngoại lệ khi đóng tài nguyên
+                e.printStackTrace();
+            }
+        }
+        return userList;
+    }
+
+    public static List<User> pagingAccount(int index) {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM users ORDER BY user_id LIMIT ?, 3";
+
+        try (Connection conn = MySQLConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            // Tính toán offset dựa trên chỉ số
+            int offset = (index - 1) * 3;
+
+            // Thiết lập giá trị tham số cho offset
+            stmt.setInt(1, offset);
+
+            // Thực hiện truy vấn
+            try (ResultSet rs = stmt.executeQuery()) {
+                // Duyệt qua kết quả và điền vào danh sách userList
+                while (rs.next()) {
+                    User user = new User();
+                    // Điền các thuộc tính của đối tượng user từ kết quả ResultSet
+                    user.setUser_id(rs.getInt("user_id"));
+                    user.setUsername(rs.getString("username"));
+                    user.setFullname(rs.getString("fullname"));
+                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("email"));
+                    user.setAccountActived(rs.getBoolean("account_actived"));
+                    user.setRole(rs.getInt("role_id"));
+                    user.setCountry(rs.getString("country"));
+                    user.setAddress(rs.getString("address"));
+                    user.setGender(rs.getString("gender"));
+                    user.setDob(rs.getDate("dob"));
+                    user.setPhone(rs.getString("phone"));
+
+                    // Thêm đối tượng user vào danh sách
+                    userList.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            // Xử lý các ngoại lệ SQL
+            e.printStackTrace();
+        }
+
+        // Trả về danh sách người dùng
+        return userList;
     }
 
     public static void main(String[] args) {

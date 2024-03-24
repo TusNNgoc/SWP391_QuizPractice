@@ -68,6 +68,9 @@ public class MangeStudentTeacherController extends HttpServlet {
 
         UsersDAO ud = new UsersDAO();
         List<Users> listStudent = ud.getStudentByCourseName(course_name);
+        
+//        PrintWriter out = response.getWriter() ;
+//        out.println(listStudent);
         session.setAttribute("course_name", course_name);
         request.setAttribute("listStudent", listStudent);
         request.getRequestDispatcher("teacher/student.jsp").forward(request, response);
