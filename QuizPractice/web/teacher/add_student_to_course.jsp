@@ -98,7 +98,6 @@
 
 
                 <div class="input-group-append">
-
                     <button type="button" class="btn btn-primary check-button" onclick="checkAndSubmit()">Kiểm tra</button>
                 </div>
             </div>

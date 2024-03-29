@@ -71,27 +71,30 @@
 </html>
 
 <script>
-function validateForm() {
-    var fullname = document.getElementById('fullname').value;
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    var email = document.getElementById('email').value;
+    function validateForm() {
+        var dobInput = document.getElementById("dob").value;
+        var inputDate = new Date(dobInput);
+        var currentDate = new Date();
 
-    // Kiểm tra nếu các trường không được để trống
-    if (fullname.trim() == '' || username.trim() == '' || password.trim() == '' || email.trim() == '') {
-        alert('Vui lòng điền đầy đủ thông tin.');
-        return false;
+        // Lấy ngày sinh mà người dùng nhập vào
+        var dobYear = inputDate.getFullYear();
+        var dobMonth = inputDate.getMonth();
+        var dobDay = inputDate.getDate();
+
+        // Lấy ngày hiện tại
+        var currentYear = currentDate.getFullYear();
+        var currentMonth = currentDate.getMonth();
+        var currentDay = currentDate.getDate();
+
+        // So sánh ngày sinh với ngày hiện tại
+        if (dobYear > currentYear ||
+                (dobYear == currentYear && dobMonth > currentMonth) ||
+                (dobYear == currentYear && dobMonth == currentMonth && dobDay > currentDay)) {
+            alert("Date of Birth cannot be later than today!");
+            return false;
+        }
+        return true;
     }
-
-    // Kiểm tra định dạng email
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert('Email không hợp lệ.');
-        return false;
-    }
-
-    return true;
-}
 </script>
 
 <style>
@@ -158,3 +161,6 @@ function validateForm() {
     }
 
 </style>
+
+
+

@@ -15,7 +15,6 @@
 String start=request.getParameter("start");
   if(start==null)
   {%>
-	  <script>history.back();</script>
  <%}
   if(start != null)
   {
@@ -58,15 +57,15 @@ if(maxsrno < 5)
 	<script>alert("Sorry, Not Enough Question Yet!");
 	history.back();</script>
 	<%}
-while(i<count-1)
-{
-	if(arr[i]==rand_int)
-	{
-		rand_int=rand.nextInt(maxsrno)+1;
-		i=-1;
-	}
-	i++;
-}
+//while(i<count-1)
+//{
+//	if(arr[i]==rand_int)
+//	{
+//		rand_int=rand.nextInt(maxsrno)+1;
+//		i=-1;
+//	}
+//	i++;
+//}
 arr[count-1]=rand_int;
 if(!MathsQuiz.createQuestion(rand_int))
 	{%>

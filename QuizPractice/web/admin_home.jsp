@@ -1,7 +1,7 @@
-    <%-- 
-    Document   : admin_account
-    Created on : Mar 20, 2024, 12:38:38 AM
-    Author     : anhph
+<%-- 
+Document   : admin_account
+Created on : Mar 20, 2024, 12:38:38 AM
+Author     : anhph
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -213,7 +213,7 @@
                                                 List<User> currentUsers = allaccounts.subList(startIndex, endIndex);
                                                 
                                             %>
-                                       
+
                                             <%
                                                 
                                             int i = startIndex + 1;
@@ -225,7 +225,17 @@
                                                 <td><%=u.getPassword() %></td>
                                                 <td><%=u.getUsername() %></td>
                                                 <td><%=u.isAccountActived() %></td>
-                                                <td><%=u.getRole() %></td>
+                                                <td>
+                                                    <% 
+                                                        if (u.getRole() == 1) {
+                                                            out.print("Teacher");
+                                                        } else if (u.getRole() == 2) {
+                                                            out.print("Student");
+                                                        } else {
+                                                            out.print("Unknown");                                                         }
+                                                    %>
+                                                </td>
+
                                                 <td><%=u.getCountry() %></td>
                                                 <td><%=u.getAddress() %></td>
                                                 <td><%=u.getGender() %></td>
@@ -249,14 +259,14 @@
                                         </tbody>
                                     </table>
 
-                                        <div >
-                                            <button type="button" class="btn btn-outline-success">
-                                                <div><h3> <a href="admin_add.jsp" style="margin-top: 5px;
-                                                             margin-right: 20px;
-                                                             margin-bottom: 15px;
-                                                             margin-left: 10px;">  Add Account  </a></h3></div>
-                                            </button>
-                                        </div
+                                    <div >
+                                        <button type="button" class="btn btn-outline-success">
+                                            <div><h3> <a href="admin_add.jsp" style="margin-top: 5px;
+                                                         margin-right: 20px;
+                                                         margin-bottom: 15px;
+                                                         margin-left: 10px;">  Add Account  </a></h3></div>
+                                        </button>
+                                    </div
 
                                 </div>
                             </div>

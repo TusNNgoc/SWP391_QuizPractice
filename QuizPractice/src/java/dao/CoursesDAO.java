@@ -120,6 +120,26 @@ public class CoursesDAO {
         return null;
     }
 
+    public String getCourseNameByCourseId(int course_id) {
+
+        String sql = "select * from course \n"
+                + "where course_id = ?;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setInt(1, course_id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                
+                return rs.getString("course_name");
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
     public List<Courses> getCourseByStudentId(int user_id) {
         List<Courses> totalCourses = new ArrayList<>();
         String sql = "select * from course c join users u on c.user_id_course = u.user_id\n"
@@ -227,6 +247,24 @@ public class CoursesDAO {
 
             ps.setInt(1, user_id);
             ps.setString(2, course_name);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return false;
+    }
+    
+    public boolean deleteCourseByCourseId(int course_id) {
+        String sql = "DELETE FROM course WHERE course_id = ?;";
+        try (Connection con = MySQLConnection.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+
+            ps.setInt(1,  course_id);
+            
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0) {

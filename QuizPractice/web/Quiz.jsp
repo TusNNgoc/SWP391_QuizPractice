@@ -222,8 +222,8 @@
 	  <ul class="navbar-nav mr-auto">
 		<li class="nav-item">
 	      <form action="Dashboard.jsp" method="post">
-	      <button type="submit" value="logout" class="btn btn-secondary mr-2 mb-1" style="font-family: serif;">
-	      <%=session.getAttribute("fullname")%></button>
+	      <button type="submit" value="logout" class="btn btn-secondary mr-2 mb-1" style="font-family: serif;" onclick=>
+	      <%=request.getAttribute("fullname")%></button>
 	      </form>     
         </li>
         
@@ -339,7 +339,7 @@
 	document.getElementById("nav3").style.display = "none";
 	document.getElementById("nav2").style.display = "block";
 	</script>
-<%	}%>
+<%}%>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

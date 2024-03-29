@@ -40,11 +40,12 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/TeacherController.java</file>
         </group>
         <group>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/assets/css/creative.min.css</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/assets/img/bg-masthead.jpg</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/index.html</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/assets/img/icon.png</file>
-            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/Quiz.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/QuizDAO.java</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/CourseController.java</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/index.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/web/teacher/quiz.jsp</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/dao/CoursesDAO.java</file>
+            <file>file:/D:/FPTU/Spring2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/QuizController.java</file>
         </group>
     </open-files>
 </project-private>

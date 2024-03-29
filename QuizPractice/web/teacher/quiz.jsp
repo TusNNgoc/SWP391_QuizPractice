@@ -78,13 +78,15 @@
                 </ul>
                 <div id="clock"></div>
             </div>
-             
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
                         <div class="tile-body">
 
                             <div class="row element-button">
+                                <div class="col-sm-2"><a class="btn btn-add btn-sm" href="teacher/addQuiz.jsp" title="Thêm"><i class="fas fa-plus" data-toggle="modal" data-target="#modalNewQuestion"></i>
+                                        Tạo mới Quiz</a></div>
                                 <div class="col-sm-2">
                                     <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
                                             class="fas fa-print"></i> In dữ liệu</a>
@@ -108,6 +110,9 @@
                                             <td>${q.quiz_name}</td>
                                             <td>${q.quiz_content}</td>
                                             <td>${q.course_id.course_name}</td>
+
+
+
 
                                             <td><button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp" data-toggle="modal"
                                                         data-target="#ModalUP${q.quiz_id}"><i class="fas fa-edit"></i></button>
@@ -168,6 +173,12 @@
                 </div>
             </c:forEach>
 
+            <% 
+                 String courseName = (String) request.getAttribute("courseName");
+    session.setAttribute("courseName", courseName);
+            %>
+
+
         </main>
 
         <!-- Essential javascripts for application to work-->
@@ -188,7 +199,7 @@
         <script>
             function redirectToServlet(quizId) {
                 // Chuyển hướng đến servlet với courseId
-                window.location.href = 'question?quizId=' + quizId ;
+                window.location.href = 'question?quizId=' + quizId;
             }
         </script>
         <script>
@@ -298,28 +309,28 @@
             }
 
         </script>
-        
+
         <!-- SEARCH -->
         <script>
-                function myFunction() {
-                    var input, filter, table, tr, td, i, txtValue;
-                    input = document.getElementById("myInputTable");
-                    filter = input.value.toUpperCase();
-                    table = document.getElementById("sampleTable");
-                    tr = table.getElementsByTagName("tr");
-                    for (i = 0; i < tr.length; i++) {
-                        td = tr[i].getElementsByTagName("td")[0];
-                        if (td) {
-                            txtValue = td.textContent || td.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
-                            }
+            function myFunction() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("myInputTable");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("sampleTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
                         }
                     }
                 }
-            </script>          
+            }
+        </script>          
 
     </body>
 

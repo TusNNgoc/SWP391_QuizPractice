@@ -4,8 +4,7 @@
  */
 package controller;
 
-import dao.CoursesDAO;
-import dao.UsersDAO;
+import dao.QuizDAO;
 import entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,8 +19,8 @@ import java.io.PrintWriter;
  *
  * @author -Pc-
  */
-@WebServlet(name = "CourseController", urlPatterns = {"/course"})
-public class CourseController extends HttpServlet {
+@WebServlet(name = "addQuiz", urlPatterns = {"/addQuiz"})
+public class addQuizController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class CourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseController</title>");
+            out.println("<title>Servlet addQuiz</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CourseController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addQuiz at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,16 +57,10 @@ public class CourseController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        int course_id = (int) session.getAttribute("course_id");
-        PrintWriter out = response.getWriter();
-        out.print(out);
-        
+        processRequest(request, response);
     }
 
     /**
@@ -82,35 +75,19 @@ public class CourseController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        UsersDAO ud = new UsersDAO();
-        String course_name = request.getParameter("course_name");
-        String course_content = request.getParameter("course_content");
+       String quiz_name = request.getParameter("quiz_name");
+       String quiz_content = request.getParameter("quiz_content");
+       Users user = (Users) session.getAttribute("user");
+       int course_id = (int) session.getAttribute("course_id");
        
-        String username = (String) session.getAttribute("username");
-        String pass = (String) session.getAttribute("pass");
-        String action = request.getParameter("action");
-         int course_id = (int) session.getAttribute("course_id");
-        Users u = ud.authenticate(username, pass);
-
-        CoursesDAO cd = new CoursesDAO();
-
-        if (action.equalsIgnoreCase("add")) {
-             int status = Integer.parseInt(request.getParameter("status"));
-            if (cd.insertCourseByTeacher(course_name, u.getUser_id(), course_content, status)) {
-                request.getRequestDispatcher("teacher").forward(request, response);
-            }
-        }
-        if (action.equalsIgnoreCase("edit")) {
-            PrintWriter out = response.getWriter();
-            out.println(course_name);
-        }
+       QuizDAO qd = new QuizDAO();
+       if(qd.insertQuiz(quiz_name, quiz_content, course_id, user.getUser_id())){
+            response.sendRedirect("/QuizPractice/quiz?courseId=" + course_id);
+       }
+       else{
+           response.sendRedirect("Home.jsp");
+       }
         
-        if (action.equalsIgnoreCase("delete")) {
-            if (cd.deleteCourseByCourseId(course_id)) {
-                request.getRequestDispatcher("teacher").forward(request, response);
-            }
-        }
-
     }
 
     /**

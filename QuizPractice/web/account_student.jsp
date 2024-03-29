@@ -147,7 +147,16 @@
                                             <td><%=u.getPassword() %></td>
                                             <td><%=u.getUsername() %></td>
                                             <td><%=u.isAccountActived() %></td>
-                                            <td><%=u.getRole() %></td>
+                                             <td>
+                                                <% 
+                                                    if (u.getRole() == 1) {
+                                                        out.print("Teacher");
+                                                    } else if (u.getRole() == 2) {
+                                                        out.print("Student");
+                                                    } else {
+                                                        out.print("Admin");                                                         }
+                                                %>
+                                            </td>
                                             <td><%=u.getCountry() %></td>
                                             <td><%=u.getAddress() %></td>
                                             <td><%=u.getGender() %></td>

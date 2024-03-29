@@ -86,7 +86,7 @@ public class SignInController extends HttpServlet {
         String action = request.getParameter("action");
         UsersDAO ud = new UsersDAO();
 
-        PrintWriter out = response.getWriter();
+      
 
         if (username == null || pass == null) {
             if (action.equalsIgnoreCase("course")) {
@@ -136,7 +136,11 @@ public class SignInController extends HttpServlet {
                     session.setAttribute("username", username);
                     session.setAttribute("pass", pass);
                     //TẠM THỜI///
+//                    PrintWriter out = response.getWriter();
+//                    out.print(userAuthenticate.getFullname());
+                    
                     request.setAttribute("fullname", userAuthenticate.getFullname());
+                     session.setAttribute("user", userAuthenticate);
                     request.getRequestDispatcher("Quiz.jsp").forward(request, response);
                 }
 

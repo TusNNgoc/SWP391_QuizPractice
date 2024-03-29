@@ -72,8 +72,8 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Manager Role
                             </a>
-                            
-                           
+
+
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -146,7 +146,8 @@
                                             <td><%=u.getPassword() %></td>
                                             <td><%=u.getUsername() %></td>
                                             <td><%=u.isAccountActived() %></td>
-                                            <td><%=u.getRole() %></td>
+                                            
+
                                             <td><%=u.getCountry() %></td>
                                             <td><%=u.getAddress() %></td>
                                             <td><%=u.getGender() %></td>

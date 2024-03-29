@@ -197,6 +197,10 @@
                                                         <button type="button" class="btn btn-info" data-toggle="modal" onclick="redirectToServletManageStudent('${c.course_name}')">
                                                             <i class="bx bx-user"></i>
                                                         </button>
+
+                                                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" value="${c.course_id}" onclick="submitForm('${c.course_id}')"><i
+                                                                class="fas fa-trash-alt"></i>
+                                                        </button>
                                                     </td> 
 
 
@@ -221,9 +225,14 @@
                                             // Chuyển hướng đến servlet với courseId
                                             window.location.href = 'quiz?courseId=' + courseId;
                                         }
+                                        
+                                        function submitForm (course_id){
+                                            
+                                            window.location.href = 'course?action=delete&course_id=' + course_id;
+                                        }
                                     </script>
-                                    
-                                     <!-- SCRIPT CHO NÚT user -->
+
+                                    <!-- SCRIPT CHO NÚT user -->
                                     <script>
                                         function redirectToServletManageStudent(course_name) {
                                             // Chuyển hướng đến servlet với courseId
