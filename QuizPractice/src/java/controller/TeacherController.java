@@ -88,6 +88,9 @@ public class TeacherController extends HttpServlet {
             String username =(String) session.getAttribute("username");
             List<Courses> courses = cd.getCourseByTeacherName(username);
             int coursesCount = courses.size();
+
+           
+
             request.setAttribute("courses", courses);
             session.setAttribute("coursesCount", coursesCount);
 //            session.setAttribute("studentCount", studentCount);

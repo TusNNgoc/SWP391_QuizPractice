@@ -44,7 +44,7 @@ public class QuizDAO {
     }
 
     public List<Quiz> getQuizByCourseId(int course_id) {
-        String sql = "select * from quiz q join course c on c.course_id = q.course_id where q.course_id = ? ";
+        String sql = "select DISTINCT * from quiz q join course c on c.course_id = q.course_id where q.course_id = ? ";
         try (Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);) {
             ps.setInt(1, course_id);
             ResultSet rs = ps.executeQuery();
@@ -89,6 +89,26 @@ public class QuizDAO {
             e.printStackTrace(System.out);
         }
 
+        return false;
+    }
+    
+    public boolean insertQuiz(String quiz_name, String quiz_content, int course_id, int creator_id) {
+        String sql = "INSERT INTO quiz (quiz_name, creator_id, course_id, quiz_content )\n"
+                + "VALUES (?, ?, ?, ?);";
+        try(Connection connection = MySQLConnection.getConnection(); PreparedStatement ps = connection.prepareStatement(sql);){
+            ps.setString(1, quiz_name);
+            
+            ps.setInt(2, creator_id);
+            ps.setInt(3, course_id);
+            ps.setString(4, quiz_content);
+            
+            int rowAffected = ps.executeUpdate();
+            if(rowAffected > 0){
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace(System.out);
+        }
         return false;
     }
 

@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.CoursesDAO;
 import dao.QuizDAO;
 import entity.Quiz;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -60,16 +62,30 @@ public class QuizController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         int course_id = Integer.parseInt(request.getParameter("courseId"));
+       
         QuizDAO qd = new QuizDAO();
+        CoursesDAO cd = new CoursesDAO();
+        
         Quiz quiz = Quiz.builder().build();
         List<Quiz> listQuiz = qd.getQuizByCourseId(course_id);
-        
+
 //        PrintWriter out = response.getWriter();
 //        out.println(listQuiz);
-        
         request.setAttribute("listQuiz", listQuiz);
-        request.getRequestDispatcher("teacher/customer.jsp").forward(request, response);
+        session.setAttribute("course_id", course_id);
+        if(!listQuiz.isEmpty()){
+            request.setAttribute("courseName", listQuiz.get(0).getCourse_id().getCourse_name());
+            request.getRequestDispatcher("teacher/quiz.jsp").forward(request, response);
+        }else{
+             request.setAttribute("courseName", cd.getCourseNameByCourseId(course_id) );
+            request.getRequestDispatcher("teacher/quiz.jsp").forward(request, response);
+        }
+        
+//       PrintWriter out = response.getWriter();
+//       out.print();
+        
     }
 
     /**
@@ -84,17 +100,20 @@ public class QuizController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        HttpSession session = request.getSession();
+        int course_id = (int) session.getAttribute("course_id");
         String action = request.getParameter("action");
         String quizName = request.getParameter("quizName");
-       int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+        int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
         String quizContent = request.getParameter("quizContent");
-        
+
         QuizDAO qd = new QuizDAO();
 
         if (action.equals("update")) {
-            if(qd.updateQuizById(quizName, quizContent, quiz_id)){
-                doGet(request, response);
-            }else{
+            if (qd.updateQuizById(quizName, quizContent, quiz_id)) {
+//                doGet(request, response);
+                response.sendRedirect("/QuizPractice/quiz?courseId=" + course_id);
+            } else {
                 request.getRequestDispatcher("Home.jsp").forward(request, response);
             }
 

@@ -57,7 +57,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editAnswerModal">
-                                    <i class="fas fa-edit"></i> Sửa
+                                    <i class="fas fa-edit" onclick="redirectToEditAnswer('${answer.answer_id}')"></i> Sửa
                                 </button>
                             </td>
                         </tr>
@@ -86,6 +86,11 @@
                    function redirectToAddAnswer() {
                        // Redirect to the desired URL when the button is clicked
                        window.location.href = 'teacher/addAnswer.jsp'; // Replace with the actual URL
+                   }
+                   
+                   function redirectToEditAnswer(answerId){
+                       
+                       window.location.href = 'EditAnswer?anwerId=' + answerId;
                    }
         </script>
     </body>

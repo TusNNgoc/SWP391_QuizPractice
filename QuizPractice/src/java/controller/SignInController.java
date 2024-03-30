@@ -86,20 +86,20 @@ public class SignInController extends HttpServlet {
         String action = request.getParameter("action");
         UsersDAO ud = new UsersDAO();
 
-        PrintWriter out = response.getWriter();
+      
 
         if (username == null || pass == null) {
             if (action.equalsIgnoreCase("course")) {
                 Users userAuthenticate = ud.authenticate(username_session, pass_session);
                 session.setAttribute("user", userAuthenticate);
                 request.getRequestDispatcher("teacher").forward(request, response);
-            } 
+            }
             if (action.equalsIgnoreCase("quiz")) {
                 Users userAuthenticate = ud.authenticate(username_session, pass_session);
                 session.setAttribute("user", userAuthenticate);
                 request.getRequestDispatcher("quiz").forward(request, response);
-            } 
-            if(action.equalsIgnoreCase("question")){
+            }
+            if (action.equalsIgnoreCase("question")) {
                 Users userAuthenticate = ud.authenticate(username_session, pass_session);
                 session.setAttribute("user", userAuthenticate);
                 request.getRequestDispatcher("question").forward(request, response);
@@ -116,7 +116,10 @@ public class SignInController extends HttpServlet {
                 if (userAuthenticate.getRoleName().equals("admin")) {
                     // Xử lý cho admin
                     session.setAttribute("user", userAuthenticate);
-                    request.getRequestDispatcher("teacherHome.jsp").forward(request, response);
+                    session.setAttribute("username", username);
+                    session.setAttribute("pass", pass);
+
+                    request.getRequestDispatcher("admin_home.jsp").forward(request, response);
                 }
                 if (userAuthenticate.getRoleName().equalsIgnoreCase("teacher")) {
                     // Xử lý cho teacher
@@ -129,8 +132,16 @@ public class SignInController extends HttpServlet {
                 }
                 if (userAuthenticate.getRoleName().equals("student")) {
                     // Xử lý cho student
-                    session.setAttribute("user", userAuthenticate);
-                    request.getRequestDispatcher("teacherHome.jsp").forward(request, response);
+                    session.setAttribute("user1", userAuthenticate);
+                    session.setAttribute("username", username);
+                    session.setAttribute("pass", pass);
+                    //TẠM THỜI///
+//                    PrintWriter out = response.getWriter();
+//                    out.print(userAuthenticate.getFullname());
+                    
+                    request.setAttribute("fullname", userAuthenticate.getFullname());
+                     session.setAttribute("user", userAuthenticate);
+                    request.getRequestDispatcher("Quiz.jsp").forward(request, response);
                 }
 
 //            request.setAttribute("err", "Please don't leave username or password blank");

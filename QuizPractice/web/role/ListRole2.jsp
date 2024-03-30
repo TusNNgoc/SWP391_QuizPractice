@@ -1,440 +1,375 @@
-<%-- 
-    Document   : admin_account
-    Created on : Mar 3, 2024, 12:37:40 AM
-    Author     : anhph
---%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="dao.UsersDAO" %>
+<%@ page import="dao.UsersDAO" %>
+<%@ page import="entity.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Account</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-........" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="assets/css/styles.min_1.css">
-
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tables - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="assets/css/daboa.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <!--  Body Wrapper -->
-        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-             data-sidebar-position="fixed" data-header-position="fixed">
-            <!-- Sidebar Start -->
-            <aside class="left-sidebar">
-                <!-- Sidebar scroll-->
-                <div>
-                    <div class="brand-logo d-flex align-items-center justify-content-between">
-                        <a href="./admin_home.jsp" class="text-nowrap logo-img">
-                            <img src="assets/img/logos/quizlogo.png" width="180" alt="" />
-                        </a>
-                        <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                            <i class="ti ti-x fs-8"></i>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="admin_home.jsp">Quiz</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="signinOfficial.jsp">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Admin</div>
+                            <a class="nav-link" href="admin_home.jsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Manager</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Manager Account
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="account_student.jsp">Manager Student</a>
+                                    <a class="nav-link" href="account_teacher.jsp">Manager Teacher</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link" href="role">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Manager Role
+                            </a>
+
+
                         </div>
                     </div>
-                    <!-- Sidebar navigation-->
-                    <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                        <ul id="sidebarnav">
-                            <li class="nav-small-cap">
-                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                <span class="hide-menu">Home</span>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="admin_home.jsp" aria-expanded="false">
-                                    <span>
-                                        <i class="ti ti-layout-dashboard"></i>
-                                    </span>
-                                    <span class="hide-menu">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="nav-small-cap">
-                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                <span class="hide-menu">Manager</span>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-check" width="24"
-                                         height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                         stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-                                    <path d="M15 19l2 2l4 -4" />
-                                    </svg>
-                                    <span class="hide-menu">Account</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./ui-alerts" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-zoom-question" width="24"
-                                         height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                         stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                                    <path d="M21 21l-6 -6" />
-                                    <path d="M10 13l0 .01" />
-                                    <path d="M10 10a1.5 1.5 0 1 0 -1.14 -2.474" />
-                                    </svg>
-                                    <span class="hide-menu">List Quiz</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-school" width="24"
-                                         height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                         stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
-                                    <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
-                                    </svg>
-                                    <span class="hide-menu">Subject</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-infographic"
-                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                         stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M7 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                    <path d="M7 3v4h4" />
-                                    <path d="M9 17l0 4" />
-                                    <path d="M17 14l0 7" />
-                                    <path d="M13 13l0 8" />
-                                    <path d="M21 12l0 9" />
-                                    </svg>
-                                    <span class="hide-menu">Estadísticas</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                                    <span>
-                                        <i class="ti ti-typography"></i>
-                                    </span>
-                                    <span class="hide-menu">Typography</span>
-                                </a>
-                            </li>
-                            <li class="nav-small-cap">
-                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                <span class="hide-menu">AUTH</span>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                                    <span>
-                                        <i class="ti ti-login"></i>
-                                    </span>
-                                    <span class="hide-menu">Login</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                                    <span>
-                                        <i class="ti ti-user-plus"></i>
-                                    </span>
-                                    <span class="hide-menu">Register</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                    <span>
-                                        <i class="ti ti-mood-happy"></i>
-                                    </span>
-                                    <span class="hide-menu">Icons</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                    <span>
-                                        <i class="ti ti-aperture"></i>
-                                    </span>
-                                    <span class="hide-menu">Sample Page</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- End Sidebar navigation -->
-                </div>
-                <!-- End Sidebar scroll-->
-            </aside>
-            <!--  Sidebar End -->
-            <!--  Main wrapper -->
-            <div class="body-wrapper">
-                <!--  Header Start -->
-                <header class="header">
-                    <div class="logo">
-                    </div>
-                    <ul class="navigation">
-                        <li><a href="welcome_page.jsp">Home</a></li>
-                        <li><a href="About.jsp">About</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </header>
-                <!--  Header End -->
-                <div>
-                    <div class="container-fluid">
-                        <div class="card">
+<!--                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>-->
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Manager Accounts</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="admin_home.jsp">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Accounts</li>
+                        </ol>
+<!--                        <div class="card mb-4">
+                            <div class="card-body">
+                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                                .
+                            </div>
+                        </div>-->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Role DataTable 
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <div class="container-fluid">
+                                        <div class="card">
 
-                            <div class="wrapper">
-                                <div class="content" style="">
+                                            <div class="wrapper">
+                                                <div class="content" style="">
 
-                                    <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
-                                        <div class="container">
-                                            <div class="quantity">
-                                                <label>Hiện 
-                                                    <form>
-                                                        <select id="quantitySelect" name="length" onchange="changeQuantity(this)" aria-controls="sampleTable" class="form-control form-control-sm">
-                                                            <option value="5" <c:if test="${quantity == 5}">selected</c:if>>5</option>
-                                                            <option value="10" <c:if test="${quantity == 10}">selected</c:if>>10</option>
-                                                            <option value="25" <c:if test="${quantity == 25}">selected</c:if>>25</option>
-                                                            <option value="50" <c:if test="${quantity == 50}">selected</c:if>>50</option>
-                                                            </select> danh mục
-                                                        </form>
-                                                    </label>
-                                                    <script>
-                                                        function changeQuantity(selectElement) {
-                                                            var selectedValue = selectElement.value;
+                                                    <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
+                                                        <div class="container">
+                                                            <div class="quantity">
+                                                                <label>Hiện 
+                                                                    <form>
+                                                                        <select id="quantitySelect" name="length" onchange="changeQuantity(this)" aria-controls="sampleTable" class="form-control form-control-sm">
+                                                                            <option value="5" <c:if test="${quantity == 5}">selected</c:if>>5</option>
+                                                                            <option value="10" <c:if test="${quantity == 10}">selected</c:if>>10</option>
+                                                                            <option value="25" <c:if test="${quantity == 25}">selected</c:if>>25</option>
+                                                                            <option value="50" <c:if test="${quantity == 50}">selected</c:if>>50</option>
+                                                                            </select> danh mục
+                                                                        </form>
+                                                                    </label>
+                                                                    <script>
+                                                                        function changeQuantity(selectElement) {
+                                                                            var selectedValue = selectElement.value;
 
-                                                            // Create a form element
-                                                            var form = document.createElement('form');
-                                                            form.method = 'get';
-                                                            form.action = 'role'; // Set the URL of your servlet
+                                                                            // Create a form element
+                                                                            var form = document.createElement('form');
+                                                                            form.method = 'get';
+                                                                            form.action = 'role'; // Set the URL of your servlet
 
-                                                            // Create an input element to hold the selected value
-                                                            var input = document.createElement('input');
-                                                            input.type = 'hidden'; // Hidden input field
-                                                            input.name = 'quantity'; // Name should match the parameter name in your servlet
-                                                            input.value = selectedValue;
-                                                            // Create an input element for the name
-                                                            var nameInput = document.createElement('input');
-                                                            nameInput.type = 'hidden';
-                                                            nameInput.name = 'name'; // Set the name to 'name'
-                                                            nameInput.value = '${name}'; // Set the value to the desired name
-                                                            // Create an input element for the carID
+                                                                            // Create an input element to hold the selected value
+                                                                            var input = document.createElement('input');
+                                                                            input.type = 'hidden'; // Hidden input field
+                                                                            input.name = 'quantity'; // Name should match the parameter name in your servlet
+                                                                            input.value = selectedValue;
+                                                                            // Create an input element for the name
+                                                                            var nameInput = document.createElement('input');
+                                                                            nameInput.type = 'hidden';
+                                                                            nameInput.name = 'name'; // Set the name to 'name'
+                                                                            nameInput.value = '${name}'; // Set the value to the desired name
+                                                                            // Create an input element for the carID
 
-                                                            form.appendChild(input);
-                                                            form.appendChild(nameInput);
-                                                            document.body.appendChild(form);
+                                                                            form.appendChild(input);
+                                                                            form.appendChild(nameInput);
+                                                                            document.body.appendChild(form);
 
-                                                            // Submit the form
-                                                            form.submit();
-                                                        }
-                                                </script>  
-                                            </div>
-                                            <div class="search">
-                                                <form action="role" method="get" >
-                                                    <div class="search-box" >
-                                                        <label>
-                                                            <div class="d-flex align-items-center">
-                                                                <div>Tìm kiếm:</div>          
+                                                                            // Submit the form
+                                                                            form.submit();
+                                                                        }
+                                                                </script>  
                                                             </div>
-                                                            <input type="search" value="${name}" name="name" class="form-control form-control-sm ml-2" placeholder="Nhập từ khóa cần tìm" aria-controls="sampleTable" style="margin-left: 0px !important">
-                                                        </label>
-                                                        <input type="hidden" name="index" value="1" />
-                                                        <input type="hidden" name="quantity" value="${quantity}" />
-                                                        <button type="submit" class="btn btn-outline-danger btn-sm" style="margin-bottom: 3px">Search</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRoleModal">
-                                            Add
-                                        </button>
-
-                                        <table class="table table-hover table-bordered" id="sampleTable">
-                                            <thead>
-                                                <tr>
-                                                    <th width="80px">Role id</th>
-                                                    <th >Role name</th>
-                                                    <th width="274px">Chức năng</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:forEach var="role" items="${data}">
-                                                    <tr>
-                                                        <th>${role.role_id}</th>
-                                                        <td>${role.role_name}
-                                                            <div class="container-fluid">
-                                                                <div class="collapse" id="collapse${role.role_id}">
-                                                                    <div class = row>
-                                                                        <div class="col-lg-2">
-                                                                            ID
-                                                                        </div>
-                                                                        <div class="col-lg-3">
-                                                                            Fullname
-                                                                        </div>
-                                                                        <div class="col-lg-3">
-                                                                            Username
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            Email
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <c:forEach begin="0" end="${size}" var="user" items="${userlist}">
-                                                                        <!-- Loop body -->
-                                                                        <c:if test="${role.role_id == user.role.role_id}">
-                                                                            <div class="row">
-                                                                                <div class="col-lg-2">
-                                                                                    ${user.user_id}
-                                                                                </div>
-                                                                                <div class="col-lg-3">
-                                                                                    ${user.fullname}
-                                                                                </div>
-                                                                                <div class="col-lg-3">
-                                                                                    ${user.username}
-                                                                                </div>
-                                                                                <div class="col-lg-4">
-                                                                                    ${user.email}
-                                                                                </div>
+                                                            <div class="search">
+                                                                <form action="role" method="get" >
+                                                                    <div class="search-box" >
+                                                                        <label>
+                                                                            <div class="d-flex align-items-center">
+                                                                                <div>Tìm kiếm:</div>          
                                                                             </div>
-                                                                        </c:if>
-                                                                    </c:forEach>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <!-- Button trigger modal -->
-                                                        <th>
-                                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse${role.role_id}" aria-expanded="false" aria-controls="collapse${role.role_id}">
-                                                                Users
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal${role.role_id}">
-                                                                Update
-                                                            </button>
-
-                                                            <a type="button" class="btn btn-primary" href="role?action=deleterole&roleid=${role.role_id}">Delete</a>
-                                                        </th>
-                                                    </tr>
-                                                    <!-- Update Modal -->
-                                                <div class="modal fade" id="updateModal${role.role_id}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel${role.role_id}" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="updateModalLabel${role.role_id}">Update Role</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <!-- Add form fields for updating role -->
-                                                                <form action="role" method="POST">
-                                                                    <div class="form-group">
-                                                                        <label for="roleId">Role ID</label>
-                                                                        <input type="text" class="form-control" id="roleId" name="roleid" value="${role.role_id}" readonly>
+                                                                            <input type="search" value="${name}" name="name" class="form-control form-control-sm ml-2" placeholder="Nhập từ khóa cần tìm" aria-controls="sampleTable" style="margin-left: 0px !important">
+                                                                        </label>
+                                                                        <input type="hidden" name="index" value="1" />
+                                                                        <input type="hidden" name="quantity" value="${quantity}" />
+                                                                        <button type="submit" class="btn btn-outline-danger btn-sm" style="margin-bottom: 3px">Search</button>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label for="roleName">Role Name</label>
-                                                                        <input type="text" class="form-control" id="roleName" name="rolename" value="${role.role_name}" required>
-                                                                    </div>
-                                                                    <input type="hidden" name="action" value="updaterole"/>
-                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                        <div class="dataTables_paginate">
-                                            <c:choose>
-
-                                                <c:when test = "${count>0}">
-                                                    Hiện ${(index-1)*quantity+1} đến 
-                                                    ${((index*quantity+1)>count) ? count : index*quantity}
-                                                    của ${count} danh mục
-                                                </c:when>
-
-                                                <c:otherwise>
-                                                    Không tìm thấy!
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <ul class="pagination justify-content-center">
-
-                                                <li class="paginate_button page-item previous <c:if test="${index == 1}">disabled</c:if>" id="sampleTable_previous">
-                                                    <a href="role?index=${index -1}&name=${name}&quantity=${quantity}" class="page-link">Lùi</a>
-                                                </li>
-
-                                                <c:forEach begin="1" end="${endPage}" var="i">
-
-                                                    <li class="paginate_button page-item ${index == i ? 'active' : ''}">
-                                                        <a href="role?index=${i}&name=${name}&quantity=${quantity}" class="page-link">${i}</a>
-                                                    </li>
-
-                                                </c:forEach>
-
-                                                <li class="paginate_button page-item next <c:if test="${index == endPage}">disabled</c:if>" id="sampleTable_next">
-                                                    <a href="role?index=${index +1}&name=${name}&quantity=${quantity}" class="page-link">Tiếp</a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="addRoleModal" tabindex="-1" role="dialog" aria-labelledby="addRoleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="addRoleModalLabel">Add Role</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRoleModal">
+                                                            Add
                                                         </button>
-                                                    </div>
 
-                                                    <!-- Your form inputs go here -->
-                                                    <form action="role" method="GET">
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label for="rolename">Role Name</label>
-                                                                <input type="text" class="form-control" id="roleName" placeholder="Enter role name" name="rolename" required>
+                                                        <table class="table table-hover table-bordered" id="sampleTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="80px">Role id</th>
+                                                                    <th >Role name</th>
+                                                                    <th width="274px">Chức năng</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach var="role" items="${data}">
+                                                                    <tr>
+                                                                        <th>${role.role_id}</th>
+                                                                        <td>${role.role_name}
+                                                                            <div class="container-fluid">
+                                                                                <div class="collapse" id="collapse${role.role_id}">
+                                                                                    <div class = row>
+                                                                                        <div class="col-lg-2">
+                                                                                            ID
+                                                                                        </div>
+                                                                                        <div class="col-lg-3">
+                                                                                            Fullname
+                                                                                        </div>
+                                                                                        <div class="col-lg-3">
+                                                                                            Username
+                                                                                        </div>
+                                                                                        <div class="col-lg-4">
+                                                                                            Email
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <c:forEach begin="0" end="${size}" var="user" items="${userlist}">
+                                                                                        <!-- Loop body -->
+                                                                                        <c:if test="${role.role_id == user.role.role_id}">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-2">
+                                                                                                    ${user.user_id}
+                                                                                                </div>
+                                                                                                <div class="col-lg-3">
+                                                                                                    ${user.fullname}
+                                                                                                </div>
+                                                                                                <div class="col-lg-3">
+                                                                                                    ${user.username}
+                                                                                                </div>
+                                                                                                <div class="col-lg-4">
+                                                                                                    ${user.email}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <!-- Button trigger modal -->
+                                                                        <th>
+                                                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse${role.role_id}" aria-expanded="false" aria-controls="collapse${role.role_id}">
+                                                                                Users
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal${role.role_id}">
+                                                                                Update
+                                                                            </button>
+
+                                                                            <a type="button" class="btn btn-primary" href="role?action=deleterole&roleid=${role.role_id}">Delete</a>
+                                                                        </th>
+                                                                    </tr>
+                                                                    <!-- Update Modal -->
+                                                                <div class="modal fade" id="updateModal${role.role_id}" tabindex="-1" aria-labelledby="updateModalLabel${role.role_id}" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="updateModalLabel${role.role_id}">Update Role</h5>
+                                                                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <!-- Add form fields for updating role -->
+                                                                                <form action="role" method="POST">
+                                                                                    <div class="mb-3">
+                                                                                        <label for="roleId" class="form-label">Role ID</label>
+                                                                                        <input type="text" class="form-control" id="roleId" name="roleid" value="${role.role_id}" readonly>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="roleName" class="form-label">Role Name</label>
+                                                                                        <input type="text" class="form-control" id="roleName" name="rolename" value="${role.role_name}" required>
+                                                                                    </div>
+                                                                                    <input type="hidden" name="action" value="updaterole"/>
+                                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </c:forEach>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="dataTables_paginate">
+                                                            <c:choose>
+
+                                                                <c:when test = "${count>0}">
+                                                                    Hiện ${(index-1)*quantity+1} đến 
+                                                                    ${((index*quantity+1)>count) ? count : index*quantity}
+                                                                    của ${count} danh mục
+                                                                </c:when>
+
+                                                                <c:otherwise>
+                                                                    Không tìm thấy!
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <ul class="pagination justify-content-center">
+
+                                                                <li class="paginate_button page-item previous <c:if test="${index == 1}">disabled</c:if>" id="sampleTable_previous">
+                                                                    <a href="role?index=${index -1}&name=${name}&quantity=${quantity}" class="page-link">Lùi</a>
+                                                                </li>
+
+                                                                <c:forEach begin="1" end="${endPage}" var="i">
+
+                                                                    <li class="paginate_button page-item ${index == i ? 'active' : ''}">
+                                                                        <a href="role?index=${i}&name=${name}&quantity=${quantity}" class="page-link">${i}</a>
+                                                                    </li>
+
+                                                                </c:forEach>
+
+                                                                <li class="paginate_button page-item next <c:if test="${index == endPage}">disabled</c:if>" id="sampleTable_next">
+                                                                    <a href="role?index=${index +1}&name=${name}&quantity=${quantity}" class="page-link">Tiếp</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="addRoleModalLabel">Add Role</h5>
+                                                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <form action="role" method="GET">
+                                                                        <div class="modal-body">
+                                                                            <div class="mb-3">
+                                                                                <label for="rolename" class="form-label">Role Name</label>
+                                                                                <input type="text" class="form-control" id="roleName" placeholder="Enter role name" name="rolename" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <input type="hidden" name="action" value="addrole"/>
+                                                                            <button type="submit" class="btn btn-primary">Add</button>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <!-- Add more form inputs as needed -->
-                                                        <input type="hidden" name="action" value="addrole"/>
-                                                        <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Add</button>
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>                        
-                                                        </div>
-                                                    </form>
+
+                                                    </div>
+                                                    <div >
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>                               
 
-                                    <div >
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--                                            //------------------------------------------------------------------------------------------------>
-
-
-
-
-                </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    .container {
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="assets/js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="assets/js/datatables-simple-demo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+    <style>
+            .container {
         display: flex; /* Use flexbox layout */
         justify-content: space-between; /* Distribute space between items */
         margin: 0px;
         padding: 0px;
-        max-width: 1080px !important;
+        max-width: 3060px !important;
     }
 
     .quantity, .search {
@@ -447,59 +382,5 @@
     .search {
         text-align: right;
     }
-    /* Header CSS */
-    .header {
-        background-color: rgb(26, 205, 246); /* Màu nền của header (một lớp mờ đen) */
-        color: #fff; /* Màu chữ */
-        padding: 20px; /* Khoảng cách từ nội dung đến mép của header */
-        text-align: center; /* Căn giữa nội dung header */
-        position: relative;
-    }
-
-    .logo {
-        font-size: 24px; /* Kích thước của logo */
-        font-weight: bold; /* Chữ đậm */
-    }
-
-    .navigation {
-        list-style-type: none; /* Loại bỏ dấu đầu dòng của danh sách */
-        margin-top: 20px; /* Khoảng cách từ danh sách đến logo */
-        display: flex; /* Hiển thị các mục menu trên cùng một hàng */
-        justify-content: center; /* Căn giữa các mục menu */
-    }
-
-    .navigation li {
-        margin-right: 20px; /* Khoảng cách giữa các mục menu */
-    }
-
-    .navigation li:last-child {
-        margin-right: 0; /* Loại bỏ khoảng cách của mục menu cuối cùng */
-    }
-
-    .navigation li a {
-        text-decoration: none; /* Loại bỏ gạch chân */
-        color: #fff; /* Màu chữ của menu */
-        font-size: 18px; /* Kích thước chữ của menu */
-        transition: color 0.3s ease; /* Hiệu ứng màu chữ */
-    }
-
-    .navigation li a:hover {
-        color: #ff0; /* Màu chữ khi rê chuột vào menu */
-    }
-
-    /* Animation for Logo */
-    .logo img {
-        width: 100px; /* Kích thước hình ảnh logo */
-        height: auto; /* Chiều cao tự động điều chỉnh */
-        position: absolute; /* Đặt hình ảnh logo tại vị trí tuyệt đối */
-        top: 50%; /* Đặt hình ảnh logo ở giữa theo chiều dọc */
-        left: 50%; /* Đặt hình ảnh logo ở giữa theo chiều ngang */
-        transform: translate(-50%, -50%); /* Dịch chuyển hình ảnh logo đi 50% chiều ngang và chiều dọc */
-        transition: all 0.3s ease; /* Hiệu ứng dịch chuyển */
-    }
-
-    .header:hover .logo img {
-        transform: translate(-50%, -50%) scale(1.1); /* Phóng to hình ảnh logo khi rê chuột vào header */
-    }
-</style>
+    </style>
 </html>

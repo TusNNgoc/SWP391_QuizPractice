@@ -58,10 +58,16 @@ public class CourseController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        int course_id = (int) session.getAttribute("course_id");
+        PrintWriter out = response.getWriter();
+        out.print(out);
+        
     }
 
     /**
@@ -79,16 +85,17 @@ public class CourseController extends HttpServlet {
         UsersDAO ud = new UsersDAO();
         String course_name = request.getParameter("course_name");
         String course_content = request.getParameter("course_content");
-        int status = Integer.parseInt(request.getParameter("status"));
+       
         String username = (String) session.getAttribute("username");
         String pass = (String) session.getAttribute("pass");
         String action = request.getParameter("action");
-        String course_id = request.getParameter("course_id");
+         int course_id = (int) session.getAttribute("course_id");
         Users u = ud.authenticate(username, pass);
 
         CoursesDAO cd = new CoursesDAO();
 
         if (action.equalsIgnoreCase("add")) {
+             int status = Integer.parseInt(request.getParameter("status"));
             if (cd.insertCourseByTeacher(course_name, u.getUser_id(), course_content, status)) {
                 request.getRequestDispatcher("teacher").forward(request, response);
             }
@@ -96,6 +103,12 @@ public class CourseController extends HttpServlet {
         if (action.equalsIgnoreCase("edit")) {
             PrintWriter out = response.getWriter();
             out.println(course_name);
+        }
+        
+        if (action.equalsIgnoreCase("delete")) {
+            if (cd.deleteCourseByCourseId(course_id)) {
+                request.getRequestDispatcher("teacher").forward(request, response);
+            }
         }
 
     }

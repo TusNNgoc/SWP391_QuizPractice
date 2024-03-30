@@ -64,21 +64,25 @@ public class AddAnswerController extends HttpServlet {
         String isCorrect = request.getParameter("isCorrect");
         int question_id = (int) session.getAttribute("questionId_session");
         AnswerDAO ad = new AnswerDAO();
+
+        PrintWriter out = response.getWriter();
+        out.println(isCorrect);
         if (isCorrect.equals("on")) {
-            ad.insertAnswer(question_id, answer_text, 1) ;
-            request.getRequestDispatcher("answer").forward(request, response);
-            
+            ad.insertAnswer(question_id, answer_text, 1);
+//            request.getRequestDispatcher("answer").forward(request, response);
+            response.sendRedirect("http://localhost:8080/QuizPractice/answer?questionId=" + question_id);
+
         } else {
-            ad.insertAnswer(question_id, answer_text, 0) ;
-            request.getRequestDispatcher("answer").forward(request, response);
+            ad.insertAnswer(question_id, answer_text, 0);
+//            request.getRequestDispatcher("answer").forward(request, response);\
+            response.sendRedirect("http://localhost:8080/QuizPractice/answer?questionId=" + question_id);
+
         }
 
-//        PrintWriter out = response.getWriter();
-//        out.println(isCorrect);
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method    .
      *
      * @param request servlet request
      * @param response servlet response
