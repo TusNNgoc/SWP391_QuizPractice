@@ -72,14 +72,18 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Manager Role
                             </a>
-                            
-                           
+                            <a class="nav-link" href="Listquiz">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Manager Quiz
+                            </a>
+                            <a class="nav-link" href="admin_question">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Manager Question
+                            </a>
+
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -146,16 +150,7 @@
                                             <td><%=u.getPassword() %></td>
                                             <td><%=u.getUsername() %></td>
                                             <td><%=u.isAccountActived() %></td>
-                                             <td>
-                                                <% 
-                                                    if (u.getRole() == 1) {
-                                                        out.print("Teacher");
-                                                    } else if (u.getRole() == 2) {
-                                                        out.print("Student");
-                                                    } else {
-                                                        out.print("Admin");                                                         }
-                                                %>
-                                            </td>
+                                            <td><%=u.getRole() %></td>
                                             <td><%=u.getCountry() %></td>
                                             <td><%=u.getAddress() %></td>
                                             <td><%=u.getGender() %></td>
@@ -215,3 +210,6 @@
         <script src="assets/js/datatables-simple-demo.js"></script>
     </body>
 </html>
+
+
+

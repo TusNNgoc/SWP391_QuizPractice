@@ -30,7 +30,7 @@ Author     : anhph
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="#">QUIZ</a>
+            <a class="navbar-brand ps-3" href="">QUIZ</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -48,7 +48,7 @@ Author     : anhph
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="signinOfficial.jsp">Logout</a></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -97,8 +97,19 @@ Author     : anhph
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Manager Role
                             </a>
+                            <a class="nav-link" href="Listquiz">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Manager Quiz
+                            </a>
+
+
+                            <a class="nav-link" href="admin_question">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Manager Question
+                            </a>
                         </div>
                     </div>
+
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -197,23 +208,19 @@ Author     : anhph
 
                                         <tbody>
                                             <%
-                                                // Lấy danh sách tất cả các tài khoản từ UsersDAO.getAccount()
-                                                ArrayList<User> allaccounts = UsersDAO.getAccount();
+    // Lấy danh sách tất cả các tài khoản từ UsersDAO.getAccount()
+    ArrayList<User> allaccounts = UsersDAO.getAccount();
 
-                                                // Tiếp tục với phần mã đã có
-                                                int rowsPerPage = 10;
-                                                int pageCount = (int) Math.ceil(allaccounts.size() / (double) rowsPerPage);
-                                                int currentPage = request.getParameter("index") != null ? Integer.parseInt(request.getParameter("index")) : 1;
-                                                int startIndex = (currentPage - 1) * rowsPerPage;
-                                                int endIndex = Math.min(startIndex + rowsPerPage, allaccounts.size());
-                                                List<User> currentUsers = allaccounts.subList(startIndex, endIndex);
-                                                
-                                            %>
+    // Tiếp tục với phần mã đã có
+    int rowsPerPage = 10;
+    int pageCount = (int) Math.ceil(allaccounts.size() / (double) rowsPerPage);
+    int currentPage = request.getParameter("index") != null ? Integer.parseInt(request.getParameter("index")) : 1;
+    int startIndex = (currentPage - 1) * rowsPerPage;
+    int endIndex = Math.min(startIndex + rowsPerPage, allaccounts.size());
+    List<User> currentUsers = allaccounts.subList(startIndex, endIndex);
 
-                                            <%
-                                                
-                                            int i = startIndex + 1;
-                                            for(User u : currentUsers) {
+    int i = startIndex + 1;
+    for(User u : currentUsers) {
                                             %>
                                             <tr>
                                                 <td><%=i++%></td>
@@ -228,10 +235,10 @@ Author     : anhph
                                                         } else if (u.getRole() == 2) {
                                                             out.print("Student");
                                                         } else {
-                                                            out.print("Admin");                                                         }
+                                                            out.print("Unknown"); // Nếu cần, bạn có thể xử lý trường hợp khác ở đây
+                                                        }
                                                     %>
                                                 </td>
-
                                                 <td><%=u.getCountry() %></td>
                                                 <td><%=u.getAddress() %></td>
                                                 <td><%=u.getGender() %></td>
@@ -252,6 +259,8 @@ Author     : anhph
                                             <% 
                                                 }
                                             %>
+
+
                                         </tbody>
                                     </table>
 
@@ -289,3 +298,5 @@ Author     : anhph
         <script src="assets/js/datatables-simple-demo.js"></script>
     </body>
 </html>
+
+

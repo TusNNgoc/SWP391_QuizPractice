@@ -40,10 +40,18 @@
             <file>file:/E:/FPTU/FPT-SPRING2024/SWP391/SWP391_QuizPractice/QuizPractice/src/java/controller/TeacherController.java</file>
         </group>
         <group>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/web/Quiz_Result.jsp</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/db/MathsQuizDAO.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/src/java/db/MathsQuiz.java</file>
-            <file>file:/D:/Learning/5/SWP_RE/SWP391_QuizPractice-main/QuizPractice/web/admin_home.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/QuizController.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/entity/Feedback.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/dao/FeedbackDAO.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/UpdateQuestion.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/RoleController.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/teacherFeedback.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/studentFeedback.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/update_quiz.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/src/java/controller/UpdateQuiz.java</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/feedback/Feedback.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/update_question.jsp</file>
+            <file>file:/D:/Learning/5/SWP_RE/Code/SWP391_QuizPractice/QuizPractice/web/feedback/Response.jsp</file>
         </group>
     </open-files>
 </project-private>

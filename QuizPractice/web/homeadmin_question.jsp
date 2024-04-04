@@ -1,12 +1,21 @@
+<%-- 
+Document   : admin_account
+Created on : Mar 20, 2024, 12:38:38 AM
+Author     : anhph
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="dao.UsersDAO" %>
-<%@ page import="dao.UsersDAO" %>
+<%@ page import="dao.QuestionsDAO" %>
 <%@ page import="entity.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="entity.Questions" %>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,7 +24,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Tables - SB Admin</title>
+        <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="assets/css/daboa.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -23,7 +32,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="admin_home.jsp">Quiz</a>
+            <a class="navbar-brand ps-3" href="">QUIZ</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -68,37 +77,91 @@
                                     <a class="nav-link" href="account_teacher.jsp">Manager Teacher</a>
                                 </nav>
                             </div>
+
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
                             <a class="nav-link" href="role">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Manager Role
                             </a>
                             <a class="nav-link" href="Listquiz">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Manager Quiz
                             </a>
+
+
                             <a class="nav-link" href="admin_question">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Manager Question
                             </a>
                         </div>
                     </div>
-
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        QUIZ
+                    </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Manager Accounts</h1>
+                        <h1 class="mt-4">Admin Home</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="admin_home.jsp">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Accounts</li>
+                            <li class="breadcrumb-item active">Manager Account</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
+                        <div class="row">
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Easy</div>
+                                    <center>
+                                        <h2>${QuestionsDAO.gettotal1()}</h2>
+                                    </center>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="account_teacher.jsp">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Medium</div>
+                                    <center>
+                                        <h2>${QuestionsDAO.gettotal2()}</h2>
+                                    </center>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="account_all.jsp">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Hard</div>
+                                    <center>
+                                        <h2>${QuestionsDAO.gettotal3()}</h2>
+                                    </center>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="account_online.jsp">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -110,84 +173,46 @@
                                     <thead class="thead-dark">
                                         <tr class="text-center col-md-12">
                                             <th class="col-1">ID</th>
-                                            <th class="col-3">Full Name</th>
-                                            <th class="col-1">Pass</th>
-                                            <th class="col-2">Username</th>
-                                            <th class="col-1">Status</th>
-                                            <th class="col-1">Role</th>
-                                            <th class="col-2">Nation</th>
-                                            <th class="col-1">Address</th>
-                                            <th class="col-2">Gender</th>
-                                            <th class="col-1">Date of birth</th>
-                                            <th class="col-2">Email</th>
-                                            <th class="col-1">Phone</th>
+                                            <th class="col-3">Quiz Name</th>
+                                            <th class="col-1">Question</th>
+                                            <th class="col-2">Level</th>
                                             <th class="col-2">Edit</th>
                                             <th class="col-1">Delete</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <%
-                                            // Lấy danh sách tất cả các tài khoản từ UsersDAO.getAccount()
-                                            ArrayList<User> allaccounts = UsersDAO.getAccount();
-
-                                            // Tiếp tục với phần mã đã có
-                                            int rowsPerPage = 10;
-                                            int pageCount = (int) Math.ceil(allaccounts.size() / (double) rowsPerPage);
-                                            int currentPage = request.getParameter("index") != null ? Integer.parseInt(request.getParameter("index")) : 1;
-                                            int startIndex = (currentPage - 1) * rowsPerPage;
-                                            int endIndex = Math.min(startIndex + rowsPerPage, allaccounts.size());
-                                            List<User> currentUsers = allaccounts.subList(startIndex, endIndex);
-            
-                                            int i = startIndex + 1;
-                                            for(User u : currentUsers) {
-                                                if (u.getRole() == 2) {
-                                        %>
-                                        <tr>
-                                            <td><%=i++%></td>
-                                            <td><%=u.getFullname() %></td>
-                                            <td><%=u.getPassword() %></td>
-                                            <td><%=u.getUsername() %></td>
-                                            <td><%=u.isAccountActived() %></td>
-                                            <td><%=u.getRole() %></td>
-                                            <td><%=u.getCountry() %></td>
-                                            <td><%=u.getAddress() %></td>
-                                            <td><%=u.getGender() %></td>
-                                            <td><%=u.getDob() %></td>
-                                            <td><%=u.getEmail() %></td>
-                                            <td><%=u.getPhone() %></td>
-                                            <td> 
-                                                <a href="update?user_id=<%=u.getUser_id()%>" class="update-btn">
-                                                    <i class="fas fa-edit"></i> Update
-                                                </a>
-                                            </td>
-                                            <td> 
-                                                <a href="delete_account.jsp?user_id=<%=u.getUser_id()%>" class="delete-btn">
-                                                    <i class="fas fa-trash-alt"></i> Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <% 
-                                                }
-                                            }
-                                        %>
+                                        <% int index = 1; %>
+                                        <c:forEach var="question" items="${questions}">
+                                            <tr>
+                                                <td><%= index++ %></td>
+                                                <td>${question.quiz_id.quiz_name}</td>
+                                                <td>${question.question_text}</td>
+                                                <td>${question.dificulty_id == 1 ? 'Easy' : (question.dificulty_id == 2 ? 'Medium' : 'Hard')}</td>
+                                                <td> 
+                                                    <a href="updatequestion?question_id=${question.question_id}" class="update-btn">
+                                                        <i class="fas fa-edit"></i> Update
+                                                    </a>
+                                                </td>
+                                                <td> 
+                                                    <a href="delete_question.jsp?question_id=${question.question_id}" class="delete-btn">
+                                                        <i class="fas fa-trash-alt"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
 
 
-                                <div >
-                                    <button type="button" class="btn btn-outline-success">
-                                        <div><h3> <a href="admin_add.jsp" style="margin-top: 5px;
-                                                     margin-right: 20px;
-                                                     margin-bottom: 15px;
-                                                     margin-left: 10px;">  Add Account  </a></h3></div>
-                                    </button>
-                                </div
+
+
 
                                 </table>
                             </div>
                         </div>
                     </div>
+
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
@@ -205,6 +230,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="assets/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="assets/js/datatables-simple-demo.js"></script>
     </body>

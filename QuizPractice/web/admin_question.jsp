@@ -1,12 +1,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="dao.UsersDAO" %>
-<%@ page import="dao.UsersDAO" %>
+<%@ page import="dao.QuizDAO" %>
 <%@ page import="entity.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="entity.Quiz" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -51,7 +53,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Admin</div>
+                            <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="admin_home.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
@@ -80,6 +82,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Manager Question
                             </a>
+
                         </div>
                     </div>
 
@@ -88,7 +91,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Manager Accounts</h1>
+                        <h1 class="mt-4">Manager QUIZ</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="admin_home.jsp">Dashboard</a></li>
                             <li class="breadcrumb-item active">Accounts</li>
@@ -110,79 +113,40 @@
                                     <thead class="thead-dark">
                                         <tr class="text-center col-md-12">
                                             <th class="col-1">ID</th>
-                                            <th class="col-3">Full Name</th>
-                                            <th class="col-1">Pass</th>
-                                            <th class="col-2">Username</th>
-                                            <th class="col-1">Status</th>
-                                            <th class="col-1">Role</th>
-                                            <th class="col-2">Nation</th>
-                                            <th class="col-1">Address</th>
-                                            <th class="col-2">Gender</th>
-                                            <th class="col-1">Date of birth</th>
-                                            <th class="col-2">Email</th>
-                                            <th class="col-1">Phone</th>
+                                            <th class="col-3">Quiz Name</th>
+                                            <th class="col-1">Question</th>
+                                            <th class="col-2">Level</th>
                                             <th class="col-2">Edit</th>
                                             <th class="col-1">Delete</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <%
-                                            // Lấy danh sách tất cả các tài khoản từ UsersDAO.getAccount()
-                                            ArrayList<User> allaccounts = UsersDAO.getAccount();
-
-                                            // Tiếp tục với phần mã đã có
-                                            int rowsPerPage = 10;
-                                            int pageCount = (int) Math.ceil(allaccounts.size() / (double) rowsPerPage);
-                                            int currentPage = request.getParameter("index") != null ? Integer.parseInt(request.getParameter("index")) : 1;
-                                            int startIndex = (currentPage - 1) * rowsPerPage;
-                                            int endIndex = Math.min(startIndex + rowsPerPage, allaccounts.size());
-                                            List<User> currentUsers = allaccounts.subList(startIndex, endIndex);
-            
-                                            int i = startIndex + 1;
-                                            for(User u : currentUsers) {
-                                                if (u.getRole() == 2) {
-                                        %>
-                                        <tr>
-                                            <td><%=i++%></td>
-                                            <td><%=u.getFullname() %></td>
-                                            <td><%=u.getPassword() %></td>
-                                            <td><%=u.getUsername() %></td>
-                                            <td><%=u.isAccountActived() %></td>
-                                            <td><%=u.getRole() %></td>
-                                            <td><%=u.getCountry() %></td>
-                                            <td><%=u.getAddress() %></td>
-                                            <td><%=u.getGender() %></td>
-                                            <td><%=u.getDob() %></td>
-                                            <td><%=u.getEmail() %></td>
-                                            <td><%=u.getPhone() %></td>
-                                            <td> 
-                                                <a href="update?user_id=<%=u.getUser_id()%>" class="update-btn">
-                                                    <i class="fas fa-edit"></i> Update
-                                                </a>
-                                            </td>
-                                            <td> 
-                                                <a href="delete_account.jsp?user_id=<%=u.getUser_id()%>" class="delete-btn">
-                                                    <i class="fas fa-trash-alt"></i> Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <% 
-                                                }
-                                            }
-                                        %>
+                                        <% int index = 1; %>
+                                        <c:forEach var="question" items="${questions}">
+                                            <tr>
+                                                <td><%= index++ %></td>
+                                                <td>${question.quiz_id.quiz_name}</td>
+                                                <td>${question.question_text}</td>
+                                                <td>${question.dificulty_id == 1 ? 'Hard' : (question.dificulty_id == 2 ? 'Medium' : 'Easy')}</td>
+                                                <td> 
+                                                    <a href="updatequestion?question_id=${question.question_id}" class="update-btn">
+                                                        <i class="fas fa-edit"></i> Update
+                                                    </a>
+                                                </td>
+                                                <td> 
+                                                    <a href="delete_question.jsp?question_id=${question.question_id}" class="delete-btn">
+                                                        <i class="fas fa-trash-alt"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
 
 
-                                <div >
-                                    <button type="button" class="btn btn-outline-success">
-                                        <div><h3> <a href="admin_add.jsp" style="margin-top: 5px;
-                                                     margin-right: 20px;
-                                                     margin-bottom: 15px;
-                                                     margin-left: 10px;">  Add Account  </a></h3></div>
-                                    </button>
-                                </div
+
+
 
                                 </table>
                             </div>
@@ -190,16 +154,7 @@
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
+
                 </footer>
             </div>
         </div>

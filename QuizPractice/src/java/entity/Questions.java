@@ -23,6 +23,6 @@ public class Questions {
     private Type type_id;
     private String question_text;
     private Quiz quiz_id;
-    
+    private int dificulty_id;
     
 }

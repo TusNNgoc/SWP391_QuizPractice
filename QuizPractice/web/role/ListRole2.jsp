@@ -68,18 +68,40 @@
                                     <a class="nav-link" href="account_teacher.jsp">Manager Teacher</a>
                                 </nav>
                             </div>
+
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
                             <a class="nav-link" href="role">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Manager Role
+                            </a>
+                            <a class="nav-link" href="Listquiz">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Manager Quiz
                             </a>
 
 
+                            <a class="nav-link" href="admin_question">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Manager Question
+                            </a>
                         </div>
                     </div>
-<!--                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>-->
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -90,13 +112,13 @@
                             <li class="breadcrumb-item"><a href="admin_home.jsp">Dashboard</a></li>
                             <li class="breadcrumb-item active">Accounts</li>
                         </ol>
-<!--                        <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
-                            </div>
-                        </div>-->
+                        <!--                        <div class="card mb-4">
+                                                    <div class="card-body">
+                                                        DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+                                                        <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                                                        .
+                                                    </div>
+                                                </div>-->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -364,23 +386,23 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
     <style>
-            .container {
-        display: flex; /* Use flexbox layout */
-        justify-content: space-between; /* Distribute space between items */
-        margin: 0px;
-        padding: 0px;
-        max-width: 3060px !important;
-    }
+        .container {
+            display: flex; /* Use flexbox layout */
+            justify-content: space-between; /* Distribute space between items */
+            margin: 0px;
+            padding: 0px;
+            max-width: 3060px !important;
+        }
 
-    .quantity, .search {
-        width: 48%; /* Set width of each div */
-        margin: 0px;
-    }
-    .quantity {
-        text-align: left;
-    }
-    .search {
-        text-align: right;
-    }
+        .quantity, .search {
+            width: 48%; /* Set width of each div */
+            margin: 0px;
+        }
+        .quantity {
+            text-align: left;
+        }
+        .search {
+            text-align: right;
+        }
     </style>
 </html>
